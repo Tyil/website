@@ -3,7 +3,8 @@ layout: default
 ---
 
 ## Projects
-Here is a list of all projects I worked on that I deem good enough to publish here
+Here is a list of all projects I worked on that I deem good or important enough
+to publish here.
 
 <table>
 	<thead>
