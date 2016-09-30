@@ -5,8 +5,7 @@ date:   2016-09-30 08:25:27 +0200
 ---
 
 Cloudflare is a threat to online security and privacy. But do not take my word
-for it. There are plenty ore people with more credibility who have already
-pointed this out:
+for it. There people with more credibility who have already pointed this out:
 
 * [Article on Cloudflare by joepie91][joepie]
 
