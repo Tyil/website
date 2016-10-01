@@ -17,12 +17,12 @@ body {
 
 // site layout
 header#site-header {
-	h1, nav {
-		text-align: center;
+	h1 a {
+		color: inherit;
 	}
 
-	a {
-		color: inherit;
+	h1, nav {
+		text-align: center;
 	}
 
 	nav {
@@ -59,7 +59,7 @@ footer {
 // content tags
 a {
 	color: #4444ff;
-	text-decoration: underline;
+	text-decoration: none;
 }
 
 a:hover {
