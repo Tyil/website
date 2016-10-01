@@ -14,11 +14,11 @@ itself should be considered such a bad practice that no-one should consider
 their service at all.
 
 ### Cloudflare
-Cloudflare is a MITM. It completely breaks the secure chain of TLS on the web,
-and should not be used. Any service still using Cloudflare should be shunned.
-There is [another article][cloudflare] on this site which has more information
-on this specific issue. In addition, Cloudflare can be considered a privacy
-issue for the same reasons, as is detailed below.
+Cloudflare is a [MITM][mitm]. It completely breaks the secure chain of TLS on
+the web, and should not be used. Any service still using Cloudflare should be
+shunned.  There is [another article][cloudflare] on this site which has more
+information on this specific issue. In addition, Cloudflare can be considered a
+privacy issue for the same reasons, as is detailed below.
 
 ### Advertisements
 Another issue with regards to security on pastebin are the advertisements.
@@ -68,5 +68,6 @@ and use any of the alternatives.
 
 [cloudflare]: http://tyil.work/2016/09/30/on-cloudflare.html
 [hastebin]: http://hastebin.com
+[mitm]: https://en.wikipedia.org/wiki/Man-in-the-middle_attack
 [termbin]: http://termbin.com
 
