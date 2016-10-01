@@ -24,22 +24,31 @@ header#site-header {
 	a {
 		color: inherit;
 	}
-}
 
-nav {
-	ul {
-		list-style:none;
-		background-color:#f3f3f3;
-		text-align:center;
-		padding:0;
-		margin:0;
+	nav {
+		ul {
+			list-style:none;
+			background-color:#f3f3f3;
+			text-align:center;
+			padding:0;
+			margin:0;
 
-		li {
-			margin: 0 5px;
-			display: inline;
+			li {
+				margin: 0 5px;
+				display: inline;
+			}
 		}
 	}
 }
+
+nav.toc {
+	border: 1px solid #ddd;
+
+	.title {
+		font-weight: bold;
+	}
+}
+
 
 footer {
 	border-top: 2px solid #aaa;

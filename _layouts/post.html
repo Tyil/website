@@ -3,12 +3,7 @@ layout: default
 ---
 
 <article>
-	<header>
-		<h1 itemprop="name headline">
-			{{ page.title }}
-		</h1>
-	</header>
 	<main>
-		{{ content }}
+		{{ content | apply_toc }}
 	</main>
 </article>

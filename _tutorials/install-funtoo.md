@@ -1,6 +1,6 @@
 ---
 title: Install Funtoo
-layout: default
+layout: post
 ---
 
 # Install Funtoo
