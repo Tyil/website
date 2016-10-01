@@ -4,6 +4,7 @@ title:  On Cloudflare
 date:   2016-09-30 08:25:27 +0200
 ---
 
+# Cloudflare
 Cloudflare is a threat to online security and privacy. But do not take my word
 for it. There are people with more credibility who have already pointed this
 out:
