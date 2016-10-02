@@ -4,13 +4,27 @@ layout: post
 ---
 
 # Install Funtoo
+It has come to my attention that many people consider installing Gentoo, and in
+effect, Funtoo, a hard task to complete. Some people have also shown interest in
+my particular setup. In addition, my favourite English teacher, Anne the Lion,
+has tasked us students to write a tutorial to assess our English skills.
 
-## Foreword
+As such, I have written this tutorial to show people my installation steps, and
+mentally please my teacher. If you have any suggestions or criticism, please
+find me on IRC. The networks I frequent and the nickname I use can be found on
+[my homepage][tyil].
 
 ## Assumptions
-This tutorial assumes you are not the most basic of computer users. Some
-experience with GNU+Linux is expected. If you have fear for text-based
-applications, this tutorial is definitely not for you.
+This tutorial assumes a few things from you. If you do not meet most of these
+assumptions, this guide is probably not for you. You can of course still read
+it, however, there might be a lot of jargon you do not understand, making the
+tutorial more complex to understand.
+
+- You have experience with GNU+Linux
+- You know your way in the terminal
+- You are not afraid of using text-based applications
+- You have experience reading through manuals and documentation
+- You are not afraid to spend some hours on IRC to help you troubleshoot issues
 
 ## Installing Funtoo
 This tutorial will guide you through a not-so-basic installation of the Funtoo
@@ -724,11 +738,27 @@ booting order, be sure to either change this back, or simply remove the USB
 device.
 
 ## What's next
+Now you have a working Funtoo installation. Next steps would be installing all
+the software you wish to use and configuring it to your liking. I would greatly
+advise looking at other people's configurations and publishing your
+configurations as well. These configuration collections are often called
+*dotfiles*. Mine can be found [on c.darenet.org][dotfiles].
 
+If this is your first time using Funtoo as your distro of choice, I would
+recommend looking through [Funtoo (GNU+)Linux First Steps][funtoo-first] on the
+official Funtoo wiki.
+
+If you need assistance on maintainance, you can always drop by in `#sqt` on
+[Gratisnode][freenode].
+
+[dotfiles]: https://c.darenet.org/tyil/dotfiles-gohan
+[funtoo-first]: http://www.funtoo.org/Funtoo_Linux_First_Steps
+[freenode]: https://freenode.net
 [funtoo-build]: http://build.funtoo.org/
 [funtoo]: http://build.funtoo.org/distfiles/sysresccd/systemrescuecd-x86-4.7.1.iso
 [osuosl]: http://ftp.osuosl.org/pub/funtoo/distfiles/sysresccd/systemrescuecd-x86-4.7.1.iso
 [sysrescuecd]: http://www.system-rescue-cd.org/SystemRescueCd_Homepage
+[tyil]: http://tyil.work
 [wikipedia-chroot]: https://en.wikipedia.org/wiki/Chroot
 [wikipedia-connman]: https://en.wikipedia.org/wiki/ConnMan
 [wikipedia-cryptsetup]: https://en.wikipedia.org/wiki/Dm-crypt#cryptsetup
