@@ -442,8 +442,9 @@ EMERGE_DEFAULT_OPTS="
 
 ###### C/XXFLAGS
 The `CFLAGS` and `CXXFLAGS` variables hold compiler-specific options. It is
-**very** important to not use newlines in these two, as they will break `cmake`.
-Other than that, it is just a regular shell variable like the others.
+**very** important to not use newlines in these two, as [they will break
+`cmake`][bug-cmake].  Other than that, it is just a regular shell variable like
+the others.
 
 ```
 CFLAGS="-O2 -pipe"
@@ -751,6 +752,7 @@ official Funtoo wiki.
 If you need assistance on maintainance, you can always drop by in `#sqt` on
 [Gratisnode][freenode].
 
+[bug-cmake]: https://bugs.gentoo.org/show_bug.cgi?id=500034#c6
 [dotfiles]: https://c.darenet.org/tyil/dotfiles-gohan
 [funtoo-first]: http://www.funtoo.org/Funtoo_Linux_First_Steps
 [freenode]: https://freenode.net
