@@ -1,6 +1,8 @@
 ---
 title: Install Funtoo
 layout: post
+authors:
+  - ["Patrick Spek", "http://tyil.work"]
 ---
 
 # Install Funtoo

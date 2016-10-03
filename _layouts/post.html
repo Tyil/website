@@ -9,9 +9,25 @@ layout: default
 	<footer>
 		<p class="content-center">
 			<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
-				<img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" />
+				<img alt="Creative Commons License" style="border-width:0" src="{{ "/img/cc-by-sa.png" | prepend: site.baseurl }}" />
 			</a>
-			This <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" rel="dct:type">work</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://tyil.work" property="cc:attributionName" rel="cc:attributionURL">Patrick Spek</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
 		</p>
+		{% if page.authors %}
+			<p>
+				This <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" rel="dct:type">work</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+				You can freely modify and redistribute this work as long as attribution to the author(s) remains:
+			</p>
+			<ul>
+				{% for author in page.authors %}
+					<li>
+						{% if author[1] %}
+							<a xmlns:cc="http://creativecommons.org/ns#" href="{{ author[1] }}" property="cc:attributionName" rel="cc:attributionURL">{{ author[0] }}</a> 
+						{% else %}
+							{{ author[0] }}
+						{% endif %}
+					</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
 	</footer>
 </article>

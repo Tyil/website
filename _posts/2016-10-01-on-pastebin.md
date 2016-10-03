@@ -2,6 +2,8 @@
 layout: post
 title:  On Pastebin
 date:   2016-10-01 10:20:27 +0200
+authors:
+  - ["Patrick Spek", "http://tyil.work"]
 ---
 
 # Pastebin

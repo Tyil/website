@@ -2,6 +2,8 @@
 layout: post
 title:  On Cloudflare
 date:   2016-09-30 08:25:27 +0200
+authors:
+  - ["Patrick Spek", "http://tyil.work"]
 ---
 
 # Cloudflare
