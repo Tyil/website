@@ -13,7 +13,14 @@ Fingerprint: `EB9E A484 1672 2D37 16F5  A799 9ACF E193 FFBC 1F50`
 ## Contact
 ### IRC
 I am mainly active as `tyil` on [DareNET][darenet]. Other networks I frequent
-are [Gratisnode][freenode] and [Rizon][rizon], using the same nick, `tyil`.
+are [Gratisnode][freenode] and [Rizon][rizon], using the same nick, `tyil`. I
+use OTR for private messages on IRC, so be sure you use this if you want to
+discuss something in private.
+
+### XMPP
+I am available via XMPP/Jabber on `tyil@national.shitposting.agency`. Like IRC,
+be sure to have OTR enabled if you wish to talk to me. Since my XMPP chats go
+via [`BitlBee`][bitlbee], the response time is about the same as via IRC.
 
 ### Email
 Email contact goes via [p.spek@tyil.work][mail]. Be sure to at least sign all
@@ -30,6 +37,7 @@ response. If you require a response as soon as possible, please find me on
 - [DareNET gitlab][c.darenet]
 - [Keybase][keybase]
 
+[bitlbee]: https://www.bitlbee.org/main.php/news.r.html
 [mail]: mailto:p.spek@tyil.work
 [c.darenet]: https://c.darenet.org/u/tyil
 [darenet]: https://darenet.org
