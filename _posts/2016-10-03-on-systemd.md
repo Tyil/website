@@ -2,6 +2,7 @@
 layout: post
 title:  On Systemd
 date:   2016-10-01 10:20:27 +0200
+wip: true
 authors:
   - ["Patrick Spek", "http://tyil.work"]
 ---

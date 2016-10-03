@@ -9,5 +9,5 @@ compared to explaining the same thing over and over again. As such, most posts
 will probably be little rants.
 
 {% for post in site.posts %}
-* [{{ post.title }}]({{ post.url }})
+* [{{ post.title }}]({{ post.url }}) {% if post.wip %} (**Work in progress**) {% endif %}
 {% endfor %}

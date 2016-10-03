@@ -3,6 +3,13 @@ layout: default
 ---
 
 <article>
+	{% if page.wip %}
+	<header>
+		<p class="notice">
+			This article is a <strong>work in progress</strong>.
+		</p>
+	</header>
+	{% endif %}
 	<main>
 		{{ content | apply_toc }}
 	</main>
