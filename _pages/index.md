@@ -36,7 +36,9 @@ response. If you require a response as soon as possible, please find me on
 - [Github][github]
 - [DareNET gitlab][c.darenet]
 - [Keybase][keybase]
+- [LinkedIn][linkedin]
 
+[linkedin]: https://www.linkedin.com/in/patrickspek?
 [bitlbee]: https://www.bitlbee.org/main.php/news.r.html
 [mail]: mailto:p.spek@tyil.work
 [c.darenet]: https://c.darenet.org/u/tyil
