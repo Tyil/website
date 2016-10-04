@@ -23,7 +23,7 @@ contact details [on my homepage][tyil].
 Now we have seen that Poettering will try to assimilate anything he can find
 and put it into systemd, making it a huge platform with an even bigger attack
 vector. An init system should be exactly the opposite. The problem is made even
-worse with bugs like [the user-level DDoS][systemd-ddos], which seem to
+worse with bugs like [the user-level DoS][systemd-dos], which seem to
 indicate that the software is hardly tested or written by programmers who use
 best practices.
 
@@ -162,7 +162,7 @@ on systemd for whatever reason.
 [reddit-aidanjt]: https://www.reddit.com/r/linux/comments/132gle/eli5_the_systemd_vs_initupstart_controversy/c72saay
 [reddit-natermeer]: https://www.reddit.com/r/linux/comments/132gle/eli5_the_systemd_vs_initupstart_controversy/c70hrsq
 [reddit-ohet]: https://www.reddit.com/r/linux/comments/132gle/eli5_the_systemd_vs_initupstart_controversy/c70cao2
-[systemd-ddos]: https://github.com/systemd/systemd/blob/b8fafaf4a1cffd02389d61ed92ca7acb1b8c739c/src/core/manager.c#L1666
+[systemd-dos]: https://github.com/systemd/systemd/blob/b8fafaf4a1cffd02389d61ed92ca7acb1b8c739c/src/core/manager.c#L1666
 [tyil]: http://tyil.work
 [gnome]: http://www.gnome.org/
 [gummiboot]: https://en.wikipedia.org/wiki/Gummiboot_(software)
