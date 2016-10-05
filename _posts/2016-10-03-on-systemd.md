@@ -8,7 +8,7 @@ authors:
 ---
 
 # Systemd
-Systemd once presnted itself as being the next generation init system for
+Systemd once presented itself as being the next generation init system for
 GNU+Linux. The idea of it was looking good. Sadly, it quickly became clear that
 systemd was not trying to bring you just a new, quick init system. That was
 just a part of the plan, an easy target to aim for as the init systems are
@@ -19,24 +19,26 @@ This may result in information here to become outdated. If you find any
 information that is no longer correct, please contact me. You can find my
 contact details [on my homepage][tyil].
 
-## Security
-Now we have seen that Poettering will try to assimilate anything he can find
-and put it into systemd, making it a huge platform with an even bigger attack
-vector. An init system should be exactly the opposite. The problem is made even
-worse with bugs like [the user-level DoS][systemd-dos], which seem to
-indicate that the software is hardly tested or written by programmers who use
-best practices.
+## Technical issues
+### Security
+From experience, we have seen that systemd's creator, Lennart Poettering, will
+try to assimilate any functionality he can find and add it into systemd.  This
+causes systemd to have a large surface area of attack, adding to and magnifying
+security attack vectors. An init system should be exactly the opposite. To
+compound this issue, we have bugs like [the user-level DDoS][systemd-ddos],
+which seem to indicate that the software is hardly tested or written by
+programmers who don't use best practices.
 
-## POSIX
-Another thing that systemd developers seem to detest, is POSIX compliance. A
-common argument against it is that "systemd must break posix compliance in
-order to further the development of GNU+Linux userland utilities". While this
-could be true in some sense, it sounds like a very bad idea to just ignore
-POSIX altogether.
+### POSIX
+POSIX compliance. Systemd developers seem to detest it. Their common argument
+against retaining POSIX compliance is that "systemd must break POSIX compliance
+in order to further the development of GNU+Linux userland utilities". While
+this may be true in some sense, it is a very bad idea to ignore POSIX
+altogether.
 
-POSIX is one of the reasons that most applications are very portable. It's a
-standard that most OSs and distros try to hold true, just so it becomes easy to
-port over software.
+POSIX is one of the reasons that most applications running on GNU+Linux and
+other Unix like systems are very portable. It's a standard that most OS's and
+distro's try to meet, making it easy to port software.
 
 [natermeer on Reddit][reddit-natermeer] said
 > POSIX has almost no relevance anymore.
@@ -80,7 +82,7 @@ Which was replied to by [aidanjt][reddit-aidanjt]
 
 ### Dependencies and unportability
 Another common issue with systemd is that applications have started to
-needleslly depend on it, forcing systemd onto users that do not with to use
+needlessly depend on it, forcing systemd onto users that do not with to use
 systemd for obvious reasons outlined here, reasons outside of this article, or
 simply being unable to use it. Because systemd complies to no cross-platform
 standard and uses many features only available in recent Linux version, it's
@@ -147,23 +149,59 @@ behind it. There are too many examples of software to list, which are being
 assimilated or made unavailable by lazy or bad developers who choose to depend
 on systemd for whatever reason.
 
-## Speed
-> paralellization
+### Speed
+The main selling point many systemd users hail all the time, is speed. They
+place an unusual high amount of value on being a couple seconds faster on boot.
+Systemd gains this speed gain by using parallelization, and many think this is
+unique to systemd. Luckily for those who want to stick to a more sane system,
+this is false. Other init systems, such as [OpenRC][openrc], used by
+[Funtoo][funtoo], and [runit][runit], used by [Voidlinux][voidlinux] both
+support parallel startup of services.  Both these systems use small and
+effective shell scripts for this, and support startup dependencies and the
+like. Systemd brings nothing new to the init world, it just advertises these
+features more agressively.
 
-## Ease of use
+### Modularity
 > everything into 1 package
 
-## Aggressively forced upon users
+## Political issues
+### Aggressively forced upon users
+A point that has made many systemd opponents very wary of this huge piece of
+software is the way it was introduced.
 
-## Unwillingness to cooperate
-> https://lists.freedesktop.org/archives/systemd-devel/2012-June/005466.html
-> http://lists.freedesktop.org/archives/systemd-devel/2012-June/005507.html
+> udev
+> gnome
 
+### Unwillingness to cooperate
+Whenever someone from outside the systemd fangroups steps up to actually
+improve systemd in whatever way, the systemd devs seem to be rather
+uncooperative. It is not uncommon for developers from other projects to make a
+change in order for their projects (and usually others) to improve. This
+removes a lot of the cost for the systemd maintainers to deal with all the
+issues created they are creating.
+
+There are some references to the systemd developers being against changes that
+might make systemd less of a problem, but these changes are usually denied with
+petty excuses.
+
+- https://lists.freedesktop.org/archives/systemd-devel/2012-June/005466.html
+- https://lists.freedesktop.org/archives/systemd-devel/2012-June/005507.html
+
+## How to avoid it
+### Choosing a better OS or distribution
+> \*BSD
+> Funtoo
+> Voidlinux
+
+[funtoo]: http://www.funtoo.org/Welcome
+[gnome]: http://www.gnome.org/
+[gummiboot]: https://en.wikipedia.org/wiki/Gummiboot_(software)
+[openrc]: https://en.wikipedia.org/wiki/OpenRC
 [reddit-aidanjt]: https://www.reddit.com/r/linux/comments/132gle/eli5_the_systemd_vs_initupstart_controversy/c72saay
 [reddit-natermeer]: https://www.reddit.com/r/linux/comments/132gle/eli5_the_systemd_vs_initupstart_controversy/c70hrsq
 [reddit-ohet]: https://www.reddit.com/r/linux/comments/132gle/eli5_the_systemd_vs_initupstart_controversy/c70cao2
+[runit]: http://smarden.org/runit/
 [systemd-dos]: https://github.com/systemd/systemd/blob/b8fafaf4a1cffd02389d61ed92ca7acb1b8c739c/src/core/manager.c#L1666
 [tyil]: http://tyil.work
-[gnome]: http://www.gnome.org/
-[gummiboot]: https://en.wikipedia.org/wiki/Gummiboot_(software)
+[voidlinux]: http://www.voidlinux.eu/
 
