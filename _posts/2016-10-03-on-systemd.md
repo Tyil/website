@@ -9,15 +9,20 @@ authors:
 
 # Systemd
 Systemd once presented itself as being the next generation init system for
-GNU+Linux. The idea of it was looking good. Sadly, it quickly became clear that
-systemd was not trying to bring you just a new, quick init system. That was
-just a part of the plan, an easy target to aim for as the init systems are
-generally considered to be in a bad state overal.
+GNU+Linux. When the project started it seemed to be headed in a good direction.
+Unfortunately, it quickly became clear that systemd's goal was not only to
+bring you a quick, new init system.  It planned to do so much more.  This was
+part of the plan, since init systems were generally considered to be in a bad
+state overall it was quickly accepted by most mainstream GNU+Linux
+distributions.  What was at first only an init system became so much more:
+systemd-logind was made to manage tty's, systemd-resolvd was added to act as a
+caching DNS server.  Even networking was added with systemd-networkd to manage
+network interfaces.
 
-**DISCLAIMER**: Systemd is a fast moving target to document anything against.
-This may result in information here to become outdated. If you find any
-information that is no longer correct, please contact me. You can find my
-contact details [on my homepage][tyil].
+**DISCLAIMER**: Systemd is a fast moving project, this may result in
+information here to becoming outdated. If you find any information that is no
+longer correct, please contact me. You can find my contact details [on my
+homepage][tyil].
 
 ## Technical issues
 ### Security
