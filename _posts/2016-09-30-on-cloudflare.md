@@ -2,6 +2,7 @@
 layout: post
 title:  On Cloudflare
 date:   2016-09-30 08:25:27 +0200
+wip: true
 authors:
   - ["Patrick Spek", "http://tyil.work"]
 ---
@@ -12,6 +13,7 @@ for it. There are people with more credibility who have already pointed this
 out:
 
 * [Article on Cloudflare by joepie91][joepie]
+* [Cloudflare and RSS][rss]
 
 If anyone is using Cloudflare, please tell them to stop doing it. Link them to
 this page or any of the articles referenced here. Cloudflare is harmful to your
@@ -19,3 +21,5 @@ visitors, and if you do not care about them, they will stop caring about you
 too.
 
 [joepie]: http://cryto.net/~joepie91/blog/2016/07/14/cloudflare-we-have-a-problem/
+[rss]: http://www.tedunangst.com/flak/post/cloudflare-and-rss
+
