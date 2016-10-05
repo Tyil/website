@@ -2,9 +2,9 @@
 layout: post
 title:  On Systemd
 date:   2016-10-01 10:20:27 +0200
-wip: true
 authors:
   - ["Patrick Spek", "http://tyil.work"]
+  - ["Samantha McVey", "https://cry.nu"]
 ---
 
 # Systemd
@@ -167,15 +167,62 @@ like. Systemd brings nothing new to the init world, it just advertises these
 features more agressively.
 
 ### Modularity
-> everything into 1 package
+The UNIX principle, *make an application perform one task very well*, seems to
+be very unpopular among systemd developers. This principle is one of the
+reasons why UNIX based systems have gotten so popular. Yet, the systemd
+developers seem to despise this principle, and even try to argue that systemd
+actually is modular because **it compiles down to multiple binaries**. This
+shows a lack of understanding, which would make most users uneasy when they
+consider that these people are working on one of the most critical pieces of
+their OS.
+
+The technical problem this brings is that it is very hard to use systemd with
+existing tools. `journald` for instance doesn't just output plain text you can
+easily filter through, save or apply to a pager. I decides for you how to
+represent this information, even if this might be an ineffective way to go
+about it.
+
+### Binary logs
+Hailed by systemd users and developers as a more efficient, fast and secure way
+to store your logs, it is yet another middle finger to the UNIX principles,
+which state that documents intended for the user should be human readable.
+Binary logs are exactly not that. This forces you to use the tools bundled with
+systemd, instead of your preferred solution. This means you need a system with
+systemd in order to read your logs, which you generally need the most when the
+system that generated it crashed. Thanks to systemd, these logs are now useless
+unless you have another systemd available for it.
+
+These logs are also very fragile. It is a common "issue" to have corrupted logs
+when using systemd. Corrupted is here within quotes because the systemd
+developers do not recognize this as a bug. Instead, you should just rotate your
+logs and hope it does not happen again.
+
+The usual counter to this issue is that you *can* tell systemd to use another
+logger. However, this does not stop `journald` from processing them first or
+just not having `journald` at all. As systemd is not modular, you will always
+have all the pieces installed. It should also be noted that this is a
+*workaround*, not a fix to the underlying problem.
 
 ## Political issues
 ### Aggressively forced upon users
 A point that has made many systemd opponents very wary of this huge piece of
-software is the way it was introduced.
+software is the way it was introduced. Unlike most free software packages,
+systemd was forced into the lives of many users by getting hard dependencies on
+them, or simply absorbing a critical piece of software by the use of political
+power. The two most prominent pieces of software where this has happened are
+[Gnome][gnome] and [`udev`][udev].
 
-> udev
-> gnome
+The Gnome developers made a hard dependency on systemd. This in effect made
+every gnome user suddenly require systemd. As a result, FreeBSD had to actually
+drop Gnome for a while, as systemd does not run outside of GNU+Linux.
+
+The other, `udev`, was a critical piece of software to manage devices in
+GNU+Linux. Sadly, some political power was shown by Red Hat and `udev` got
+absorbed into systemd. Luckily, the Gentoo guys saw this issue and tried to
+resolve it. As the systemd developers dislike anything that's not systemd
+itself, they stubbornly refused the patches from the Gentoo folks which would
+keep `udev` a single component (and thus usable without systemd). In the end,
+the Gentoo developers forked `udev` into [`eudev`][eudev].
 
 ### Unwillingness to cooperate
 Whenever someone from outside the systemd fangroups steps up to actually
@@ -194,13 +241,26 @@ petty excuses.
 
 ## How to avoid it
 ### Choosing a better OS or distribution
-> \*BSD
-> Funtoo
-> Voidlinux
+Nowadays, the only way to avoid it without too much trouble, is by simply
+choosing a better OS or distro that does not depend on systemd at all. There
+are a few choices for this:
 
+- \*BSD ([FreeBSD][freebsd], [OpenBSD][openbsd], and others)
+- [Funtoo][funtoo]
+- [Voidlinux][voidlinux]
+
+It is a shame that it renders a very large chunk of the GNU+Linux world
+unavailable when choosing a distro, but they have chosen laziness over a
+working system. The only way to tell them at this point that they have made a
+wrong decision, is to simply stop using these distros.
+
+[eudev]: https://wiki.gentoo.org/wiki/Eudev
+[freebsd]: https://www.freebsd.org/
 [funtoo]: http://www.funtoo.org/Welcome
+[gentoo]: https://gentoo.org
 [gnome]: http://www.gnome.org/
 [gummiboot]: https://en.wikipedia.org/wiki/Gummiboot_(software)
+[openbsd]: https://www.openbsd.org/
 [openrc]: https://en.wikipedia.org/wiki/OpenRC
 [reddit-aidanjt]: https://www.reddit.com/r/linux/comments/132gle/eli5_the_systemd_vs_initupstart_controversy/c72saay
 [reddit-natermeer]: https://www.reddit.com/r/linux/comments/132gle/eli5_the_systemd_vs_initupstart_controversy/c70hrsq
@@ -208,5 +268,6 @@ petty excuses.
 [runit]: http://smarden.org/runit/
 [systemd-dos]: https://github.com/systemd/systemd/blob/b8fafaf4a1cffd02389d61ed92ca7acb1b8c739c/src/core/manager.c#L1666
 [tyil]: http://tyil.work
+[udev]: https://en.wikipedia.org/wiki/Udev
 [voidlinux]: http://www.voidlinux.eu/
 
