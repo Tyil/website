@@ -42,7 +42,7 @@ response. If you require a response as soon as possible, please find me on
 
 ## Other links
 - [Twitter][twitter]
-- [Github][github]
+- [Github][github] (**deprecated**)
 - [DareNET gitlab][c.darenet]
 - [Keybase][keybase]
 - [LinkedIn][linkedin]
