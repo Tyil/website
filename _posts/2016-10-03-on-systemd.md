@@ -246,6 +246,7 @@ choosing a better OS or distro that does not depend on systemd at all. There
 are a few choices for this:
 
 - \*BSD ([FreeBSD][freebsd], [OpenBSD][openbsd], and others)
+- [Devuan][devuan]
 - [Funtoo][funtoo]
 - [Voidlinux][voidlinux]
 
@@ -254,6 +255,14 @@ unavailable when choosing a distro, but they have chosen laziness over a
 working system. The only way to tell them at this point that they have made a
 wrong decision, is to simply stop using these distros.
 
+### More links
+
+- [Broken by design: systemd][broken-systemd]
+- [Without systemd][without-systemd]
+- [systemd is the best example of Suck][suckless-systemd]
+
+[broken-systemd]: http://ewontfix.com/14/
+[devuan]: https://devuan.org/
 [eudev]: https://wiki.gentoo.org/wiki/Eudev
 [freebsd]: https://www.freebsd.org/
 [funtoo]: http://www.funtoo.org/Welcome
@@ -266,8 +275,10 @@ wrong decision, is to simply stop using these distros.
 [reddit-natermeer]: https://www.reddit.com/r/linux/comments/132gle/eli5_the_systemd_vs_initupstart_controversy/c70hrsq
 [reddit-ohet]: https://www.reddit.com/r/linux/comments/132gle/eli5_the_systemd_vs_initupstart_controversy/c70cao2
 [runit]: http://smarden.org/runit/
+[suckless-systemd]: http://suckless.org/sucks/systemd
 [systemd-dos]: https://github.com/systemd/systemd/blob/b8fafaf4a1cffd02389d61ed92ca7acb1b8c739c/src/core/manager.c#L1666
 [tyil]: http://tyil.work
 [udev]: https://en.wikipedia.org/wiki/Udev
 [voidlinux]: http://www.voidlinux.eu/
+[without-systemd]: http://without-systemd.org/wiki/index.php/Main_Page
 
