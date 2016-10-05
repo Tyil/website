@@ -30,7 +30,7 @@ From experience, we have seen that systemd's creator, Lennart Poettering, will
 try to assimilate any functionality he can find and add it into systemd.  This
 causes systemd to have a large surface area of attack, adding to and magnifying
 security attack vectors. An init system should be exactly the opposite. To
-compound this issue, we have bugs like [the user-level DDoS][systemd-ddos],
+compound this issue, we have bugs like [the user-level DoS][systemd-dos],
 which seem to indicate that the software is hardly tested or written by
 programmers who don't use best practices.
 
