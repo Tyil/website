@@ -22,5 +22,7 @@ include: ["_pages"]
 collections:
   projects:
     output: true
+  articles:
+    output: true
   tutorials:
     output: true
