@@ -7,11 +7,12 @@
 	<nav>
 		<ul>
 			{% for collection in site.collections %}
-				{% if collection.label != "posts" %}
-					<li>
-						<a href="{{ collection.label | prepend: "/" | prepend: site.baseurl }}.html">{{ collection.label }}</a>
-					</li>
+				{% if collection.label == "posts" %}
+					{% continue %}
 				{% endif %}
+				<li>
+					<a href="{{ collection.label | prepend: "/" | prepend: site.baseurl }}.html">{{ collection.label }}</a>
+				</li>
 			{% endfor %}
 		</ul>
 	</nav>
