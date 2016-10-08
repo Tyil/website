@@ -3,5 +3,5 @@ title: Okusama ga Seitokaichou (Season 2)
 season: 2016, Fall
 episodes: 12
 status: watching
-progression: 1
+progress: 1
 ---

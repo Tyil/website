@@ -2,5 +2,5 @@
 title: Sakamoto desu ga?
 episodes: 12
 status: watching
-progression: 1
+progress: 1
 ---

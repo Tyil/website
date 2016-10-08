@@ -24,7 +24,7 @@ watching, and to have a nice list of series I still want to watch.
 			<tr>
 				<td>{{ series.title }}</td>
 				<td>
-					{{ series.progression }} / {{ series.episodes }}
+					{{ series.progress }} / {{ series.episodes }}
 				</td>
 			</tr>
 		{% endfor %}

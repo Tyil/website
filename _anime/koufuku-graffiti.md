@@ -2,5 +2,5 @@
 title: Koufuku Graffiti
 episodes: 12
 status: watching
-progression: 6
+progress: 6
 ---
