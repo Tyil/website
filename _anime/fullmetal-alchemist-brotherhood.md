@@ -1,5 +1,5 @@
 ---
-title: Fullmetal Alchemist: Brotherhood
+title: "Fullmetal Alchemist: Brotherhood"
 episodes: 64
 status: completed
 rating: 8

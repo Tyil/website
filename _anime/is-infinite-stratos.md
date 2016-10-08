@@ -1,5 +1,5 @@
 ---
-title: IS: Infinite Stratos
+title: "IS: Infinite Stratos"
 episodes: 12
 status: completed
 rating: 8

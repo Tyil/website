@@ -1,4 +1,4 @@
 ---
-title: Mobile Suit Gundam: Iron-Blooded Orphans
+title: "Mobile Suit Gundam: Iron-Blooded Orphans"
 episodes: 25
 ---
