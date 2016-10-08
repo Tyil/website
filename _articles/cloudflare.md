@@ -25,13 +25,13 @@ browsers by setting itself up as [man in the middle][mitm]. Cloudflare doesn't
 do actual DDoS protection, they just make the request to the origin server for
 you. Once they have received the data, they decrypt it and re-encrypts it
 with their own certificate.  This means that Cloudflare has access to all
-requests in plaintext and can optionally modify the data you see. TLS/SSL
-is ment to prevent this very issue, but Cloudflare seems to care very
+requests in plain text and can optionally modify the data you see. TLS/SSL
+is meant to prevent this very issue, but Cloudflare seems to care very
 little.
 
 If we would consider Cloudflare to be a benevolent entity and surely never
 modify any data ever, this is still an issue. Much data can be mined from the
-plaintext communications between you and the origin server. This data can be
+plain text communications between you and the origin server. This data can be
 used for all kinds of purposes. It is not uncommon for the USA government to
 request a massive amount of surveillance information from companies without the
 companies being able to speak up about it due to a gag order. This has become
@@ -40,7 +40,7 @@ clear to anyone that end-to-end encryption has to be a standard and implemented
 properly. Cloudflare goes out of its way to break this implementation.
 
 ## Eliminating your privacy
-If Cloudflare were to fix their MITM behaviour, the privacy problem would not
+If Cloudflare were to fix their MITM behavior, the privacy problem would not
 be solved all of a sudden. There are more questionable practices in use by
 Cloudflare.
 
@@ -59,23 +59,23 @@ mainstream browsers such as Firefox or Chrome.
 Some site administrators disable this specific check. However, this still means
 all your requests are logged by another third party, namely Cloudflare itself.
 As noted in **A literal MITM attack**, this data is still very interesting to
-some parties. And do not fool yourself: metadata is still very worthwhile and
+some parties. And do not fool yourself: meta data is still very worthwhile and
 can tell a huge amount of information about a person.
 
 ## Forcing JavaScript
 This issue generally does not concern many people, as most people online
-nowadays use a big mainstream browser with javascript enabled. However, there
-are still people, services and applications that do not use javascript. This
+nowadays use a big mainstream browser with JavaScript enabled. However, there
+are still people, services and applications that do not use JavaScript. This
 makes sites unavailable when they are in the "under attack" mode by Cloudflare.
 This will run a check sending Cloudflare your browser information before
-deciding wether you are allowed to access the website. This is yet another
+deciding whether you are allowed to access the website. This is yet another
 privacy issue, but at the same time, a usability issue. It makes your site
-unavailable to people who simply do not wish to use javascript or people who
-are currently limited to a browser with no javascript support.
+unavailable to people who simply do not wish to use JavaScript or people who
+are currently limited to a browser with no JavaScript support.
 
 It is also common for Cloudflare to [Break RSS readers][rss] by presenting them
 with this check. This check is often presented to common user agents used by
-services and programs. Since these do not include a big javascript engine,
+services and programs. Since these do not include a big JavaScript engine,
 there is no way for them to pass the test.
 
 ## False advertising
@@ -90,9 +90,9 @@ not breaking the TLS/SSL chain as they do right now.
 
 It should also be noted that this gratis "protection" truly gratis either. If
 your site gets attacked for long enough, or for enough times in a short enough
-timeframe, you will be kicked off of the gratis plan and be moved onto the
-"pro" plan. This requires you to pay $200 per month for an service that does
-not do what it is advertised to do. If you do not go to the pro plan, you will
+time frame, you will be kicked off of the gratis plan and be moved onto the
+"business" plan. This requires you to pay $200 per month for a service that does
+not do what it is advertised to do. If you do not go to the business plan, you will
 have about the same protection as you would have without it, but with the
 addition of ruining the privacy and security of your visitors.
 
