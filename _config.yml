@@ -21,8 +21,10 @@ include: ["_pages"]
 # custom collections
 collections:
   projects:
-    output: true
+    output: false
   articles:
     output: true
   tutorials:
     output: true
+  anime:
+    output: false
