@@ -206,3 +206,6 @@ That should be sufficient to get cjdns up and running for an encrypted VPN. You
 can find the IPs of each of your systems at the top of your `cjdroute.conf`
 files, in the `ipv6` attribute.
 
+[cjdns]: https://github.com/cjdelisle/cjdns
+[vpn]: https://en.wikipedia.org/wiki/Virtual_private_network
+
