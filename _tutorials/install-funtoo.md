@@ -162,7 +162,7 @@ lvcreate -L3G -n sources funtoo0
 lvcreate -L2G -n portage funtoo0
 lvcreate -L10G -n packages funtoo0
 lvcreate -L10G -n distfiles funtoo0
-lvcreate -L$(free | grep -i mem: | awk '{print $2}') -n swap funtoo0
+lvcreate -L$(free -h | grep -i mem: | awk '{print $2}') -n swap funtoo0
 lvcreate -l 100%FREE -n home funtoo0
 ```
 
@@ -506,7 +506,7 @@ invoke the following magic:
 
 ```
 mkdir -p /etc/portage/package.mask
-echo ">sys-kernel/*-sources-4.4.6" > /etc/portage/package.mask/20-zfs.mask
+echo ">sys-kernel/gentoo-sources-4.4.6" > /etc/portage/package.mask/20-zfs.mask
 ```
 
 ##### /etc/portage/package.license
@@ -519,7 +519,7 @@ make an exception for this license on this package.
 
 ```
 mkdir -p /etc/portage/package.license
-echo "sys-kernel/* freedist" # TODO: check if this works
+echo "sys-kernel/gentoo-sources freedist" > /etc/portage/package.license/20-freedist.license
 ```
 
 ##### /etc/conf.d/hostname
@@ -587,14 +587,23 @@ The kernel is now installed at `/boot`, and all the required parts to build
 custom kernel modules are available. This means it is now possible to build the
 ZFS modules.
 
-First install the kernel module, then format the partition, and configure zfs to
-work with it.
+First install the kernel module here. Since the live kernel does not have the
+zfs modules from the chroot, you must create the pool and the volumes after the
+first reboot.
 
 ```
 emerge zfs
-modprobe zfs # TODO: check if this part and further actually works in the chroot
-zpool create funtooz /dev/sda
-zfs create -o mountpoint=/home funtooz/home
+```
+
+Once it has been compiled, you can add the ZFS services to start up by default.
+This will load the kernel module for you and all additional services that make
+ZFS perform its job well.
+
+```
+rc-update add zfs-import boot
+rc-update add zfs-mount boot
+rc-update add zfs-share default
+rc-update add zfs-zed default
 ```
 
 #### Installing a bootloader
@@ -624,9 +633,11 @@ boot {
 ```
 
 Now that `boot-update` is configured, install `grub` as an UEFI bootloader and
-generate the configs for it using `boot-update`.
+generate the configs for it using `boot-update`. You should make sure the
+`grub` directory exists in `/boot` as well.
 
 ```
+mkdir -p /boot/grub
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id="Funtoo GNU+Linux" --recheck /dev/sda
 boot-update
 ```
@@ -702,18 +713,6 @@ visudo
 
 Scroll to the line which contains `# %wheel ALL=(ALL) ALL`, and remove the `# `.
 
-#### Create a user
-Create a user for yourself on the system. You can use any other value for `tyil`
-if you so desire:
-
-```
-useradd -m -g users -G wheel tyil
-```
-
-The `-G wheel` part is optional, but recommended if you wish to use this account
-for administrative tasks. This option adds the user to the `wheel` group, which
-will allow the user to execute root commands using `sudo`.
-
 #### Set passwords
 We probably want to be able to login to the system as well. By default, users
 without passwords are disabled, so you'll need to set a password for the users
@@ -721,7 +720,6 @@ you want to be able to use:
 
 ```
 passwd root
-passwd tyil
 ```
 
 If you used a different username than `tyil`, be sure to change it here as well.
@@ -740,6 +738,29 @@ reboot
 If you set your UEFI to favour the USB system over the standard drive in the
 booting order, be sure to either change this back, or simply remove the USB
 device.
+
+### First boot configurations
+#### ZFS
+Now you can finally setup the ZFS partition. Issue the following commands to
+create a pool and a subvolume for `/home`:
+
+```
+zpool create funtooz /dev/sda
+zfs create -o mountpoint=/home funtooz/home
+```
+
+#### Create a user
+Create a user for yourself on the system, as you should not perform regular
+usage as root. You can use any other value for `tyil` if you so desire:
+
+```
+useradd -m -g users -G wheel tyil
+passwd tyil
+```
+
+The `-G wheel` part is optional, but recommended if you wish to use this account
+for administrative tasks. This option adds the user to the `wheel` group, which
+will allow the user to execute root commands using `sudo`.
 
 ## What's next
 Now you have a working Funtoo installation. Next steps would be installing all
