@@ -1,7 +1,6 @@
 ---
 title: Setup a VPN with cjdns
 layout: post
-wip: true
 authors:
   - ["Patrick Spek", "http://tyil.work"]
 ---
@@ -112,10 +111,10 @@ command_args=" < ${cjdroute_config}"
 run_rc_command "$1"
 ```
 
-Afterwards, you must enable the service in `/etc/rc.conf` like follows:
+Afterwards, you must enable the service in `/etc/rc.conf.local` like follows:
 
 ```
-echo cjroute_enable="yes" >> /etc/rc.conf
+echo cjroute_enable="YES" >> /etc/rc.conf.local
 ```
 
 ## Installation of the clients
