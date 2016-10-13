@@ -18,6 +18,8 @@ For instant messaging I use OTR where possible. My fingerprints are the followin
 - `C6025214 E05A4FB6 5E65B900 9CA6A7AF A4A35C48` IRC, tyil @ Gratisnode
 - `80999DD8 22504629 44EC13E3 5C31BF2F FC825703` IRC, tyil @ Rizon
 
+### Tor
+My website is available over Tor as well: `http://xcwaqtr4uhoq5yrk.onion/`.
 
 ## Contact
 ### IRC
