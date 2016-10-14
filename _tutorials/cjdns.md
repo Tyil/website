@@ -114,7 +114,7 @@ run_rc_command "$1"
 Afterwards, you must enable the service in `/etc/rc.conf.local` like follows:
 
 ```
-echo cjroute_enable="YES" >> /etc/rc.conf.local
+echo 'cjdroute_enable="YES"' >> /etc/rc.conf.local
 ```
 
 ## Installation of the clients
