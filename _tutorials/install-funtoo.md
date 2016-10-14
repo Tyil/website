@@ -1,7 +1,6 @@
 ---
 title: Install Funtoo
 layout: post
-wip: true
 authors:
   - ["Patrick Spek", "http://tyil.work"]
 ---
@@ -740,6 +739,9 @@ booting order, be sure to either change this back, or simply remove the USB
 device.
 
 ### First boot configurations
+After your system has succesfully booted, login as root using the password you
+set using `passwd` before rebooting.
+
 #### ZFS
 Now you can finally setup the ZFS partition. Issue the following commands to
 create a pool and a subvolume for `/home`:
@@ -761,6 +763,10 @@ passwd tyil
 The `-G wheel` part is optional, but recommended if you wish to use this account
 for administrative tasks. This option adds the user to the `wheel` group, which
 will allow the user to execute root commands using `sudo`.
+
+#### Login
+Now you have a non-privileged user to login to. Log out of the root user by
+running `exit`. Next, log in on your normal user account.
 
 ## What's next
 Now you have a working Funtoo installation. Next steps would be installing all
