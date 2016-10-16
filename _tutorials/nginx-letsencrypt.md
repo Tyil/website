@@ -100,12 +100,11 @@ server {
     server_name domain.tld www.domain.tld;
 
     # site path
-    index index.html;
     root /srv/www/domain/_site;
 
     # / handler
     location / {
-    try_files $uri $uri/ =404;
+        try_files $uri $uri/ =404;
     }
 
     # logs
@@ -168,10 +167,10 @@ look like the following:
 server {
     # listeners
     listen 80;
-    server_name domain.tld www.domain.tld;
+    server_name domain.tld *.domain.tld;
 
     # redirects
-    return 301 https://www.domain.tld$request_uri;
+    return 301 https://$host$request_uri;
 }
 
 # static HTTPS
