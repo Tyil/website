@@ -67,9 +67,11 @@ and use any of the alternatives.
 
 * [Termbin][termbin]
 * [Hastebin][hastebin]
+* [ix.io][ix]
 
 [cloudflare]: http://tyil.work/2016/09/30/on-cloudflare.html
 [hastebin]: http://hastebin.com
+[ix]: http://ix.io/
 [mitm]: https://en.wikipedia.org/wiki/Man-in-the-middle_attack
 [termbin]: http://termbin.com
 
