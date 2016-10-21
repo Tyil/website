@@ -23,9 +23,66 @@ configuration files from another directory. This allows you to store all your si
 separate configurations in a separate directory. Such a setup is a regular site on
 nginx installations on GNU+Linux distributions, but not default on FreeBSD.
 
-Open up `/usr/local/etc/nginx/nginx.conf` and scroll to the bottom. Just before
-the last `}`, put `include sites/*.conf;` on its own line. This will make nginx
-read all files from `/usr/local/etc/nginx/sites` that end in `.conf`.
+Open up `/usr/local/etc/nginx/nginx.conf` and make the contents of the `http`
+block look a as follows:
+
+```
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    sendfile     on;
+    #tcp_nopush  on;
+
+    keepalive_timeout  65;
+
+    # default paths
+    index index.html;
+
+    # disable gzip - https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=773332
+    gzip  off;
+
+    # default ssl settings
+    ssl_session_cache          shared:SSL:1m;
+    ssl_session_timeout        5m;
+    ssl_ciphers                HIGH:!aNULL:!MD5:!AES128:!CAMELLIA128;
+    ssl_protocols              TLSv1.2;
+    ssl_prefer_server_ciphers  on;
+    ssl_dhparam                /usr/local/etc/ssl/dhparam.pem;
+
+    # default logs
+    error_log  /var/log/nginx/error.log;
+    access_log /var/log/nginx/acces.log;
+
+    # default server
+    server {
+        listen       80;
+        server_name  localhost;
+
+        location / {
+            root   /usr/local/www/nginx;
+            index  index.html index.htm;
+        }
+
+        error_page  404              /404.html;
+        error_page  500 502 503 504  /50x.html;
+
+        location = /50x.html {
+            root   /usr/local/www/nginx-dist;
+        }
+    }
+
+    # include site-specific configs
+    include sites/*.conf;
+}
+```
+
+This sets default ssl settings for all server blocks that enable ssl. Note that
+these are settings I use, and are in no way guaranteed to be perfect. I did some
+minor research on these settings to get an acceptable rating on
+[SSL Labs][ssllabs]. However, security is not standing still, and there is a
+decent chance that my settings will become outdated. If you have better settings
+that result in a safer setup, please [contact me][contact].
 
 ### Setup HTTP
 Due to the way `certbot` works, you need a functioning web server. Since there
@@ -43,12 +100,11 @@ server {
     server_name domain.tld www.domain.tld;
 
     # site path
-    index index.html;
     root /srv/www/domain/_site;
 
     # / handler
     location / {
-    try_files $uri $uri/ =404;
+        try_files $uri $uri/ =404;
     }
 
     # logs
@@ -111,44 +167,32 @@ look like the following:
 server {
     # listeners
     listen 80;
-    server_name domain.tld www.domain.tld;
+    server_name domain.tld *.domain.tld;
 
     # redirects
-    return 301 https://www.domain.tld$request_uri;
+    return 301 https://$host$request_uri;
 }
 
 # static HTTPS
 server {
     # listeners
-    listen 443 ssl;
-    server_name domain.tld www.domain.tld;
+    listen  443 ssl;
+    server_name  domain.tld www.domain.tld;
 
     # site path
-    index index.html;
-    root /srv/www/domain/_site;
+    root  /srv/www/domain/_site;
 
     # / handler
     location / {
             try_files $uri $uri/ =404;
     }
 
-    # logs
-    error_log  /var/log/nginx/error.log;
-    access_log /var/log/nginx/access.log;
-
-    # headers
-    add_header Strict-Transport-Security "max-age=31536000";
+    # enable HSTS
+    add_header  Strict-Transport-Security "max-age=31536000; includeSubdomains; preload";
 
     # keys
-    ssl_certificate     /usr/local/etc/letsencrypt/live/domain.tld/fullchain.pem;
-    ssl_certificate_key /usr/local/etc/letsencrypt/live/domain.tld/privkey.pem;
-
-    # ssl settings
-    ssl_session_cache         shared:SSL:1m;
-    ssl_session_timeout       5m;
-    ssl_ciphers               HIGH:!aNULL:!MD5;
-    ssl_prefer_server_ciphers on;
-    ssl_dhparam               /usr/local/etc/ssl/dhparam.pem;
+    ssl_certificate      /usr/local/etc/letsencrypt/live/domain.tld/fullchain.pem;
+    ssl_certificate_key  /usr/local/etc/letsencrypt/live/domain.tld/privkey.pem;
 }
 ```
 
@@ -158,14 +202,12 @@ As a final step, you should generate the dhparam file. This is to avoid the
 issues as described on [Weak DH][weakdh].
 
 ```
-openssl gendh -out /usr/local/etc/ssl/dhparam.pem 2048
+openssl gendh -out /usr/local/etc/ssl/dhparam.pem 4096
 ```
 
-Note that these are settings I use, and are in no way guaranteed to be perfect.
-I did some minor research on these settings to get an acceptable rating on [SSL
-Labs][ssllabs]. However, security is not standing still, and there is a decent
-chance that my settings will become outdated. If you have better settings that
-result in a safer setup, please [contact me][contact].
+Be aware that this step can take a **very** long time. On the test machine I
+used to test this tutorial, with 1 core and 1 GB ram, it took nearly 1 hour to
+generate this file.
 
 ### Reload nginx
 The final step is to reload the nginx configuration so it hosts the SSL version
