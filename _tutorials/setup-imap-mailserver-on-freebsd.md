@@ -140,6 +140,9 @@ unknown_local_recipient_reject_code = 550
 # trust
 mynetworks_style = host
 
+# address extensions
+recipient_delimiter = +
+
 # virtual domain setup
 virtual_mailbox_base = /srv/mail
 virtual_mailbox_domains = pgsql:/usr/local/etc/postfix/pgsql-virtual-domains.cf
@@ -295,7 +298,8 @@ service auth-worker {
 
 ### conf.d/10-mail.conf
 ```
-mail_location = maildir:/srv/mail/%d/%n
+mail_home = /srv/mail/%d/%n
+mail_location = maildir:~/Maildir
 ```
 
 Create the required directories and set the correct permissions:
