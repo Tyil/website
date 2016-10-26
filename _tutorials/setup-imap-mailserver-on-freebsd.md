@@ -11,7 +11,13 @@ This tutorial is to setup your own mailserver using [FreeBSD][freebsd] as
 [OS][wiki-os], [postfix][postfix] and [dovecot][dovecot] for handling the mail,
 [PostgreSQL][postgresql] for storing our domains and addresses, [Let's
 Encrypt][letsencrypt] for the SSL certificate and [DKIM][dkim], [SPF][spf] and
-[DMARC][dmarc] for mail authentication.
+[DMARC][dmarc] for mail authentication. Additionally, some extra software is
+used to keep your mailbox clean and organized:
+
+- [SpamAssassin][spamassassin], used to check wether incoming mail is
+  legitimate or spam
+- [Pigeonhole][pigeonhole], used to sort mail into directories on the server
+  side
 
 The settings used throughout this tutorial are as follows. You will have to
 adapt these values whenever you see them in this tutorial to match your own
@@ -31,7 +37,7 @@ we will need to compile in some additional support.
 
 ### Binary packages
 ```
-pkg install postgresql96-server py27-certbot opendkim py27-postfix-policyd-spf-python
+pkg install dovecot-pigeonhole opendkim postgresql96-server py27-certbot py27-postfix-policyd-spf-python spamassassin
 ```
 
 ### Ports
@@ -79,7 +85,8 @@ CREATE DATABASE mail WITH OWNER postfix;
 ```
 
 ### Create tables
-Be sure to create the following tables as `postfix`.
+Be sure to create the following tables as `postfix`. You can achieve this by
+running `su - postfix` and opening the database with `psql mail`.
 
 #### domains
 ```
@@ -192,17 +199,45 @@ shlib_directory = /usr/local/lib/postfix
 ```
 
 ### master.cf
-In the `master.cf` configuration file, you should uncomment the `submission`
-service and add make it look like the following:
-
 ```
-submission  inet  n  -  n  -  -  smtpd
-    -o syslog_name=postfix/submission
-    -o smtpd_tls_security_level=encrypt
-    -o smtpd_sasl_auth_enable=yes
-    -o smtpd_reject_unlisted_recipient=no
-    -o smtpd_recipient_restrictions=permit_sasl_authenticated,reject
-    -o milter_macro_daemon_name=ORIGINATING
+smtp          inet  n       -       n       -       -       smtpd
+  -o content_filter=spamassassin
+submission    inet  n       -       n       -       -       smtpd
+  -o syslog_name=postfix/submission
+  -o smtpd_tls_security_level=encrypt
+  -o smtpd_sasl_auth_enable=yes
+  -o smtpd_reject_unlisted_recipient=no
+  -o smtpd_recipient_restrictions=permit_sasl_authenticated,reject
+  -o milter_macro_daemon_name=ORIGINATING
+policyd-spf   unix  -       n       n       -       0       spawn
+  user=nobody argv=/usr/local/bin/policyd-spf
+pickup        unix  n       -       n       60      1       pickup
+cleanup       unix  n       -       n       -       0       cleanup
+qmgr          unix  n       -       n       300     1       qmgr
+tlsmgr        unix  -       -       n       1000?   1       tlsmgr
+rewrite       unix  -       -       n       -       -       trivial-rewrite
+bounce        unix  -       -       n       -       0       bounce
+defer         unix  -       -       n       -       0       bounce
+trace         unix  -       -       n       -       0       bounce
+verify        unix  -       -       n       -       1       verify
+flush         unix  n       -       n       1000?   0       flush
+proxymap      unix  -       -       n       -       -       proxymap
+proxywrite    unix  -       -       n       -       1       proxymap
+smtp          unix  -       -       n       -       -       smtp
+relay         unix  -       -       n       -       -       smtp
+showq         unix  n       -       n       -       -       showq
+error         unix  -       -       n       -       -       error
+retry         unix  -       -       n       -       -       error
+discard       unix  -       -       n       -       -       discard
+local         unix  -       n       n       -       -       local
+virtual       unix  -       n       n       -       -       virtual
+lmtp          unix  -       -       n       -       -       lmtp
+anvil         unix  -       -       n       -       1       anvil
+scache        unix  -       -       n       -       1       scache
+spamassassin  unix  -       n       n       -       -       pipe
+  user=spamd argv=/usr/local/bin/spamc
+  -f -e /usr/sbin/sendmail -oi -f ${sender} ${recipient}
+
 ```
 
 ### pgsql-virtual-domains.cf
@@ -317,6 +352,20 @@ auth_mechanisms = plain [login?] # check if login can be omitted
 
 Add a `#` to `!include auth-system.conf.ext` to disable it and remove the `#`
 from `#!include auth-sql.conf.ext` to enable this instead.
+
+### conf.d/20-lmtp.conf
+```
+protocol lmtp {
+  mail_plugins = $mail_plugins sieve
+}
+```
+
+### conf.d/90-plugin.conf
+```
+plugin {
+  sieve = /srv/mail/%d/%n/sieve
+}
+```
 
 ### conf.d/auth-sql.conf.ext
 ```
@@ -509,6 +558,30 @@ receiving server should accept mail from `sub.domain.tld` as well.
 *strict*. Relaxed allows partial SPF matches, while strict requires an exact
 match.
 
+## SpamAssassin
+Load up some default SpamAssassin rules:
+
+```
+sa-update
+```
+
+## Pigeonhole
+**NOTE**: This part is still being elaborated, for now, just create a file at
+`/srv/mail/domain.tld/test/sieve` and add the following for sorting spam into
+the Spam folder:
+
+```
+require [
+    "fileinto",
+    "mailbox"
+];
+
+if header :contains "X-Spam-Flag" "YES" {
+    fileinto :create "Spam";
+    stop;
+}
+```
+
 ## System services
 ### Enabling
 ```
@@ -524,6 +597,11 @@ echo 'postfix_enable="YES"' >> /etc/rc.conf.local
 echo 'dovecot_enable="YES"' >> /etc/rc.conf.local
 echo 'postgresql_enable="YES"' >> /etc/rc.conf.local
 echo 'milteropendkim_enable="YES"' >> /etc/rc.conf.local
+echo 'spamd_enable="YES"' >> /etc/rc.conf.local
+
+# add additional parameters for spamd
+echo >> /etc/rc.conf.local
+echo 'spamd_flags="-u spamd -H /srv/mail"' >> /etc/rc.conf.local
 ```
 
 ### Starting
@@ -532,6 +610,7 @@ service postgresql start
 service postfix start
 service dovecot start
 service milter-opendkim start
+service sa-spamd start
 ```
 
 ## Using your new settings
@@ -552,20 +631,15 @@ SHA512 hash of the easy to break password `test`. It's usable to quickly test if
 your setup is working, but beyond this it should not be used. Choose a secure
 password and hash it with BLF-CRYPT, then use that.
 
-### MUA settings
-#### IMAP
-SSL/TLS on port 993
-
-#### SMTP
-STARTTLS on port 587
-
 [dkim]: http://www.dkim.org/
 [dmarc]: http://dmarc.org/
 [dovecot]: http://dovecot.org/
 [freebsd]: https://www.freebsd.org/
 [letsencrypt]: https://letsencrypt.org/
+[pigeonhole]: http://pigeonhole.dovecot.org/
 [postfix]: http://www.postfix.org/
 [postgresql]: https://www.postgresql.org/
+[spamassassin]: https://spamassassin.apache.org/
 [spf]: https://en.wikipedia.org/wiki/Sender_Policy_Framework
 [wiki-os]: https://en.wikipedia.org/wiki/Operating_system
 
