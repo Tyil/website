@@ -1,0 +1,72 @@
+---
+---
+
+figure.highlight {
+	// comments
+	.c, .ch, .cm, .cpf, .c1, .cs {
+		color: #008000;
+	}
+
+	// preprocessor
+	.cp {
+		color: #0000ff;
+	}
+
+	// errors
+	.err {
+		border: 1px solid #ff0000;
+	}
+
+	// keywords
+	.k, .kc, .kd, .kn, .kp, .kr {
+		color: #0000ff;
+	}
+
+	// keywords - type
+	.kt {
+		color: #2b91af;
+	}
+
+	// literals
+	.sb, .sc, .sd, .s2, .se, .sh, .si, .sx, .sr, .s1, .ss {
+		color: #a31515;
+	}
+
+	// literals - string
+	.s {
+		color: #a31515;
+	}
+
+	// word operators
+	.ow {
+		color: #0000ff;
+	}
+
+	// class names
+	.nc {
+		color: #2b91af;
+	}
+
+	// generics
+	.ge {
+		font-style: italic;
+	}
+
+	.gh, .gp, .gs, .gu {
+		font-weight: bold;
+	}
+
+	// no clue
+	.hll {
+		background-color: #ffffcc;
+	}
+
+	// line numbers
+	.lineno {
+		margin-right: 5px;
+		padding-right: 5px;
+		border-right: solid 1px;
+		word-wrap: normal;
+	}
+}
+
