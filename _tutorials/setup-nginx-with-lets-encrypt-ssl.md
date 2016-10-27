@@ -13,9 +13,9 @@ to host a static site.
 First you have to install all the packages we need in order to get this server
 going:
 
-```
+{% highlight sh %}
 pkg install nginx py27-certbot
-```
+{% endhighlight %}
 
 ## Configure nginx
 Next is nginx. To make life easier, you should configure nginx to read all
@@ -26,7 +26,7 @@ nginx installations on GNU+Linux distributions, but not default on FreeBSD.
 Open up `/usr/local/etc/nginx/nginx.conf` and make the contents of the `http`
 block look a as follows:
 
-```
+{% highlight nginx %}
 http {
     include       mime.types;
     default_type  application/octet-stream;
@@ -75,7 +75,7 @@ http {
     # include site-specific configs
     include sites/*.conf;
 }
-```
+{% endhighlight %}
 
 This sets default ssl settings for all server blocks that enable ssl. Note that
 these are settings I use, and are in no way guaranteed to be perfect. I did some
@@ -92,7 +92,7 @@ easy.
 
 Put the following in `/usr/local/etc/nginx/sites/domain.conf`:
 
-```
+{% highlight nginx %}
 # static HTTP
 server {
     # listeners
@@ -111,7 +111,7 @@ server {
     error_log  /var/log/nginx/error.log;
     access_log /var/log/nginx/access.log;
 }
-```
+{% endhighlight %}
 
 If your site's sources do not reside in `/srv/www/domain/_site`, change the
 path accordingly. This guide will continue using this path for all examples, so
@@ -122,25 +122,25 @@ will be used. Modify this to your own domain.
 Nginx is now configured to host a single site over HTTP. Now is the time to enable
 the nginx service. Execute the following:
 
-```
+{% highlight sh %}
 echo 'nginx_enable="YES"' >> /etc/rc.conf.local
-```
+{% endhighlight %}
 
 This will enable nginx as a system service. On reboots, it will be started
 automatically. You can also start it up without rebooting by running the
 following:
 
-```
+{% highlight sh %}
 service nginx start
-```
+{% endhighlight %}
 
 ## Configure Let's Encrypt
 Nginx is now running as your web server on port 80. Now you can request Let's
 Encrypt certificates using `certbot`. You can do so as follows:
 
-```
+{% highlight sh %}
 certbot certonly --webroot -w /srv/www/domain/_site -d domain.tld -d www.domain.tld
-```
+{% endhighlight %}
 
 In case you want to add any sub domains, simply add more `-d sub.domain.tld`
 arguments at the end. If the DNS entries for the domains resolve properly, and
@@ -162,7 +162,7 @@ re-configure your site on nginx to host the HTTPS version of your site instead.
 Open up `/usr/local/etc/nginx/sites/domain.conf` again, and make the contents
 look like the following:
 
-```
+{% highlight nginx %}
 # redirect HTTPS
 server {
     # listeners
@@ -194,16 +194,16 @@ server {
     ssl_certificate      /usr/local/etc/letsencrypt/live/domain.tld/fullchain.pem;
     ssl_certificate_key  /usr/local/etc/letsencrypt/live/domain.tld/privkey.pem;
 }
-```
+{% endhighlight %}
 
 Do not forget to update all the paths to match your setup!
 
 As a final step, you should generate the dhparam file. This is to avoid the
 issues as described on [Weak DH][weakdh].
 
-```
+{% highlight sh %}
 openssl gendh -out /usr/local/etc/ssl/dhparam.pem 4096
-```
+{% endhighlight %}
 
 Be aware that this step can take a **very** long time. On the test machine I
 used to test this tutorial, with 1 core and 1 GB ram, it took nearly 1 hour to
@@ -214,9 +214,9 @@ The final step is to reload the nginx configuration so it hosts the SSL version
 of your site, and redirects the HTTP version to the HTTPS version. To do this,
 simply run
 
-```
+{% highlight sh %}
 service nginx reload
-```
+{% endhighlight %}
 
 That should be all to get your site working with HTTP redirecting to HTTPS, and
 HTTPS running using a gratis Let's Encrypt certificate.

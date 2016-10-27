@@ -13,16 +13,16 @@ on this server, be sure to [read up on the IMAP server
 tutorial][tutorial-imap], as this guides you through setting up Dovecot.
 
 ## Install required packages
-```
+{% highlight sh %}
 pkg install py27-radicale
-```
+{% endhighlight %}
 
 ## Configure Radicale
 ### `/usr/local/etc/radicale/config`
 Open up the `/usr/local/etc/radicale/config` file, and update each `[block]`.
 
-#### `[server]`
-```
+#### [server]
+{% highlight ini %}
 hosts = 127.1:5232
 daemon = True
 
@@ -32,29 +32,33 @@ base_prefix = /
 can_skip_base_prefix = False
 
 realm = Radicale - Password required
-```
+{% endhighlight %}
 
-#### `[encoding]`
-```
+#### [encoding]
+{% highlight ini %}
 request = utf-8
 stock = utf-8
-```
+{% endhighlight %}
 
-#### `[auth]`
-```
+#### [auth]
+{% highlight ini %}
 type = IMAP
 
 imap_hostname = localhost
 imap_port = 143
 imap_ssl = False
-```
+{% endhighlight %}
 
-#### `[storage]`
+#### [storage]
+{% highlight ini %}
 type = filesystem
 filesystem_folder = /usr/local/share/radicale
+{% endhighlight %}
 
-#### `[logging]`
+#### [logging]
+{% highlight ini %}
 config = /usr/local/etc/radicale/logging
+{% endhighlight %}
 
 ### `/usr/local/etc/radicale/logging`
 This file is fine on the defaults in FreeBSD 11. This saves you from
@@ -69,7 +73,7 @@ outside to this port, so it can only be used internally. In
 `/usr/local/etc/dovecont/conf.d/10-master.conf`, enable the `imap` port
 again:
 
-```
+{% highlight conf %}
 ...
 service imap-login {
     inet_listener imap {
@@ -78,7 +82,7 @@ service imap-login {
     ...
 }
 ...
-```
+{% endhighlight %}
 
 ## Configure nginx
 To make using the service easier, you can setup [nginx][nginx] to act as a
@@ -91,14 +95,14 @@ proxy here.
 This is obviously a to-do part.
 
 ## Enable the service at startup
-```
+{% highlight sh %}
 echo 'radicale_enable="YES"' >> /etc/rc.conf.local
-```
+{% endhighlight %}
 
 ## Start the server
-```
+{% highlight sh %}
 service radicale start
-```
+{% endhighlight %}
 
 [nginx]: #
 [tutorial-imap]: #

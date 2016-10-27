@@ -50,15 +50,15 @@ You can download the System Rescue CD at one of the following locations:
 #### Setting up the live USB
 After downloading the image, mount it somewhere:
 
-```
+{% highlight sh %}
 mount path/to/sysrescuecd.iso /mnt/cdrom
-```
+{% endhighlight %}
 
 Once it is mounted, you can run the installer bundled with the image by running
 
-```
+{% highlight sh %}
 /mnt/cdrom/usb_inst.sh
-```
+{% endhighlight %}
 
 Select the right device and wait for the installer to finish up.
 
@@ -81,7 +81,7 @@ The size of your storage device should be at least 35GB to be safe and have
 some space for personal data. The partitioning layout this guide is aiming for
 is the following:
 
-```
+{% highlight plain %}
 DEVICE                 FILESYSTEM  SIZE  MOUNTPOINT
 sda
   sda1                 fat32        2GB  /boot
@@ -93,15 +93,14 @@ sda
     funtoo0-swap       swap
     funtoo0-packages   xfs         10GB  /var/packages
     funtoo0-distfiles  xfs         10GB  /var/distfiles
-```
+{% endhighlight %}
 
 If you already an advanced user, you are of course free to diverge from the
 guide here.
 
 #### Partition the drive
-The first part is to setup partitions. This can be done by calling
-
-```gdisk /dev/sda```
+The first part is to setup partitions. This can be done by calling `gdisk
+/dev/sda`.
 
 Let us wipe the entire disk and start with a clean slate. You can do this by
 typing `o` and pressing enter. When asked wether you are sure, type `y` and
@@ -129,9 +128,9 @@ very important. We are going to encrypt the entire `lvm` partition using
 [`luks`][wikipedia-luks]. The frontend tool to be used for this is
 [`cryptsetup`][wikipedia-cryptsetup]:
 
-```
+{% highlight sh %}
 cryptsetup --cipher aes-xts-plain64 --hash sha512 --key-size 256 luksFormat /dev/sda2
-```
+{% endhighlight %}
 
 `cryptsetup` will ask you for a passphrase. Make sure to use a good one,
 preferably at least 20 characters in length.
@@ -143,10 +142,10 @@ invoking `cryptsetup luksOpen /dev/sda2 dmcrypt_lvm`.
 Once the encrypted partition has been unlocked, you can setup `lvm` on it. To
 initialize an lvm volume on this partition, run the following:
 
-```
+{% highlight sh %}
 pvcreate /dev/mapper/dmcrypt_lvm
 vgcreate funtoo0 /dev/mapper/dmcrypt_lvm
-```
+{% endhighlight %}
 
 The lvm volume has now been prepared, and you can start adding volumes to it to
 be used as partitions. It is recommended to have a swap partition as well. The
@@ -155,7 +154,7 @@ my availability to big disks, I generally opt for a swap partition the same size
 as my total RAM in the machine. To make the tutorial work for this as well, a
 subshell is called to figure out the size of the swap partition.
 
-```
+{% highlight sh %}
 lvcreate -L8G -n root funtoo0
 lvcreate -L3G -n sources funtoo0
 lvcreate -L2G -n portage funtoo0
@@ -163,12 +162,12 @@ lvcreate -L10G -n packages funtoo0
 lvcreate -L10G -n distfiles funtoo0
 lvcreate -L$(free -h | grep -i mem: | awk '{print $2}') -n swap funtoo0
 lvcreate -l 100%FREE -n home funtoo0
-```
+{% endhighlight %}
 
 #### Create filesystems
 Now you are ready to create usable filesystems on the partitions:
 
-```
+{% highlight sh %}
 mkfs.vfat -F32 /dev/sda1
 mkfs.xfs /dev/mapper/funtoo0-root
 mkfs.xfs /dev/mapper/funtoo0-packages
@@ -176,7 +175,7 @@ mkfs.xfs /dev/mapper/funtoo0-distfiles
 mkfs.reiserfs /dev/mapper/funtoo0-portage
 mkfs.ext4 /dev/mapper/funtoo0-sources
 mkswap /dev/mapper/funtoo0-swap
-```
+{% endhighlight %}
 
 If you're thinking at this point "where's my home partition?", it's not
 initialized here. [ZFS][wikipedia-zfs] requires custom kernel modules which will
@@ -186,34 +185,34 @@ be built later, after the initial kernel has been compiled.
 Next up is mounting all filesystems so you can install files to them. First, you
 mount the root filesystem:
 
-```
+{% highlight sh %}
 mount /dev/mapper/funtoo0-root /mnt/gentoo
-```
+{% endhighlight %}
 
 Now you can add some directories for the other mountpoints. This can be done in
 one well-made `mkdir` invocation:
 
-```
+{% highlight sh %}
 mkdir -p /mnt/gentoo/{boot,home,usr/{portage,src},var/{tmp,distfiles,packages},tmp}
-```
+{% endhighlight %}
 
 Next you can mount all other mountpoints on the new directories:
 
-```
+{% highlight sh %}
 mount /dev/sda1 /mnt/gentoo/boot
 mount /dev/mapper/funtoo0-portage /mnt/gentoo/usr/portage
 mount /dev/mapper/funtoo0-sources /mnt/gentoo/usr/src
 mount /dev/mapper/funtoo0-distfiles /mnt/gentoo/var/distfiles
 mount /dev/mapper/funtoo0-packages /mnt/gentoo/var/packages
-```
+{% endhighlight %}
 
 Let's also enable swap and ramdisks for the temporary storage directories:
 
-```
+{% highlight sh %}
 swapon /dev/mapper/funtoo0-swap
 mount -t tmpfs none /mnt/gentoo/tmp
 mount --rbind /mnt/gentoo/tmp /mnt/gentoo/var/tmp
-```
+{% endhighlight %}
 
 ### Initial setup
 Now that all mountpoints have been set up, installation of the actual OS can
@@ -224,11 +223,11 @@ The stage 3 tarball can be downloaded from [build.funtoo.org][funtoo-build]. It
 is easiest to download and extract the tarball in the root filesystem, so let's
 do that:
 
-```
+{% highlight sh %}
 cd /mnt/gentoo
 wget http://build.funtoo.org/funtoo-current/x86-64bit/generic_64/stage3-latest.tar.xz
 tar xpf stage3-latest.tar.xz
-```
+{% endhighlight %}
 
 Once extraction is complete, you can opt to delete the tarball as it is no
 longer needed at this point. You can delete it by invoking `rm stage3-latest.tar.gz`.
@@ -247,25 +246,25 @@ section to get into it and resolve your issues.
 The chrooting requires a couple extra mounts, so the chroot can interface with
 the hardware provided by the system above it:
 
-```
+{% highlight sh %}
 mount -t proc none proc
 mount --rbind /dev dev
 mount --rbind /sys sys
-```
+{% endhighlight %}
 
 Once these mountpoints are set, you will need to copy over `resolv.conf` so the
 chroot can resolve DNS names:
 
-```
+{% highlight sh %}
 cp /etc/resolv.conf etc
-```
+{% endhighlight %}
 
 Now that everything is prepared in the chroot, you can enter your Funtoo
 installation using the following:
 
-```
+{% highlight sh %}
 chroot . bash -l
-```
+{% endhighlight %}
 
 #### Set up the portage tree
 The portage tree is a collection of files which are used by the package manager
@@ -286,9 +285,9 @@ When you have modified `/etc/portage/repos.conf/gentoo` (or not, if you do not
 want to change this default), continue to download your first version of the
 portage tree:
 
-```
+{% highlight sh %}
 emerge --sync
-```
+{% endhighlight %}
 
 Everytime you want to update your system, you will have to do an `emerge --sync`
 to update the portage tree first. It is managed by [`git`][wikipedia-git], which
@@ -314,7 +313,7 @@ Once you know the UUID, open up `/etc/fstab` with whatever editor you feel
 comfortable with and make it look like the following block of text. Do not
 forget to update the UUIDs!
 
-```
+{% highlight plain %}
 # boot device
 /dev/sda1  /boot  vfat  noauto,noatime  1 2
 
@@ -333,7 +332,7 @@ tmpfs  /tmp  tmpfs  defaults  0 0
 
 # binds
 /tmp  /var/tmp  none  rbind  0 0
-```
+{% endhighlight %}
 
 ##### /etc/localtime
 The localtime comes next. This is to make sure your time is set correctly. An
@@ -343,9 +342,9 @@ to is stored in `/usr/share/zoneinfo`. The files are sorted by continent. As
 someone who lives in the Netherlands, I'd use
 `/usr/share/zoneinfo/Europe/Amsterdam`:
 
-```
+{% highlight sh %}
 ln -fs /usr/share/zoneinfo/Europe/Amsterdam /etc/localtime
-```
+{% endhighlight %}
 
 It is important to also correctly set your hardware clock, in case it is off.
 Check if your time and date are correct by invoking `date`. If these settings
@@ -357,16 +356,16 @@ an argument in the form of `MMDDhhmmYYYY`, it will set the date and time instead
 of check it. The following command would set the date to the first of October
 2016, and the time to 17:29:
 
-```
+{% highlight sh %}
 date 011017292016
-```
+{% endhighlight %}
 
 After you correctly set the date and time to whatever it currently is, sync it
 to the hardware clock so it is correct across reboots:
 
-```
+{% highlight sh %}
 hwclock --systohc
-```
+{% endhighlight %}
 
 ##### /etc/portage/make.conf
 Another important part to configure is the `make.conf` file. This file contains
@@ -386,7 +385,7 @@ aroudn some manpages to find out what you exactly want yourself.
 turn features on and off using these, and the ebuilds will configure the
 packages to enable or disable these features.
 
-```
+{% highlight sh %}
 USE="
     ${USE}
     alsa
@@ -400,7 +399,7 @@ USE="
     -gnome
     -kde
 "
-```
+{% endhighlight %}
 
 ###### FEATURES
 The `FEATURES` variable allows enabling of various portage features. Mine are
@@ -409,7 +408,7 @@ parallel as possible to speed up the process. Additionally, I use the `buildpkg`
 feature to build binary packages for use on other systems. This can save you a
 great deal of time if you have multiple systems running Funtoo.
 
-```
+{% highlight sh %}
 FEATURES="
     ${FEATURES}
     buildpkg
@@ -422,13 +421,13 @@ FEATURES="
     usersandbox
     usersync
 "
-```
+{% endhighlight %}
 
 ###### EMERGE_DEFAULT_OPTS
 `EMERGE_DEFAULT_OPTS` can be used to add some flags to every emerge you invoke.
 This way you can force emerge to always ask for confirmation.
 
-```
+{% highlight sh %}
 EMERGE_DEFAULT_OPTS="
     ${EMERGE_DEFAULT_OPTS}
     --alert
@@ -440,7 +439,7 @@ EMERGE_DEFAULT_OPTS="
     --usepkg
     --verbose
 "
-```
+{% endhighlight %}
 
 ###### C/XXFLAGS
 The `CFLAGS` and `CXXFLAGS` variables hold compiler-specific options. It is
@@ -448,10 +447,10 @@ The `CFLAGS` and `CXXFLAGS` variables hold compiler-specific options. It is
 `cmake`][bug-cmake].  Other than that, it is just a regular shell variable like
 the others.
 
-```
+{% highlight sh %}
 CFLAGS="-O2 -pipe"
 CXXFLAGS="-O2 -pipe"
-```
+{% endhighlight %}
 
 ###### ACCEPT_LICENSE
 This variable is not as important as the others. You can even opt to leave it
@@ -460,12 +459,12 @@ software (free as in freedom, not gratis), you can set it to the same value as
 me. Do note that if you use this, you will need to setup the
 `/etc/portage/package.license` as well.
 
-```
+{% highlight sh %}
 ACCEPT_LICENSE="
     -*
     @FREE
 "
-```
+{% endhighlight %}
 
 ###### MAKEOPTS
 `MAKEOPTS` are the arguments passed to `make`. This can be used to instruct
@@ -473,21 +472,21 @@ ACCEPT_LICENSE="
 can be set with the `-j` flag. The general rule of thumb for this is to use
 `$(($(nproc) + 1))`.
 
-```
+{% highlight sh %}
 MAKEOPTS="
     -j9
 "
-```
+{% endhighlight %}
 
 ###### PKG/DISTDIR
 The `PKGDIR` and `DISTDIR` variables set the location to store binary packages
 after building, and the location to store distfiles. In order to use the
 `/var/distfiles` and `/var/packages` partitions, these must be set.
 
-```
+{% highlight sh %}
 DISTDIR=/var/distfiles
 PKGDIR=/var/packages
-```
+{% endhighlight %}
 
 ##### /etc/portage/package.mask
 Like the `make.conf` file, `package.mask` can be made a directory containing
@@ -503,10 +502,10 @@ than that, so it is necessary to mask newer kernel versions. This is a single
 line of configuration, and as such can be done without a fancy editor. Simply
 invoke the following magic:
 
-```
+{% highlight sh %}
 mkdir -p /etc/portage/package.mask
 echo ">sys-kernel/gentoo-sources-4.4.6" > /etc/portage/package.mask/20-zfs.mask
-```
+{% endhighlight %}
 
 ##### /etc/portage/package.license
 This file can be setup as a directory too, just like `make.conf` and
@@ -516,10 +515,10 @@ The kernel comes with some sources under the `freedist` license, which is not
 part of `@FREE`. As such, if you want to install kernel sources you will have to
 make an exception for this license on this package.
 
-```
+{% highlight sh %}
 mkdir -p /etc/portage/package.license
 echo "sys-kernel/gentoo-sources freedist" > /etc/portage/package.license/20-freedist.license
-```
+{% endhighlight %}
 
 ##### /etc/conf.d/hostname
 As one of the last files to setup, the hostname should be set in
@@ -544,10 +543,10 @@ Install whichever source set you want to use, this guide will use
 `emerge` command here will install some additional packages which are needed for
 the system to function properly.
 
-```
+{% highlight sh %}
 emerge boot-update cryptsetup lvm2 gentoo-sources
 genkernel --menuconfig --lvm --luks all
-```
+{% endhighlight %}
 
 The `genkernel` command will run the kernel menuconfig utility. If you have
 exotic hardware that needs special support, this is the place to enable it. The
@@ -557,29 +556,29 @@ you. As the guide uses LVM and LUKS, you will need to have support for these
 things in your kernel. You will need to enable the following options at the
 very least:
 
-```
+{% highlight plain %}
 General setup --->
     [*] Initial RAM filesystem and RAM disk (initramfs/initrd) support
-```
+{% endhighlight %}
 
-```
+{% highlight plain %}
 Device Drivers --->
     Generic Driver Options --->
         [*] Maintain a devtmpfs filesystem to mount at /dev
-```
+{% endhighlight %}
 
-```
+{% highlight plain %}
 Device Drivers --->
     [*] Multiple devices driver support --->
         <*>Device Mapper Support
         <*> Crypt target support
-```
+{% endhighlight %}
 
-```
+{% highlight plain %}
 Cryptographic API --->
     <*> XTS support
     -*-AES cipher algorithms
-```
+{% endhighlight %}
 
 #### Setup ZFS
 The kernel is now installed at `/boot`, and all the required parts to build
@@ -590,20 +589,20 @@ First install the kernel module here. Since the live kernel does not have the
 zfs modules from the chroot, you must create the pool and the volumes after the
 first reboot.
 
-```
+{% highlight sh %}
 emerge zfs
-```
+{% endhighlight %}
 
 Once it has been compiled, you can add the ZFS services to start up by default.
 This will load the kernel module for you and all additional services that make
 ZFS perform its job well.
 
-```
+{% highlight sh %}
 rc-update add zfs-import boot
 rc-update add zfs-mount boot
 rc-update add zfs-share default
 rc-update add zfs-zed default
-```
+{% endhighlight %}
 
 #### Installing a bootloader
 Before building your kernel, `boot-update` was installed. This pulls in
@@ -617,7 +616,7 @@ and `lvm`.
 Open up `/etc/boot.conf` in your favourite editor and let the file display
 something like this:
 
-```
+{% highlight plain %}
 boot {
     generate grub
     default "Funtoo GNU+Linux"
@@ -629,17 +628,17 @@ boot {
     initrd initramfs[-v]
     params += crypt_root=/dev/sda2 real_root=/dev/mapper/funtoo0-root rootfstype=xfs dolvm
 }
-```
+{% endhighlight %}
 
 Now that `boot-update` is configured, install `grub` as an UEFI bootloader and
 generate the configs for it using `boot-update`. You should make sure the
 `grub` directory exists in `/boot` as well.
 
-```
+{% highlight sh %}
 mkdir -p /boot/grub
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id="Funtoo GNU+Linux" --recheck /dev/sda
 boot-update
-```
+{% endhighlight %}
 
 #### Set your system profile
 Your system is now ready to boot and use. However, some things are still not
@@ -653,10 +652,10 @@ mix-in.
 To get the same profile settings as I use for my work environments, run the
 following:
 
-```
+{% highlight sh %}
 epro flavor workstation
 epro mix-ins +no-systemd
-```
+{% endhighlight %}
 
 #### Running the first full system update
 The stage 3 tarball may have been the latest, but it might still have some
@@ -666,18 +665,18 @@ make sure everything is in the best possible state, it is recommended to run a
 full system update now. Since some of our options are already set as
 `EMERGE_DEFAULT_OPTS`, this is as simple as
 
-```
+{% highlight sh %}
 emerge -uDN @world
-```
+{% endhighlight %}
 
 #### Installing supporting software
 This is software you will more than likely need on any standard system. If
 you're an advanced user you can decide to skip this and make your own choices,
 otherwise it is recommended to install this software as well.
 
-```
+{% highlight sh %}
 emerge connman sudo vim linux-firmware
-```
+{% endhighlight %}
 
 #### Configuring supporting software
 Some of the supporting software has to be turned on explicitly or have a
@@ -689,9 +688,9 @@ you can skip the section with the same name.
 lightweight, fast and does its job pretty well. To enable this service at boot,
 run
 
-```
+{% highlight sh %}
 rc-update add connman default
-```
+{% endhighlight %}
 
 If you want to setup wireless connection authentication credentials, read up on
 `man connman-service.conf`.
@@ -706,9 +705,9 @@ Because sudo is a critical utility, it comes with its own editor that basically
 just wraps your preferred editor in a script that will complain if the
 configuration is wrong. To use this tool, invoke
 
-```
+{% highlight sh %}
 visudo
-```
+{% endhighlight %}
 
 Scroll to the line which contains `# %wheel ALL=(ALL) ALL`, and remove the `# `.
 
@@ -717,9 +716,9 @@ We probably want to be able to login to the system as well. By default, users
 without passwords are disabled, so you'll need to set a password for the users
 you want to be able to use:
 
-```
+{% highlight sh %}
 passwd root
-```
+{% endhighlight %}
 
 If you used a different username than `tyil`, be sure to change it here as well.
 
@@ -727,12 +726,12 @@ If you used a different username than `tyil`, be sure to change it here as well.
 Installation is now finished, so it is time to boot into your new Funtoo system.
 First you should cleanly unmount all partitions and then issue a reboot:
 
-```
+{% highlight sh %}
 exit
 cd
 umount -lR /mnt/gentoo
 reboot
-```
+{% endhighlight %}
 
 If you set your UEFI to favour the USB system over the standard drive in the
 booting order, be sure to either change this back, or simply remove the USB
@@ -746,19 +745,19 @@ set using `passwd` before rebooting.
 Now you can finally setup the ZFS partition. Issue the following commands to
 create a pool and a subvolume for `/home`:
 
-```
+{% highlight sh %}
 zpool create funtooz /dev/sda
 zfs create -o mountpoint=/home funtooz/home
-```
+{% endhighlight %}
 
 #### Create a user
 Create a user for yourself on the system, as you should not perform regular
 usage as root. You can use any other value for `tyil` if you so desire:
 
-```
+{% highlight sh %}
 useradd -m -g users -G wheel tyil
 passwd tyil
-```
+{% endhighlight %}
 
 The `-G wheel` part is optional, but recommended if you wish to use this account
 for administrative tasks. This option adds the user to the `wheel` group, which

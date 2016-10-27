@@ -22,39 +22,39 @@ may have to update some steps to work on your environment in that case.
 Before you can begin, we need some dependencies. There's only two of those, and
 they are available via `pkg` to make it even easier. Install them as follows:
 
-```
+{% highlight sh %}
 pkg install gmake node
-```
+{% endhighlight %}
 
 ### Compiling
 Next up is getting the cjdns sources and compile these, as cjdns is not
 available as a prebuilt package:
 
-```
+{% highlight sh %}
 mkdir -p ~/.local/src
 cd $_
 git clone https://github.com/cjdelisle/cjdns.git cjdns
 cd $_
 ./do
-```
+{% endhighlight %}
 
 To make the compiled binary available system-wide so we can use it with a
 system service, copy it to `/usr/local/bin` and rehash to make it available as
 a direct command:
 
-```
+{% highlight sh %}
 cp cjdroute /usr/local/bin/.
 hash -r
-```
+{% endhighlight %}
 
 ### Configuring
 Cjdns provides a flag to generate the initial configuration. This will provide
 you with some sane defaults where only a couple of small changes are needed to
 make it work properly. Generate these defaults with `--genconf`:
 
-```
+{% highlight sh %}
 (umask 177 && cjdroute --genconf > /usr/local/etc/cjdroute.conf)
-```
+{% endhighlight %}
 
 The umask will make all following commands write files using `600` permissions.
 This makes sure the config file is not readable by people who shouldn't be able
@@ -66,13 +66,13 @@ and remove the contents of it. Then you can add your own machines in it. This
 guide follows the assumption of two clients, so the config for two clients will
 be shown here. You can add more clients if you wish, ofcourse.
 
-```
+{% highlight json %}
 "authorizedPasswords":
 [
     {"password": "aeQu6pa4Vuecai3iebah7ogeiShaeDaepha6Mae1yooThoF0oa0Eetha9oox", "user": "client_1"},
     {"password": "aiweequuthohkahx4tahLohPiezee9OhweiShoNeephe0iekai2jo9Toorah", "user": "client_2"},
 ]
-```
+{% endhighlight %}
 
 If you need to generate a password, you can make use of the tool `pwgen`,
 available at your local package manager. You can then generate new passwords by
@@ -85,7 +85,7 @@ This in turn allows you to enable a service at startup. This way you can make
 sure cjdns starts whenever the server boots. You can copy the following
 contents directly into `/usr/local/etc/rc.d/cjdroute`:
 
-```
+{% highlight sh %}
 #! /bin/sh
 
 # PROVIDE: cjdroute
@@ -109,13 +109,13 @@ command="/usr/local/bin/cjdroute"
 command_args=" < ${cjdroute_config}"
 
 run_rc_command "$1"
-```
+{% endhighlight %}
 
 Afterwards, you must enable the service in `/etc/rc.conf.local` like follows:
 
-```
+{% highlight sh %}
 echo 'cjdroute_enable="YES"' >> /etc/rc.conf.local
-```
+{% endhighlight %}
 
 ## Installation of the clients
 ### Dependencies
@@ -123,9 +123,9 @@ The dependencies are still on `gmake` and `node`, so simply install those on
 your clients. This guide assumes using Funtoo for the clients, so installation
 would go as follows:
 
-```
+{% highlight sh %}
 emerge gmake nodejs
-```
+{% endhighlight %}
 
 ### Compiling
 Compilation is the same as for the server, so check back there for more
@@ -137,9 +137,9 @@ just like on the server. On Funtoo, config files generally reside in `/etc`
 instead of `/usr/local/etc`, so you should set the filepath you write the
 configuration to accordingly:
 
-```
+{% highlight sh %}
 cjdroute --genconf > /etc/cjdroute.conf
-```
+{% endhighlight %}
 
 Setting up the connections differs as well, as the clients are going to make an
 outbound connection to the server, which is configured to accept inbound
@@ -156,7 +156,7 @@ server's `cjdroute.conf` file.
 
 On client 1, put the following in your `cjdroute.conf`:
 
-```
+{% highlight json %}
 "connectTo":
 {
 	"192.168.1.1:9416":
@@ -166,11 +166,11 @@ On client 1, put the following in your `cjdroute.conf`:
 		"publicKey": "thisIsJustForAnExampleDoNotUseThisInYourConfFile_1.k"
 	}
 }
-```
+{% endhighlight %}
 
 On client 2:
 
-```
+{% highlight json %}
 "connectTo":
 {
 	"192.168.1.1:9416":
@@ -180,7 +180,7 @@ On client 2:
 		"publicKey": "thisIsJustForAnExampleDoNotUseThisInYourConfFile_1.k"
 	}
 }
-```
+{% endhighlight %}
 
 That is all for configuring the nodes.
 
@@ -190,16 +190,16 @@ your VPN. For openrc based systems, such as Funtoo, cjdns comes with a ready to
 use service script. To make this available to your system, copy it over to the
 right directory:
 
-```
+{% highlight sh %}
 cp ~/.local/src/cjdns/contrib/openrc/cjdns /etc/init.d/cjdroute
-```
+{% endhighlight %}
 
 Now add the service to system startup and start the service:
 
-```
+{% highlight sh %}
 rc-update add cjdroute default
 rc-service cjdroute start
-```
+{% endhighlight %}
 
 That should be sufficient to get cjdns up and running for an encrypted VPN. You
 can find the IPs of each of your systems at the top of your `cjdroute.conf`
