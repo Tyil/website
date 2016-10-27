@@ -7,6 +7,10 @@ authors:
 ---
 
 # Mailserver on FreeBSD
+**This tutorial is being rewritten into a collection of smaller tutorials to keep
+it clearer. Please refer to the [email server series][replacement] instead!**
+
+
 This tutorial is to setup your own mailserver using [FreeBSD][freebsd] as
 [OS][wiki-os], [postfix][postfix] and [dovecot][dovecot] for handling the mail,
 [PostgreSQL][postgresql] for storing our domains and addresses, [Let's
@@ -639,6 +643,7 @@ password and hash it with BLF-CRYPT, then use that.
 [pigeonhole]: http://pigeonhole.dovecot.org/
 [postfix]: http://www.postfix.org/
 [postgresql]: https://www.postgresql.org/
+[replacement]: https://www.tyil.work/tutorials/freebsd-mailserver-part-1-preparations.html
 [spamassassin]: https://spamassassin.apache.org/
 [spf]: https://en.wikipedia.org/wiki/Sender_Policy_Framework
 [wiki-os]: https://en.wikipedia.org/wiki/Operating_system
