@@ -7,7 +7,7 @@ lang: shell
 This script should be saved as `git-push-all` somewhere in your `$PATH`. You
 can then run `git push-all` to push to all remotes for repo.
 
-{% highlight sh %}
+{% highlight sh linenos %}
 #!/usr/bin/env sh
 
 main()
