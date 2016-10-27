@@ -8,7 +8,7 @@ This script is intended to be used for migrating from MyAnimeList to your own
 Jekyll based site. Export your anime list there, and adapt the script to point
 to the right directory.
 
-```
+{% highlight py %}
 #!/usr/bin/env python3
 
 import re
@@ -59,5 +59,5 @@ def main():
 
 if __name__ == '__main__':
     main()
-```
+{% endhighlight %}
 
