@@ -2,6 +2,26 @@
 ---
 
 figure.highlight {
+	// containing block
+	code {
+		padding-left: 0;
+	}
+
+	// line numbers
+	.gutter {
+		background-color: #eaeaea;
+
+		.lineno {
+			padding: 0 7px;
+			word-wrap: normal;
+		}
+	}
+
+	// actual code
+	.code {
+		padding-left: 7px;
+	}
+
 	// comments
 	.c, .ch, .cm, .cpf, .c1, .cs {
 		color: #008000;
@@ -59,14 +79,6 @@ figure.highlight {
 	// no clue
 	.hll {
 		background-color: #ffffcc;
-	}
-
-	// line numbers
-	.lineno {
-		margin-right: 5px;
-		padding-right: 5px;
-		border-right: solid 1px;
-		word-wrap: normal;
 	}
 }
 
