@@ -3,8 +3,8 @@
 
 figure.highlight {
 	// containing block
-	code {
-		padding-left: 0;
+	td.code pre {
+		padding: 7px;
 	}
 
 	// line numbers
@@ -17,9 +17,12 @@ figure.highlight {
 		}
 	}
 
-	// actual code
-	.code {
-		padding-left: 7px;
+	code {
+		padding: 0px;
+	}
+
+	pre {
+		padding: 6px;
 	}
 
 	// comments
