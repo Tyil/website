@@ -48,6 +48,16 @@ Since the tutorial uses FreeBSD 11, you can install PostgreSQL easily by running
 pkg install postgresql96-server
 {% endhighlight %}
 
+### Starting up
+In order to start Postfix, you should enable the system service for it. This
+way, `service` can be used to easily manage it. In addition, it will start
+automatically on boot.
+
+{% highlight sh %}
+echo 'postgresql_enable="YES"' >> /etc/rc.conf.local
+service postgresql start
+{% endhighlight %}
+
 ### Database initialization
 Since PostgreSQL is a little different than the more popular [MySQL][mysql], I
 will guide you through setting up the database as well. To begin, switch user
