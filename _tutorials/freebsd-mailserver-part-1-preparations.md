@@ -128,8 +128,14 @@ resolve correctly, use `certbot` to get your certificate.
 certbot certonly --standalone -d domain.tld
 {% endhighlight %}
 
+## Conclusion
+This should be everything required to get started on setting up your own email
+server. Continue to [part 2][part-2] of this series to start setting up
+Postfix.
+
 [freebsd]: https://www.freebsd.org/
 [letsencrypt]: https://letsencrypt.org/
-[postgres]: https://www.postgresql.org/
 [mysql]: https://www.mysql.com/
+[part-2]: https://www.tyil.work/tutorials/freebsd-mailserver-part-2-mailing-with-postfix.html
+[postgres]: https://www.postgresql.org/
 
