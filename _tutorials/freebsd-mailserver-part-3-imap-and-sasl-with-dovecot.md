@@ -1,7 +1,6 @@
 ---
 title: "FreeBSD email server - Part 3: IMAP and SASL with Dovecot"
 layout: post
-wip: true
 authors:
   - ["Patrick Spek", "https://www.tyil.work"]
 ---
@@ -13,7 +12,7 @@ previous parts before trying to continue on this part in case you have not done
 so yet.
 
 This part will guide you through setting up [Dovecot][dovecot]. This service
-will deal with the SASL authentication to your mailserver and making your email
+will deal with the SASL authentication to your email server and making your email
 boxes accessible via IMAP. While this guide does not cover POP3 functionality,
 Dovecot can handle this as well.
 
@@ -35,7 +34,7 @@ make configure install
 {% endhighlight %}
 
 Again, like with the Postfix installation, leave the default options on and add
-the `PGSQL` option so Dovecot can use PostgreSQL as the database backend.
+the `PGSQL` option so Dovecot can use PostgreSQL as the database back-end.
 
 ## Enabling Dovecot
 Enable the Dovecot service for rcinit.
@@ -51,7 +50,7 @@ To start of with Dovecot configuration, copy over the sample files first.
 cp -r /usr/local/etc/dovecot/example-config/* /usr/local/etc/dovecot/.
 {% endhighlight %}
 
-Now you can start editing a number of pesky files. The filenames of the
+Now you can start editing a number of pesky files. The file names of the
 headings all appear relative to `/usr/local/etc/dovecot`.
 
 ### dovecot.conf
@@ -68,7 +67,7 @@ and provide and as which user its processes should be ran. Keep the defaults as
 they are, with the exception of the following two blocks.
 
 #### service imap-login
-This will enable imaps, IMAP over SSL, and disable plain imap.
+This will enable imaps, IMAP over SSL, and disable plain IMAP.
 
 {% highlight ini %}
 service-imap-login {
@@ -86,7 +85,7 @@ service-imap-login {
 #### services
 This will instruct Dovecot to provide a service for authentication and `lmtp`
 the **local mail transport protocol**. This is required to deliver the email
-files into the correct email box location in the filesystem.
+files into the correct email box location in the file system.
 
 {% highlight ini %}
 service auth {
@@ -162,7 +161,7 @@ you have to uncomment `!include auth-sql.conf.ext`.
 
 ### conf.d/auth-sql.conf.ext
 This is the file included from `10-auth.conf`. It instructs Dovecot to use SQL as
-the driver for the password and user backends.
+the driver for the password and user back-ends.
 
 {% highlight ini %}
 passdb {
@@ -186,7 +185,7 @@ required information about the users. Make sure to update the `password` and pos
 other parameters used to connect to the database. You may have to update the `125` as
 well, as this has to be identical to the `UID` of `postfix`.
 
-As a sidenote, if you are following this tutorial on a machine that does
+As a side note, if you are following this tutorial on a machine that does
 **not** support Blowfish in the default glib, which is nearly every GNU+Linux
 setup, you **can not** use `BLF-CRYPT` as the `default_pass_scheme`. You will
 have to settle for the `SHA-512` scheme instead.

@@ -1,19 +1,18 @@
 ---
 title: "FreeBSD email server - Part 1: Preparations"
 layout: post
-wip: true
 authors:
   - ["Patrick Spek", "https://www.tyil.work"]
 ---
 
 # FreeBSD email server - Part 1: Preparations
-This tutorial is diviced into multiple chapters to make it more managable, and
+This tutorial is devised into multiple chapters to make it more manageable, and
 to be able to better explain why certain parts are needed.
 
-The tutorial is created out of experience setting up my own mailserver. I have
+The tutorial is created out of experience setting up my own email server. I have
 read through quite a lot of documentation so you do not have to. Nonetheless, I
 would recommend doing so. Email business is a tricky one, with a lot of moving
-parts that have to fit into eachother. Knowing how exactly each part works will
+parts that have to fit into each other. Knowing how exactly each part works will
 greatly help understanding why they are needed in a proper email server.
 Besides that, it will make your life a lot more enjoyable if you want to tweak
 some things after this tutorial.
@@ -35,7 +34,7 @@ well, but replace the `10` with a higher value each time (`20`, `30`, etc).
 These will be used as fallback, in case the server with pointed to by the `10`
 record is unavailable.
 
-## Postgresql
+## PostgreSQL
 Next up you will have to install and configure [PostgreSQL][postgres]. Although
 using a database is not required, this tutorial will make use of one. Using a
 database makes administration easier and allows you to add a pretty basic web
@@ -119,7 +118,7 @@ as the PostgreSQL database, using `pkg`.
 pkg install py27-certbot
 {% endhighlight %}
 
-### Getting a certiticate
+### Getting a certificate
 Requesting a certificate requires your DNS entries to properly resolve. If they
 do not resolve yet, Let's Encrypt will bother you with errors. If they do
 resolve correctly, use `certbot` to get your certificate.

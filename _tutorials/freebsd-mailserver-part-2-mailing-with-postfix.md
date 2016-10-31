@@ -1,7 +1,6 @@
 ---
 title: "FreeBSD email server - Part 2: Mailing with Postfix"
 layout: post
-wip: true
 authors:
   - ["Patrick Spek", "https://www.tyil.work"]
 ---
@@ -25,7 +24,7 @@ find details on how to do so on [my homepage][home].
 ## Installing Postfix
 Installation procedures on FreeBSD are pretty straightforward. Unlike `certbot`
 from the previous part, we will need to compile Postfix from source in order to
-use PostgreSQL as a database backend. Thanks to FreeBSD's
+use PostgreSQL as a database back-end. Thanks to FreeBSD's
 [ports][freebsd-ports], this is not difficult either. If this is your first
 port to compile, you probably need to get the ports tree first. You can
 download and extract this using the following command.
@@ -42,13 +41,13 @@ cd /usr/ports/mail/postfix
 make configure install
 {% endhighlight %}
 
-This will open a popup with a number of options you can enable or disable. The
+This will open a pop up with a number of options you can enable or disable. The
 enabled defaults are fine, but you will have to enable the `PGSQL` option. This
 will allow you to use the configuration tables created in part 1.
 
 ## Enabling Postfix
 Enable the Postfix service for rcinit. This allows you to use `service postfix
-start` once configuration is done, and will autostart the service on system
+start` once configuration is done, and will auto start the service on system
 boot. In addition, the default mailer on FreeBSD, [sendmail][sendmail] should
 be disabled so nothing is in Postfix's way when trying to deal with processing
 email traffic.
@@ -77,14 +76,14 @@ some sort of indication of what is where. This could help you out if you ever
 need to change anything later on.
 
 ### main.cf
-#### Compatability
-The configuration file starts off by setting the compatability level. If
+#### Compatibility
+The configuration file starts off by setting the compatibility level. If
 postfix updates the configuration scheme and deprecates certain options, you
 will be notified of this in the logs.
 
 {% highlight ini %}
-# compatability
-compatability_level = 2
+# compatibility
+compatibility_level = 2
 {% endhighlight %}
 
 #### Directory paths
@@ -101,9 +100,9 @@ data_directory = /var/db/postfix
 
 #### Domain configuration
 The domain configuration instruct the server of the domain(s) it should serve
-for. Use your FQDN without subdomains for `mydomain`. You can use a subdomain
+for. Use your FQDN without sub domains for `mydomain`. You can use a sub domain
 for `myhostname`, but you are not required to. The most common setting is
-using a `mail` subdomain for all mail related activities, which would
+using a `mail` sub domain for all mail related activities, which would
 result in something like this.
 
 {% highlight ini %}
@@ -126,7 +125,7 @@ mydestination = $myhostname, localhost.$mydomain, localhost
 {% endhighlight %}
 
 #### Reject unknown recipients
-How to deal with messages sent to an emailaddress whose domain points to your
+How to deal with messages sent to an email address whose domain points to your
 server's address, but have no actual mailbox. A code of `550` means to inform
 the remote server that delivery is not possible and will not be possible. This
 should stop the remote server from trying it again.
@@ -145,7 +144,7 @@ mynetworks_style = host
 #### Address extensions
 This block is optional. It allows you to use email address extensions. These
 are addresses with an additional character in them that will drop the email in
-the unextended address' mailbox, but allows you to quickly filter on them as
+the non extended address' mailbox, but allows you to quickly filter on them as
 the sent-to address contains the extension.
 
 {% highlight ini %}
@@ -176,7 +175,7 @@ The TLS setup configures your server to use secure connections. The keys used
 here have been generated in the previous part of this series.
 
 {% highlight ini %}
-# tls setup
+# TLS setup
 smtpd_tls_cert_file = /usr/local/etc/letsencrypt/live/domain.tld/fullchain.pem
 smtpd_tls_key_file = /usr/local/etc/letsencrypt/live/domain.tld/privkey.pem
 smtpd_use_tls = yes
@@ -187,7 +186,7 @@ smtpd_tls_auth_only = yes
 SASL deals with the authentication of the users to your email server.
 
 {% highlight ini %}
-# sasl setup
+# SASL setup
 smtpd_sasl_type = dovecot
 smtpd_sasl_path = private/auth
 smtpd_sasl_auth_enable = yes
