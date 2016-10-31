@@ -1,16 +1,17 @@
 ---
-title: Setup calendar and contact sync with Radicale and Dovecot
+title: "FreeBSD email server - Part +: Calendars and contacts"
 layout: post
 wip: true
 authors:
   - ["Patrick Spek", "http://tyil.work"]
 ---
 
-# Setup calendar and contact sync with Radicale and Dovecot
-This guide is intended to help you set up your own calendar and contact server
-(CalDav and CardDav) system to help you manage your own data. Before starting
-on this server, be sure to [read up on the IMAP server
-tutorial][tutorial-imap], as this guides you through setting up Dovecot.
+# FreeBSD email server - Part +: Calendars and contacts
+This guide is an addition to the [FreeBSD email server series][tutorial-email].
+It is not required for your email server to operate properly, but it is often
+considered a very important feature for those who want to switch from a third
+party email provider to their own solution. It does build upon the completed
+series, so be sure to work through that before starting on this.
 
 ## Install required packages
 {% highlight sh %}
@@ -66,7 +67,7 @@ configuring a little bit.
 
 ## Configure Dovecot
 ### Enable imap
-This option was disabled in the [IMAP server tutorial][tutorial-imap], however,
+This option was disabled in the [IMAP server tutorial][tutorial-email], however,
 if we want to auth using the same credentials as the mailserver, this option is
 needed again. Be sure to setup a firewall that blocks requests from the
 outside to this port, so it can only be used internally. In
