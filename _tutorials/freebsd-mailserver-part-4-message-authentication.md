@@ -73,6 +73,17 @@ smtpd_milters =
     inet:localhost:8891
 {% endhighlight %}
 
+#### System service
+OpenDKIM runs as a system service. As such, you will have to enable this
+service in rcinit. This is a simple step, achieved with the given command.
+
+{% highlight sh %}
+echo 'milteropendkim_enable="YES"' >> /etc/rc.conf.local
+{% endhighlight %}
+
+Do not forget to actually start the service when you are done with the
+tutorial!
+
 ### Creating and using keys
 In order to use DKIM, you will need to generate some keys to sign the messages
 with. You cannot use your Let's Encrypt SSL keys for this. First, create a
