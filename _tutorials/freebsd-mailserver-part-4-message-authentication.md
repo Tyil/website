@@ -1,7 +1,6 @@
 ---
 title: "FreeBSD email server - Part 4: Message authentication"
 layout: post
-wip: true
 authors:
   - ["Patrick Spek", "https://www.tyil.work"]
 ---
