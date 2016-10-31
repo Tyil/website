@@ -1,7 +1,6 @@
 ---
 title: "FreeBSD email server - Part 5: Filtering mail"
 layout: post
-wip: true
 authors:
   - ["Patrick Spek", "https://www.tyil.work"]
 ---
