@@ -97,7 +97,32 @@ as I will only explain how to configure a virtual host to deal with the reverse
 proxy here.
 
 ### Setup a reverse proxy
-This is obviously a to-do part.
+Assuming you have taken the crash-course in setting up the nginx webserver, you
+can attain a reverse proxy using the following config block. Note that this block
+only does HTTPS, as I use HTTP only to redirect to HTTPS.
+
+{% highlight nginx %}
+# static HTTPS
+server {
+    # listeners
+    listen       443 ssl;
+    server_name  radicale.domain.tld;
+
+    # enable HSTS
+    add_header  Strict-Transport-Security "max-age=31536000; includeSubdomains; preload";
+
+    # keys
+    ssl_certificate      /usr/local/etc/letsencrypt/live/domain.tld/fullchain.pem;
+    ssl_certificate_key  /usr/local/etc/letsencrypt/live/domain.tld/privkey.pem;
+
+    # / handler
+    location / {
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_pass http://127.1:5232;
+    }
+}
+{% endhighlight %}
 
 ## Enable the service at startup
 {% highlight sh %}
