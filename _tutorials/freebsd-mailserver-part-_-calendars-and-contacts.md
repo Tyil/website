@@ -65,7 +65,7 @@ filesystem_folder = /usr/local/share/radicale
 config = /usr/local/etc/radicale/logging
 {% endhighlight %}
 
-### `/usr/local/etc/radicale/logging`
+### /usr/local/etc/radicale/logging
 This file is fine on the defaults in FreeBSD 11. This saves you from
 configuring a little bit.
 
@@ -135,6 +135,6 @@ service radicale start
 {% endhighlight %}
 
 [nginx]: https://www.nginx.com/
-[tutorial-imap]: https://www.tyil.work/tutorials/freebsd-mailserver-part-1-preparations.html
+[tutorial-email]: https://www.tyil.work/tutorials/freebsd-mailserver-part-1-preparations.html
 [tutorial-webserver]: https://www.tyil.work/tutorials/setup-nginx-with-lets-encrypt-ssl.html
 
