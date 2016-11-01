@@ -134,7 +134,7 @@ echo 'radicale_enable="YES"' >> /etc/rc.conf.local
 service radicale start
 {% endhighlight %}
 
-[nginx]: #
-[tutorial-imap]: #
-[tutorial-webserver]: #
+[nginx]: https://www.nginx.com/
+[tutorial-imap]: https://www.tyil.work/tutorials/freebsd-mailserver-part-1-preparations.html
+[tutorial-webserver]: https://www.tyil.work/tutorials/setup-nginx-with-lets-encrypt-ssl.html
 
