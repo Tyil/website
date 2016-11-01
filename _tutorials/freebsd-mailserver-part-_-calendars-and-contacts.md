@@ -67,17 +67,17 @@ configuring a little bit.
 
 ## Configure Dovecot
 ### Enable imap
-This option was disabled in the [IMAP server tutorial][tutorial-email], however,
-if we want to auth using the same credentials as the mailserver, this option is
-needed again. Be sure to setup a firewall that blocks requests from the
-outside to this port, so it can only be used internally. In
-`/usr/local/etc/dovecont/conf.d/10-master.conf`, enable the `imap` port
-again:
+This option was disabled in the [IMAP server tutorial][tutorial-email],
+however, if we want to auth using the same credentials as the mailserver, this
+option is needed again. Bind it to `localhost`, so it can only be used
+internally. In `/usr/local/etc/dovecont/conf.d/10-master.conf`, enable the
+`imap` port again:
 
 {% highlight conf %}
 ...
 service imap-login {
     inet_listener imap {
+        address = 127.1
         port = 143
     }
     ...
