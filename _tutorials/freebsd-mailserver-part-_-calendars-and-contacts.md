@@ -19,10 +19,14 @@ pkg install py27-radicale
 {% endhighlight %}
 
 ## Configure Radicale
-### `/usr/local/etc/radicale/config`
+### /usr/local/etc/radicale/config
 Open up the `/usr/local/etc/radicale/config` file, and update each `[block]`.
 
 #### [server]
+The server is binding to `localhost` only. This way it is not accessible on
+`:5232` from outside the server. Outside access will be provided through an
+nginx reverse proxy instead.
+
 {% highlight ini %}
 hosts = 127.1:5232
 daemon = True
