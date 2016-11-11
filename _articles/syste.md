@@ -87,7 +87,7 @@ Which was replied to by [aidanjt][reddit-aidanjt]
 
 ### Dependencies and unportability
 Another common issue with systemd is that applications have started to
-needlessly depend on it, forcing systemd onto users that do not with to use
+needlessly depend on it, forcing systemd onto users that do not wish to use
 systemd for obvious reasons outlined here, reasons outside of this article, or
 simply being unable to use it. Because systemd complies to no cross-platform
 standard and uses many features only available in recent Linux version, it's
