@@ -1,7 +1,7 @@
 ---
 title: Flying Witch
 episodes: 12
-status: watching
-progress: 8
+status: finished
+rating: 6
 ---
 
