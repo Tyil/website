@@ -1,7 +1,6 @@
 ---
 title: "FreeBSD email server - Part +: Calendars and contacts"
 layout: post
-wip: true
 authors:
   - ["Patrick Spek", "http://tyil.work"]
 ---
