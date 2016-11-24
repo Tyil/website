@@ -80,7 +80,26 @@ not accepted into master yet, which might result into commits getting into
 master which should not be there (yet), or annoying merge conflicts later on.
 
 ### Merging
-`TODO: Explain merging`
+Using multiple branches brings along the concept of *merging* branches
+together. When working in a group, this is generally done by maintainers of the
+upstream repository, via a *merge request*. For some reason, certain services
+have named this as a *pull request* instead. The base idea of the process is as
+follows:
+
+- Pull the latest `upstream/master`
+- Create a new branch 
+- Apply the change you want
+- Issue a merge request via the service you are using
+  - Generally, you want your change to be merged into their `master` branch
+- Add a title and a description of your change: What does it do, and why should it be accepted
+- Optionally, discuss the changes with the upstream maintainers
+- Optionally, make a couple of changes to your branch, and push it again
+- Upstream maintainer accepts your change
+
+When everything worked out, the upstream repository now contains your changes.
+If you pull their branch again, it will contain your code. Using the merge
+request process, your code can be easily reviewed by others, and discussed if
+needed.
 
 ## Committing
 Whenever you have changed anything in the repository and you wish to share
@@ -120,6 +139,36 @@ CVE-0123-45678. Regression tests have been included as well.
 
 Closes: #35
 ```
+
+In order to achieve these kind of messages, you need to be sure that your
+commits can fit in to this structure. This means you need to make small
+commits. Having many smaller commits makes it easier to review the changes,
+keep short, descriptive messages to describe each change, and revert a single
+change in case it breaks something.
+
+### Signing your commits
+You can set up git to cryptographically sign each commit you make. This will
+ensure that the commit you made is proven to be from you, and not someone
+impersonating you. People impersonating you might try to get harmful code into
+a repo where you are a trusted contributor. Having all commits signed in a
+repository can contribute in verifying the integrity of the project.
+
+Recently, [Github][github] has added the **Verified** tag to commits if the
+commit contains a correct signature.
+
+To enable signing of all commits, add the following configuration to your
+`~/.gitconfig`:
+
+{% highlight ini %}
+[commit]
+	gpgsign = true
+
+[user]
+	signingkey = 9ACFE193FFBC1F50
+{% endhighlight %}
+
+Ofcourse, you will have to update the value of the `signingkey` to match
+the key you want to sign your commits with.
 
 ## Closing words
 I hope this post will help you in your adventures with git. It is a great tool
