@@ -121,8 +121,15 @@ CVE-0123-45678. Regression tests have been included as well.
 Closes: #35
 ```
 
-[github]: niggers
-[gitlab]: niggers
-[gogs]: niggers
+## Closing words
+I hope this post will help you in your adventures with git. It is a great tool
+or working on projects together, but it gets much better when you stick to some
+best practices. If you have any suggestions for this post, or any questions
+after finishing it, contact me via any method listed on [my home page][home].
+
+[github]: https://github.com
+[gitlab]: https://gitlab.com
+[gogs]: https://gogs.io
+[home]: https://tyil.work
 [so-git-branch]: https://softwareengineering.stackexchange.com/questions/335654/git-what-issues-arise-from-working-directly-on-master
 
