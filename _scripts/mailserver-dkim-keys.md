@@ -12,14 +12,17 @@ publish the public DKIM keys.
 {% highlight perl linenos %}
 #!/usr/bin/env perl
 
-use autodie;
 use strict;
 use utf8;
 use warnings;
 
 use DBI;
+use File::Glob qw( bsd_glob )
 
-# TODO: make sure the user is root
+# make sure the user is root
+if ($EUID != 0) {
+	die "You must run this script as root\n";
+}
 
 # connect to the database
 my $dsn = 'dbi:Pg:dbname=mail;host=127.1;port=5432';
@@ -33,36 +36,51 @@ $select->execute();
 while (my $result = $select->fetchrow_hashref()) {
 	print "$result->{'name'}\n";
 
-	if (! -d "/srv/dkim/$result->{'name'}") {
-		mkdir("/srv/dkim/$result->{'name'}");
+	my $domain = $result->{name};
+	my $dkim_dir = "/srv/dkim/$domain";
+
+	if (! -d $dkim_dir) {
+		mkdir($dkim_dir);
 	}
 
-	my @keys = glob("/srv/dkim/$result->{'name'}/*.private");
+	my @keys = glob($dkim_dir . "/*.private");
 
-	if ($#keys < 0) {
+	if (@keys) {
 		my $date = '20161201';
 
 		# create a new key
-		print "  Generating key at /srv/dkim/$result->{'name'}/$date.private\n";
+		print "  Generating key at $dkim_dir/$date.private\n";
 
-		system "opendkim-genkey -D /srv/dkim/$result->{'name'} -b 4096 -r -s $date -d $result->{'name'}"
+		system (
+			'opendkim-genkey',
+			-D => $dkim_dir,
+			-b => 4096,
+			-r,
+			-s => $date,
+			-d => $domain
+		)
 			or die "Generating key failed: $!\n";
 
 		# set permissions
-		my $gid = getgrnam('mailnull');
-		my $uid = getpwnam('mailnull');
+		my $gid = getgrnam('mailnull')
+			or die "Failed to retrieve the gid of mailnull\n";
+		my $uid = getpwnam('mailnull')
+			or die "Failed to retrieve the uid of mailnull\n";
 
-		chown($uid, $gid, "/srv/dkim/$result->{'name'}");
-		chown($uid, $gid, "/srv/dkim/$result->{'name'}/$date.private");
-		chown($uid, $gid, "/srv/dkim/$result->{'name'}/$date.txt");
+		chown($uid, $gid,
+			$dkim_dir,
+			"$dkim_dir/$date.private",
+			"$dkim_dir/$date.txt"
+		);
 	}
 
-	foreach (glob "/srv/dkim/$result->{name}/*.txt") {
-		print "  $_\n";
+	foreach my $txt (bsd_glob "$dkim_dir/*.txt") {
+		print "  $txt\n";
 
-		open(my $fh, '<', $_);
+		open(my $fh, '<', $txt)
+			or die;
 
-		foreach (<$fh>) {
+		while (<$fh>) {
 			chomp;
 
 			if (/"(.+?)"/) {
