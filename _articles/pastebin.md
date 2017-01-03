@@ -66,7 +66,6 @@ such disrespect. I ask anyone who is still using Pastebin to stop doing this,
 and use any of the alternatives.
 
 * [Termbin][termbin]
-* [Hastebin][hastebin]
 * [ix.io][ix]
 
 [cloudflare]: http://tyil.work/articles/cloudflare.html
