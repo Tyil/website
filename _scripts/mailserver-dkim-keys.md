@@ -20,7 +20,7 @@ use DBI;
 use File::Glob qw( bsd_glob )
 
 # make sure the user is root
-if ($EUID != 0) {
+if ($> != 0) {
 	die "You must run this script as root\n";
 }
 
@@ -34,16 +34,17 @@ my $select = $dbh->prepare('SELECT name FROM domains;');
 $select->execute();
 
 while (my $result = $select->fetchrow_hashref()) {
-	print "$result->{'name'}\n";
-
 	my $domain = $result->{name};
 	my $dkim_dir = "/srv/dkim/$domain";
 
+	print "$result->{'name'}\n";
+
 	if (! -d $dkim_dir) {
-		mkdir($dkim_dir);
+		mkdir($dkim_dir)
+			or die "Failed to create output directory at $dkim_dir: $!\n";
 	}
 
-	my @keys = glob($dkim_dir . "/*.private");
+	my @keys = bsd_glob($dkim_dir . "/*.private");
 
 	if (@keys) {
 		my $date = '20161201';
@@ -74,11 +75,11 @@ while (my $result = $select->fetchrow_hashref()) {
 		);
 	}
 
-	foreach my $txt (bsd_glob "$dkim_dir/*.txt") {
-		print "  $txt\n";
+	foreach my $dkim_file (bsd_glob("$dkim_dir/*.txt")) {
+		print "  $dkim_file\n";
 
 		open(my $fh, '<', $txt)
-			or die;
+			or die "Failed to open $dkim_file for reading: $!\n;
 
 		while (<$fh>) {
 			chomp;
