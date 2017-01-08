@@ -1,7 +1,7 @@
 ---
 title: Nobunaga No Shinobi
 season: 2016, Fall
-episodes: 12
+episodes: 24
 status: watching
-progress: 7
+progress: 14
 ---
