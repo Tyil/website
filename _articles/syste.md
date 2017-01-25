@@ -260,8 +260,11 @@ wrong decision, is to simply stop using these distros.
 - [Broken by design: systemd][broken-systemd]
 - [Without systemd][without-systemd]
 - [systemd is the best example of Suck][suckless-systemd]
+- [Thoughts on the systemd root exploit][agwa-systemd-root-exploit] (In response to [CVE-2016-10156][cve-2016-10156])
 
+[agwa-systemd-root-exploit]: https://www.agwa.name/blog/post/thoughts_on_the_systemd_root_exploit
 [broken-systemd]: http://ewontfix.com/14/
+[cve-2016-10156]: http://www.openwall.com/lists/oss-security/2017/01/24/4
 [devuan]: https://devuan.org/
 [eudev]: https://wiki.gentoo.org/wiki/Eudev
 [freebsd]: https://www.freebsd.org/
