@@ -43,8 +43,8 @@ response. If you require a response as soon as possible, please find me on
 [darenet's IRC server][darenet].
 
 ## Other links
-- [Twitter][twitter]
-- [Github][github] (**deprecated**)
+- [Mastodon][mastodon]
+- [Github][github]
 - [DareNET gitlab][c.darenet]
 - [Keybase][keybase]
 - [LinkedIn][linkedin]
@@ -59,5 +59,4 @@ response. If you require a response as soon as possible, please find me on
 [keybase]: https://keybase.io/tyil
 [pubkey]: https://pgp.mit.edu/pks/lookup?op=vindex&search=0x9ACFE193FFBC1F50
 [rizon]: https://rizon.net
-[twitter]: https://twitter.com/tyilanmenyn
-
+[mastodon]: https://mastodon.social/web/accounts/34234
