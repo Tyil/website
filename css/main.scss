@@ -31,16 +31,27 @@ pre {
 	padding: 0.8rem;
 }
 
+// Create some space before the ToC
 #preamble .sectionbody {
 	margin-bottom: 2rem;
 }
 
+// Spice up the admonition blocks
 .admonitionblock {
+	border-color: #e0e0dc;
+	border-radius: 4px;
+	box-shadow: 0 1px 4px #e0e0dc;
 	margin: 1.4rem;
+	padding: 1rem 0.5rem;
 }
 
 .admonitionblock td.icon {
 	font-weight: bold;
+}
+
+.admonitionblock td.content {
+	border-left: 1px solid #ddddd8;
+	padding: 0 1.25rem;
 }
 
 // Fix FA icons in AsciiDoc documents
