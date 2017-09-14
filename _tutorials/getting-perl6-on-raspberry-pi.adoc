@@ -6,10 +6,17 @@ https://perl6.org/[Perl 6]. I am using a raspberry pi 3 myself, but other
 versions should work fine too. However, older versions are slower, so it might
 take a bit longer to install completely.
 
-IMPORTANT: For those who have never had a Raspberry pi before, you will need
-the Raspberry pi board, a power supply (5v 2A, micro USB) and an SD card of at
-least 4gb, but I would advise at least 8gb. Other than that, you will need a
-monitor with HDMI cable and a keyboard.
+[NOTE]
+====
+For those who have never had a Raspberry pi before, you will need
+the following:
+
+- Raspberry pi board
+- Power supply (5v 2A, micro USB)
+- SD card of at least 4gb, but I would advise at least 8gb
+- Monitor with HDMI cable
+- Keyboard.
+====
 
 Perl 6 will be installed using
 https://github.com/tadzik/rakudobrew[Rakudobrew], which I'll also be using to
