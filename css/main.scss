@@ -13,6 +13,10 @@ h1, h2, h3, h4, h5, h6 {
 	padding: 2.3rem 0 0.8rem 0;
 }
 
+hr {
+	width: 60%;
+}
+
 p {
 	margin: 0;
 }
@@ -20,4 +24,8 @@ p {
 pre {
 	margin: 1rem;
 	padding: 0.8rem;
+}
+
+#preamble .sectionbody {
+	margin-bottom: 2rem;
 }
