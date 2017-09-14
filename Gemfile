@@ -1,0 +1,5 @@
+gem "bundler"
+gem "jekyll"
+gem "jekyll-asciidoc"
+gem "pygments.rb"
+gem "redcarpet"
