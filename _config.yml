@@ -14,13 +14,17 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://tyil.work" # the base hostname & protocol for your site
 plugins:
   - jekyll-asciidoc
+  - pygments.rb
 
 keep_files:
   - img
 asciidoctor:
   attributes:
-    imagesdir: /img
     icons: font
+    imagesdir: /img
+    pygments-style: emacs
+    pygments-stylesheet: css/pygments.css
+    source-highlighter: pygments
 
 # Build settings
 markdown: redcarpet
