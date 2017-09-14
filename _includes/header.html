@@ -1,19 +1,26 @@
 <header id="site-header">
-	<h1>
-		<a href="{{ site.baseurl }}/">
-			{{ site.title }}
-		</a>
-	</h1>
-	<nav>
-		<ul>
-			{% for collection in site.collections %}
-				{% if collection.label == "posts" %}
-					{% continue %}
-				{% endif %}
-				<li>
-					<a href="{{ collection.label | prepend: "/" | prepend: site.baseurl }}.html">{{ collection.label }}</a>
-				</li>
-			{% endfor %}
-		</ul>
-	</nav>
+	<div class="navbar navbar-toggleable-md fixed-top navbar-inverse bg-primary">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="container">
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<a href="{{site.baseurl}}" class="navbar-brand">{{site.title}}</a>
+				<ul class="navbar-nav">
+				</ul>
+
+				<ul class="nav navbar-nav ml-auto">
+					{% for collection in site.collections %}
+						{% if collection.label == "posts" %}
+							{% continue %}
+						{% endif %}
+						<li class="nav-item">
+							<a class="nav-link" href="{{ collection.label | prepend: "/" | prepend: site.baseurl }}.html">{{ collection.label }}</a>
+						</li>
+					{% endfor %}
+				</ul>
+
+			</div>
+		</div>
+	</div>
 </header>
