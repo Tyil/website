@@ -1,7 +1,6 @@
 ---
 title: "How to: git"
 layout: post
-wip: true
 authors:
   - ["Patrick Spek", "http://tyil.work"]
 ---
