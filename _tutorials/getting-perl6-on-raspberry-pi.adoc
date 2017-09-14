@@ -1,5 +1,6 @@
 = Getting started with Perl 6 on a Raspberry pi
 :toc: preamble
+:icons: font
 
 In this tutorial I'll get you through setting up a Raspberry pi with
 https://perl6.org/[Perl 6]. I am using a raspberry pi 3 myself, but other
