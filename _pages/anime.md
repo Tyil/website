@@ -9,7 +9,7 @@ mostly exists for me to keep track of how far I am with the series I am
 watching, and to have a nice list of series I still want to watch.
 
 ### Watching
-<table>
+<table class="table">
 	<thead>
 		<tr>
 			<th>Series</th>
@@ -32,7 +32,7 @@ watching, and to have a nice list of series I still want to watch.
 </table>
 
 ### Completed
-<table>
+<table class="table">
 	<thead>
 		<tr>
 			<th>Series</th>
@@ -55,7 +55,7 @@ watching, and to have a nice list of series I still want to watch.
 </table>
 
 ### Plan to watch
-<table>
+<table class="table">
 	<thead>
 		<tr>
 			<th>Series</th>
@@ -74,4 +74,3 @@ watching, and to have a nice list of series I still want to watch.
 		{% endfor %}
 	</tbody>
 </table>
-
