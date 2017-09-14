@@ -148,7 +148,7 @@ is all documented on the repository's `README.md` file as well, but I'll
 explain it here too. I do make a few small tweaks here and there to match my
 preferred setup more closely.
 
-Clone the repository to your system, and add it tho your `$PATH` to be able to
+Clone the repository to your system, and add it to your `$PATH` to be able to
 use the scripts bundled with it:
 
 [source,sh]
