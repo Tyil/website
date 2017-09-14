@@ -15,6 +15,13 @@ url: "http://tyil.work" # the base hostname & protocol for your site
 plugins:
   - jekyll-asciidoc
 
+keep_files:
+  - img
+asciidoctor:
+  attributes:
+    imagesdir: /img
+    icons: font
+
 # Build settings
 markdown: redcarpet
 
