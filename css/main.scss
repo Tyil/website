@@ -9,6 +9,11 @@ body {
 	margin-bottom: 40px;
 }
 
+code {
+	// Makes in-line code blocks not break between words
+	display: inline-block;
+}
+
 h1, h2, h3, h4, h5, h6 {
 	padding: 2.3rem 0 0.8rem 0;
 }
