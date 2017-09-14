@@ -1,0 +1,210 @@
+= Getting started with Perl 6 on a Raspberry pi
+:toc: preamble
+
+In this tutorial I'll get you through setting up a Raspberry pi with
+https://perl6.org/[Perl 6]. I am using a raspberry pi 3 myself, but other
+versions should work fine too.  However, older versions are slower, so it might
+take a bit longer to install completely.
+
+Perl 6 will be installed using
+https://github.com/tadzik/rakudobrew[Rakudobrew], which I'll also be using to
+get https://github.com/ugexe/zef[zef] installed. Zef is the recommended module
+manager for Perl 6.
+
+== Setting up Raspbian
+
+The first step is getting the OS set up. To keep this tutorial simple, I will
+stick to https://www.raspbian.org/[Raspbian], but if you feel confident in your
+skills you can use any other distribution or OS. Perl 6 installs the same on
+all UNIX(-like) operating systems.
+
+=== Get the image
+
+First, https://www.raspberrypi.org/downloads/raspbian/[download the Raspbian
+image from the raspberry pi download page]. I chose the `LITE` version, but if
+you prefer having a graphical desktop you can go for the `DESKTOP` version
+instead.
+
+At the time of writing, this means I got the
+`2017-09-07-raspbian-stretch-lite.zip`. If you want to verify you got the
+correct download and nothing went wrong saving it to your disk, you can verify
+the checksum. The checksum for your download is noted below the download links.
+To get the checksum of the file you downloaded, use `sha256sum` as follows:
+
+[source,sh]
+----
+sha256sum 2017-09-07-raspbian-stretch-lite.zip
+----
+
+If the checksum matches the one noted below the download button you used, it
+should be fine, and you can continue with extracting the image from the zip
+using `unzip`:
+
+[source,sh]
+----
+unzip 2017-09-07-raspbian-stretch-lite.zip
+----
+
+This will result in a similarly named file, but with a `.img` extension instead
+of `.zip`. This is the image that you can write to the SD card.
+
+=== Write the image to the SD card
+
+This step is pretty easy, but typos here can be disastrous for the system
+you're using to write to the SD card.
+
+Open a terminal and run `dmesg -w`, prepended by `sudo` or `doas` to get the
+right permissions to run it. This will give immediate feedback when you insert
+your SD card, and shows which device it is being assigned to. In my case, this
+was `sdb`, which means the device file resides at `/dev/sdb`.
+
+Now, to actually write the image, I'll use `dd` since this is everyone's
+favourite tool, it seems. If you feel adventurous enough to try out something
+different, feel free to read up on
+https://www.vidarholen.net/contents/blog/?p=479[Useless Use of dd].
+
+Make sure to make the `if` argument point to the correct path with your
+extracted raspbian image, and `of` to point to the correct device as identified
+earlier. In order to be allowed to run this command, you must be root, which
+can be achieved by using `sudo` or `doas` again.
+
+[source,sh]
+----
+dd bs=4M status=progress if=/path/to/2017-09-07-raspbian-stretch-lite.img of=/dev/sdb
+sync
+----
+
+Afterwards, plug it into your raspberry pi and attach all cables you might
+need. Think of stuff like a keyboard, mouse, monitor, internet, power. Do power
+last, as the raspberry pi will start immediatly once it receives power.
+
+== First boot
+
+The raspberry pi should start booting the moment you supply it with power. If
+you attach the HDMI after the power, it's possible you won't have display
+working, so make sure HDMI is attached before powering up.
+
+You'll see some text scrolling by, up to a point where it asks you for a
+`login`, and accepts keyboard input. The default username is `pi`, and the
+default password is `raspberry`. You are strongly advised to change the
+password upon login, which can be done in the next stop.
+
+=== Configuration
+
+The raspberry pi comes with its own configuration tool, `raspi-config`. Run
+this with `sudo` prepended in front of it so you gain the right privileges. I
+would advise you to at least change the user password from here. After this you
+should go to `Advanced Options` and expand the filesystem. This will grow the
+filesystem to the entire SD card's size.
+
+NOTE: To get to the buttons on the bottom (`Select`, `Finish` and `Back`), use
+the arrow keys to go left or right.
+
+You can look around the tool for other interesting things to modify. Once you
+are satisfied, go back to the main menu and choose `Finish`. It will ask to
+reboot, which you should accept. This will apply all the new configurations you
+just made.
+
+=== Updating and installing additional packages
+
+It's rare for the system to be completely up to date after installing the image
+on the SD card. Additionally, you also need some extra packages in order to get
+rakudobrew, and to install Perl 6 itself. For this, we use the package manager
+bundled with raspbian, `apt`:
+
+[source,sh]
+----
+sudo apt update
+sudo apt upgrade
+----
+
+This will update the package lists, and then upgrade all outdated packages to
+their newest versions. You should do this at least once a week to make sure
+your system stays up to date.
+
+Once the upgrades are finished, you can install some new packages which are
+needed later on in this tutorial:
+
+[source,sh]
+----
+sudo apt install git build-essential
+----
+
+`git` is required to get the rakudobrew repository and is also used by
+rakudobrew itself to get the sources needed to build Perl 6 and to install zef.
+The `build-essential` package comes with all sorts of tools to build software,
+which is required to build Perl 6.
+
+== Installing Perl 6
+
+Now, we've got a working raspberry pi installation. We can start doing things
+with it, such as playing around with Perl 6.
+
+=== Setting up Rakudobrew
+
+Rakudobrew is a nice tool to manage Perl 6 installations on your system. It can
+also install `zef` for you, so you don't have to deal with this manually. This
+is all documented on the repository's `README.md` file as well, but I'll
+explain it here too. I do make a few small tweaks here and there to match my
+preferred setup more closely.
+
+Clone the repository to your system, and add it tho your `$PATH` to be able to
+use the scripts bundled with it:
+
+[source,sh]
+----
+mkdir -p ~/.local/var
+git clone https://github.com/tadzik/rakudobrew.git ~/.local/var/rakudobrew
+export PATH=${HOME}/.local/var/rakudobrew/bin:$PATH
+hash -r
+----
+
+The `hash -r` call will rehash your PATH, so you can tab-complete `rakudobrew`.
+Next, initialize rakudobrew:
+
+[source,sh]
+----
+rakudobrew init
+----
+
+This will give you a notification to automatically load rakudobrew next time.
+It is advised you follow that message, so you won't have to do it manually each
+time you log in to the system.
+
+=== Installing Perl 6 with MoarVM backend
+
+Now that rakudobrew is installed and available to use, it's time to make use of
+it to install Perl 6.
+
+[source,sh]
+----
+rakudobrew build moar
+----
+
+=== Installing zef, the module manager
+
+Getting zef to work isn't much harder than installing Perl 6, but its a lot
+faster. You can have rakudobrew take care of this too:
+
+[source,sh]
+----
+rakudobrew build zef
+----
+
+== Final words
+
+And that should be it, you now have a working Perl 6 installation with the zef
+module manager to take care of installing and upgrading modules. Now you just
+need to come up with a nice project to work on to start using and learning the
+wonders of Perl 6.
+
+If you need any help on getting started, try the `#perl6` IRC channel on
+Freenode, or check out some of the Perl 6 documentation and introduction sites:
+
+- https://docs.perl6.org/
+- http://perl6intro.com/
+
+For starting projects that are easy to start with and can bring quick results,
+consider making an IRC bot using
+https://github.com/zoffixznet/perl6-IRC-Client[`IRC::Client`], or a small web
+application using https://github.com/Bailador/Bailador[`Bailador`].
