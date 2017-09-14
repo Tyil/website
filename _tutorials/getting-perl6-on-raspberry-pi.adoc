@@ -43,18 +43,23 @@ correct download and nothing went wrong saving it to your disk, you can verify
 the checksum. The checksum for your download is noted below the download links.
 To get the checksum of the file you downloaded, use `sha256sum` as follows:
 
-[source,sh]
+NOTE: Lines prepended with a `$` are to be ran as your normal user, whereas
+lines with a `#` are ment to be ran as "super user". This can be done by using
+a privilege escalation program, such as
+https://www.linux.com/blog/how-use-sudo-and-su-commands-linux-introduction[`sudo`].
+
+[source]
 ----
-sha256sum 2017-09-07-raspbian-stretch-lite.zip
+$ sha256sum 2017-09-07-raspbian-stretch-lite.zip
 ----
 
 If the checksum matches the one noted below the download button you used, it
 should be fine, and you can continue with extracting the image from the zip
 using `unzip`:
 
-[source,sh]
+[source]
 ----
-unzip 2017-09-07-raspbian-stretch-lite.zip
+$ unzip 2017-09-07-raspbian-stretch-lite.zip
 ----
 
 This will result in a similarly named file, but with a `.img` extension instead
@@ -65,10 +70,10 @@ of `.zip`. This is the image that you can write to the SD card.
 This step is pretty easy, but typos here can be disastrous for the system
 you're using to write to the SD card.
 
-Open a terminal and run `dmesg -w`, prepended by `sudo` or `doas` to get the
-right permissions to run it. This will give immediate feedback when you insert
-your SD card, and shows which device it is being assigned to. In my case, this
-was `sdb`, which means the device file resides at `/dev/sdb`.
+Open a terminal and run `dmesg -w` as super user (usually doable using `sudo
+dmesg -w`). This will give immediate feedback when you insert your SD card, and
+shows which device it is being assigned to. In my case, this was `sdb`, which
+means the device file resides at `/dev/sdb`.
 
 Now, to actually write the image, I'll use `dd` since this is everyone's
 favourite tool, it seems. If you feel adventurous enough to try out something
@@ -80,10 +85,10 @@ extracted raspbian image, and `of` to point to the correct device as identified
 earlier. In order to be allowed to run this command, you must be root, which
 can be achieved by using `sudo` or `doas` again.
 
-[source,sh]
+[source]
 ----
-dd bs=4M status=progress if=/path/to/2017-09-07-raspbian-stretch-lite.img of=/dev/sdb
-sync
+# dd bs=4M status=progress if=/path/to/2017-09-07-raspbian-stretch-lite.img of=/dev/sdb
+$ sync
 ----
 
 Afterwards, plug it into your raspberry pi and attach all cables you might
@@ -124,10 +129,10 @@ on the SD card. Additionally, you also need some extra packages in order to get
 rakudobrew, and to install Perl 6 itself. For this, we use the package manager
 bundled with raspbian, `apt`:
 
-[source,sh]
+[source]
 ----
-sudo apt update
-sudo apt upgrade
+# apt update
+# apt upgrade
 ----
 
 This will update the package lists, and then upgrade all outdated packages to
@@ -137,9 +142,9 @@ your system stays up to date.
 Once the upgrades are finished, you can install some new packages which are
 needed later on in this tutorial:
 
-[source,sh]
+[source]
 ----
-sudo apt install git build-essential
+# apt install git build-essential
 ----
 
 `git` is required to get the rakudobrew repository and is also used by
@@ -163,20 +168,20 @@ preferred setup more closely.
 Clone the repository to your system, and add it to your `$PATH` to be able to
 use the scripts bundled with it:
 
-[source,sh]
+[source]
 ----
-mkdir -p ~/.local/var
-git clone https://github.com/tadzik/rakudobrew.git ~/.local/var/rakudobrew
-export PATH=${HOME}/.local/var/rakudobrew/bin:$PATH
-hash -r
+$ mkdir -p ~/.local/var
+$ git clone https://github.com/tadzik/rakudobrew.git ~/.local/var/rakudobrew
+$ export PATH=${HOME}/.local/var/rakudobrew/bin:$PATH
+$ hash -r
 ----
 
 The `hash -r` call will rehash your PATH, so you can tab-complete `rakudobrew`.
 Next, initialize rakudobrew:
 
-[source,sh]
+[source]
 ----
-rakudobrew init
+$ rakudobrew init
 ----
 
 This will give you a notification to automatically load rakudobrew next time.
@@ -188,9 +193,9 @@ time you log in to the system.
 Now that rakudobrew is installed and available to use, it's time to make use of
 it to install Perl 6.
 
-[source,sh]
+[source]
 ----
-rakudobrew build moar
+$ rakudobrew build moar
 ----
 
 === Installing zef, the module manager
@@ -198,9 +203,9 @@ rakudobrew build moar
 Getting zef to work isn't much harder than installing Perl 6, but its a lot
 faster. You can have rakudobrew take care of this too:
 
-[source,sh]
+[source]
 ----
-rakudobrew build zef
+$ rakudobrew build zef
 ----
 
 == Final words
