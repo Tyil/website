@@ -87,7 +87,7 @@ working, so make sure HDMI is attached before powering up.
 You'll see some text scrolling by, up to a point where it asks you for a
 `login`, and accepts keyboard input. The default username is `pi`, and the
 default password is `raspberry`. You are strongly advised to change the
-password upon login, which can be done in the next stop.
+password upon login, which can be done in the next step.
 
 === Configuration
 
