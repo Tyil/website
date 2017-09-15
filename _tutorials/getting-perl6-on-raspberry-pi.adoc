@@ -1,21 +1,21 @@
-= Getting started with Perl 6 on a Raspberry pi
+= Getting started with Perl 6 on a Raspberry Pi
 :toc: preamble
 
-In this tutorial I'll get you through setting up a Raspberry pi with
-https://perl6.org/[Perl 6]. I am using a raspberry pi 3 myself, but other
+In this tutorial I'll get you through setting up a Raspberry Pi with
+https://perl6.org/[Perl 6]. I am using a Raspberry Pi 3 myself, but other
 versions should work fine too. However, older versions are slower, so it might
 take a bit longer to install completely.
 
 [NOTE]
 ====
-For those who have never had a Raspberry pi before, you will need
+For those who have never had a Raspberry Pi before, you will need
 the following:
 
-- Raspberry pi board
+- Raspberry Pi board
 - Power supply (5v 2A, micro USB)
 - SD card of at least 4gb, but I would advise at least 8gb
 - Monitor with HDMI cable
-- Keyboard.
+- Keyboard
 ====
 
 Perl 6 will be installed using
@@ -32,8 +32,8 @@ all UNIX(-like) operating systems.
 
 === Get the image
 
-First, https://www.raspberrypi.org/downloads/raspbian/[download the Raspbian
-image from the raspberry pi download page]. I chose the `LITE` version, but if
+First, https://www.Raspberrypi.org/downloads/raspbian/[download the Raspbian
+image from the Raspberry Pi download page]. I chose the `LITE` version, but if
 you prefer having a graphical desktop you can go for the `DESKTOP` version
 instead.
 
@@ -91,24 +91,24 @@ can be achieved by using `sudo` or `doas` again.
 $ sync
 ----
 
-Afterwards, plug it into your raspberry pi and attach all cables you might
+Afterwards, plug it into your Raspberry Pi and attach all cables you might
 need. Think of stuff like a keyboard, mouse, monitor, internet, power. Do power
-last, as the raspberry pi will start immediatly once it receives power.
+last, as the Raspberry Pi will start immediatly once it receives power.
 
 == First boot
 
-The raspberry pi should start booting the moment you supply it with power. If
+The Raspberry Pi should start booting the moment you supply it with power. If
 you attach the HDMI after the power, it's possible you won't have display
 working, so make sure HDMI is attached before powering up.
 
 You'll see some text scrolling by, up to a point where it asks you for a
 `login`, and accepts keyboard input. The default username is `pi`, and the
-default password is `raspberry`. You are strongly advised to change the
+default password is `Raspberry`. You are strongly advised to change the
 password upon login, which can be done in the next step.
 
 === Configuration
 
-The raspberry pi comes with its own configuration tool, `raspi-config`. Run
+The Raspberry Pi comes with its own configuration tool, `raspi-config`. Run
 this with `sudo` prepended in front of it so you gain the right privileges. I
 would advise you to at least change the user password from here. After this you
 should go to `Advanced Options` and expand the filesystem. This will grow the
@@ -154,7 +154,7 @@ which is required to build Perl 6.
 
 == Installing Perl 6
 
-Now, we've got a working raspberry pi installation. We can start doing things
+Now, we've got a working Raspberry Pi installation. We can start doing things
 with it, such as playing around with Perl 6.
 
 === Setting up Rakudobrew
