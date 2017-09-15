@@ -95,7 +95,7 @@ Afterwards, plug it into your Raspberry Pi and attach all cables you might
 need. Think of stuff like a keyboard, mouse, monitor, internet, power. Do power
 last, as the Raspberry Pi will start immediatly once it receives power.
 
-== First boot
+=== First boot
 
 The Raspberry Pi should start booting the moment you supply it with power. If
 you attach the HDMI after the power, it's possible you won't have display
