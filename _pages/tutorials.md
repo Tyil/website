@@ -7,5 +7,8 @@ permalink: /tutorials.html
 This is a list of tutorials I wrote.
 
 {% for tutorial in site.tutorials %}
-* [{{ tutorial.title }}]({{ tutorial.url }}) {% if tutorial.wip %} (**Work in progress**) {% endif %}
+{% if tutorial.wip %}
+	{% continue %}
+{% endif %}
+* [{{ tutorial.title }}]({{ tutorial.url }})
 {% endfor %}

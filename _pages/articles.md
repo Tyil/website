@@ -9,5 +9,8 @@ explaining the same thing over and over again. As such, most articles will
 probably be little rants.
 
 {% for article in site.articles %}
-* [{{ article.title }}]({{ article.url }}) {% if article.wip %} (**Work in progress**) {% endif %}
+{% if article.wip %}
+	{% continue %}
+{% endif %}
+* [{{ article.title }}]({{ article.url }})
 {% endfor %}
