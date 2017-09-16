@@ -38,6 +38,23 @@ Signal]. It should be clear to anyone that end-to-end encryption has to be a
 standard and implemented properly. Cloudflare goes out of its way to break this
 implementation.
 
+=== Cloudbleed
+The danger of their MITM style of operation was shown be the
+https://en.wikipedia.org/wiki/Cloudbleed[Cloudbleed] vulnerability. It also
+shows that they make use of their MITM position to scan the data your site and
+a visitor are exchanging. This includes private data, such as passwords.
+
+Even if you have an SSL connection to Cloudflare, they still decrypt it on
+their end. They then serve the content under their own certificate. This makes
+it look to the visitor like everything is secure, the browser says so after
+all. But in reality, they don't have a secure connection to your server. They
+only have one up to Cloudflare, and when it reaches Cloudflare, they decrypt it
+and re-encrypt it using your certificate again. If you use one, of course,
+otherwise they'll pass it on in plaintext back to your server, which is even
+more dangerous. Whether or not you do, the content exists in plaintext on
+Cloudflare's servers, which is not what you want, if you truly care about
+security.
+
 == Eliminating your privacy
 If Cloudflare were to fix their MITM behavior, the privacy problem would not
 be solved all of a sudden. There are more questionable practices in use by
