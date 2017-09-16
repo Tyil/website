@@ -3,11 +3,11 @@ layout: default
 permalink: /projects.html
 ---
 
-## Projects
+# Projects
 Here is a list of all projects I worked on that I deem good or important enough
 to publish here.
 
-<table>
+<table class="table">
 	<thead>
 		<tr>
 			<th>Project</th>
