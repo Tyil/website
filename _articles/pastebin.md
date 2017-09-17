@@ -65,7 +65,6 @@ Luckily, there are plenty of alternatives that do not treat their users with
 such disrespect. I ask anyone who is still using Pastebin to stop doing this,
 and use any of the alternatives.
 
-* [Termbin][termbin]
 * [ix.io][ix]
 * [cry.nu][crynu] (works like termbin: `nc cry.nu 9999 < file`)
 
