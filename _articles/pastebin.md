@@ -67,6 +67,7 @@ and use any of the alternatives.
 
 * [ix.io][ix]
 * [cry.nu][crynu] (works like termbin: `nc cry.nu 9999 < file`)
+* [0bin.net](https://0bin.net/)
 
 [crynu]: https://cry.nu
 [cloudflare]: http://tyil.work/articles/cloudflare.html
