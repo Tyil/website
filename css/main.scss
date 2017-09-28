@@ -65,6 +65,10 @@ a.navbar-brand {
 	padding: 0 1.25rem;
 }
 
+.admonitionblock td.content p:last-of-type {
+	margin: 0;
+}
+
 // Spice up the code blocks
 .highlight {
 	border: 2px solid #f0f0f0;
