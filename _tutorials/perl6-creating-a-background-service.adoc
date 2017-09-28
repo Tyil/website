@@ -14,16 +14,17 @@ on the internals:
 
 [quote, jnthn, #perl6]
 ____
-2017-09-27 21:49:36     *       jnthn suspects fork + multi-threaded VM = pain
-2017-09-27 21:49:53     jnthn   Since fork only clones one thread - the one that called it
-2017-09-27 21:50:20     jnthn   So suddenly you've got an instance of the VM missing most of its threads
+(jnthn suspects fork + multi-threaded VM = pain) Since fork only clones one
+thread - the one that called it. So suddenly you've got an instance of the VM
+missing most of its threads.
 ____
 
 [quote, geekosaur, #perl6]
 ____
-2017-09-27 21:58:03     geekosaur       the most common failure mode is that some thread is holding e.g. a mutex (or a userspace lock) during the fork
-2017-09-27 21:58:21     geekosaur       the thread goes away but the lock is process level and remains, with nithing around to know to unlock it
-2017-09-27 21:58:37     geekosaur       so then things work until something else needs that lock and suddenly you deadlock
+The most common failure mode is that some thread is holding e.g. a mutex (or a
+userspace lock) during the fork.  The thread goes away but the lock is process
+level and remains, with nithing around to know to unlock it.  So then things
+work until something else needs that lock and suddenly you deadlock.
 ____
 
 == Or is it?
