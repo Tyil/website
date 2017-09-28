@@ -7,9 +7,10 @@ system in Perl 6. This has to run as service, which means that for most service
 managers it has to be able to run in the background.
 
 == It's not possible!
-After a lot of trying and talking with the folks at #perl6 I was told that it
-is not possible to do this in pure Perl 6, explained by people with more
-knowledge than I have on the internals:
+After a lot of trying and talking with the folks at
+irc://chat.freenode.net:6697/#perl6[#perl6] I was told that it is not possible
+to do this in pure Perl 6, explained by people with more knowledge than I have
+on the internals:
 
 [quote, jnthn, #perl6]
 ____
