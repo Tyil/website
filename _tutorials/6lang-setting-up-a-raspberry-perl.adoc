@@ -1,4 +1,4 @@
-= Setup a Raspberry Perl
+= 6lang - Setting up a Raspberry Perl
 :toc: preamble
 
 In this tutorial I'll get you through setting up a Raspberry Pi with
