@@ -43,7 +43,7 @@ background:
 
 main()
 {
-	perl6 -Ilib bin/shinrind
+    perl6 -Ilib bin/shinrind
 }
 
 main "$@" &
