@@ -1,4 +1,4 @@
-= Getting started with Perl 6 on a Raspberry Pi
+= Setup a Raspberry Perl
 :toc: preamble
 
 In this tutorial I'll get you through setting up a Raspberry Pi with
