@@ -6,30 +6,36 @@ https://github.com/scriptkitties/perl6-Shinrin[Shinrin], a centralized logging
 system in Perl 6. This has to run as service, which means that for most service
 managers it has to be able to run in the background.
 
+[NOTE]
+====
+If you just want to get to the solution and don't care for the details, just
+head straight to link:#the-final-solution[the full script].
+====
+
 == It's not possible!
 After a lot of trying and talking with the folks at
 irc://chat.freenode.net:6697/#perl6[#perl6] I was told that it is not possible
 to do this in pure Perl 6, explained by people with more knowledge than I have
 on the internals:
 
-[quote, jnthn, #perl6]
+[quote, jnthn]
 ____
 (jnthn suspects fork + multi-threaded VM = pain) Since fork only clones one
 thread - the one that called it. So suddenly you've got an instance of the VM
 missing most of its threads.
 ____
 
-[quote, geekosaur, #perl6]
+[quote, geekosaur]
 ____
 The most common failure mode is that some thread is holding e.g. a mutex (or a
-userspace lock) during the fork.  The thread goes away but the lock is process
-level and remains, with nithing around to know to unlock it.  So then things
+userspace lock) during the fork. The thread goes away but the lock is process
+level and remains, with nothing around to know to unlock it. So then things
 work until something else needs that lock and suddenly you deadlock.
 ____
 
 == Or is it?
 Luckily, the same people were able to think up of a work-around, which can be
-made in POSIX sh, so it's usable on any decent OS. The workaround letting a
+made in POSIX sh, so it's usable on any decent OS. The workaround is to let a
 little shell script fork into the background, and let that run the Perl
 application.
 
@@ -49,8 +55,9 @@ main()
 main "$@" &
 ----
 
-This works just fine if the working directory is correct, ie you're currently
-in the parent directory to `lib` and `bin` of the program.
+This works just fine if the working directory is correct. This means you need
+to be in the parent directory to `lib` and `bin` of the program to make it
+work.
 
 == Improving the forking script
 While that short script works fine to show a proof of concept, in order to make
@@ -77,14 +84,14 @@ in. You can simply `cd` to that and be assured you're in the right directory.
 
 In Perl 6, it is expected for executable files to live in the `bin` directory
 of your project repository. So you should actually be in the parent of the
-directory holding your script. Furthermore, you should check the `cd` action
-went correct, just to be safe.
+directory holding your script. Furthermore, you should check the `cd` command
+executed correctly, just to be safe.
 
 [source,sh]
 ----
 if ! cd "${DIR}/.."
 then
-    printf -- "Failed to cd"
+    printf -- "Failed to cd\n"
     exit 1
 fi
 ----
@@ -93,7 +100,8 @@ fi
 ====
 I've opted to use `printf` instead of `echo`, since `echo` comes with a lot of
 possible switches which are not documented in the POSIX specification in a lot
-of cases. `printf` is much more predictable in this case.
+of cases. `printf` is much more predictable in this case. These are just simple
+strings, so it should be fine, but I prefer to stay consistent in my use.
 ====
 
 === Disable `STDOUT` and `STDERR`
