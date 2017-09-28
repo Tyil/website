@@ -65,6 +65,28 @@ a.navbar-brand {
 	padding: 0 1.25rem;
 }
 
+// Spice up the code blocks
+.highlight {
+	border: 2px solid #f0f0f0;
+	border-radius: 4px;
+}
+
+// Spice up the quote blocks
+.quoteblock {
+	padding: .5rem 1rem;
+	border: 2px solid #f0f0f0;
+	border-radius: 4px;
+	background-color: #f8f8f8;
+	margin-bottom: .3rem;
+	font-style: italic;
+}
+
+.quoteblock .attribution {
+	font-style: normal;
+	text-align: right;
+	font-weight: bolder;
+}
+
 // Fix FA icons in AsciiDoc documents
 span.icon>.fa {
 	cursor: default;
