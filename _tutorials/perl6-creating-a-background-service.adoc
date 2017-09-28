@@ -1,0 +1,153 @@
+= Creating a background service in Perl 6
+:toc: preamble
+
+I've recently made some progress on
+https://github.com/scriptkitties/perl6-Shinrin[Shinrin], a centralized logging
+system in Perl 6. This has to run as service, which means that for most service
+managers it has to be able to run in the background.
+
+== It's not possible!
+After a lot of trying and talking with the folks at #perl6 I was told that it
+is not possible to do this in pure Perl 6, explained by people with more
+knowledge than I have on the internals:
+
+[quote, jnthn, #perl6]
+____
+2017-09-27 21:49:36     *       jnthn suspects fork + multi-threaded VM = pain
+2017-09-27 21:49:53     jnthn   Since fork only clones one thread - the one that called it
+2017-09-27 21:50:20     jnthn   So suddenly you've got an instance of the VM missing most of its threads
+____
+
+[quote, geekosaur, #perl6]
+____
+2017-09-27 21:58:03     geekosaur       the most common failure mode is that some thread is holding e.g. a mutex (or a userspace lock) during the fork
+2017-09-27 21:58:21     geekosaur       the thread goes away but the lock is process level and remains, with nithing around to know to unlock it
+2017-09-27 21:58:37     geekosaur       so then things work until something else needs that lock and suddenly you deadlock
+____
+
+== Or is it?
+Luckily, the same people were able to think up of a work-around, which can be
+made in POSIX sh, so it's usable on any decent OS. The workaround letting a
+little shell script fork into the background, and let that run the Perl
+application.
+
+=== A first example
+This is fairly simple to create, as in this example to launch `shinrind` in the
+background:
+
+[source,sh]
+----
+#! /usr/bin/env sh
+
+main()
+{
+	perl6 -Ilib bin/shinrind
+}
+
+main "$@" &
+----
+
+This works just fine if the working directory is correct, ie you're currently
+in the parent directory to `lib` and `bin` of the program.
+
+== Improving the forking script
+While that short script works fine to show a proof of concept, in order to make
+it viable for real-world scenarios, it can use some improvements. After all, it
+would be annoying if you'd have to `cd` to a specific directory any time you
+want to start your application.
+
+=== Ensure you are in the directory you should be in
+So for starters, let's make sure that you can run it from anywhere on your
+system.  For this, you should set the working directory for the script, so you
+don't have to do it manually. Because the script runs in its own subshell, the
+shell you're working from remains unaffected.
+
+A POSIX compliant way to get the directory the script is stored in is as
+follows:
+
+[source,sh]
+----
+DIR=$(CDPATH="" cd -- "$(dirname -- "$0")" && pwd)
+----
+
+This will set `$DIR` to the path of the directory the shell script is stored
+in. You can simply `cd` to that and be assured you're in the right directory.
+
+In Perl 6, it is expected for executable files to live in the `bin` directory
+of your project repository. So you should actually be in the parent of the
+directory holding your script. Furthermore, you should check the `cd` action
+went correct, just to be safe.
+
+[source,sh]
+----
+if ! cd "${DIR}/.."
+then
+    printf -- "Failed to cd"
+    exit 1
+fi
+----
+
+[NOTE]
+====
+I've opted to use `printf` instead of `echo`, since `echo` comes with a lot of
+possible switches which are not documented in the POSIX specification in a lot
+of cases. `printf` is much more predictable in this case.
+====
+
+=== Disable `STDOUT` and `STDERR`
+A started service should not be polluting your interactive shell, so you should
+disable (or otherwise redirect) `STDOUT` and `STDERR`. This is done in the
+shell using a small bit of code behind whatever you want to redirect:
+
+[source,sh]
+----
+> /dev/null 2>&1
+----
+
+This will redirect `STDERR` to `STDOUT`, making everything appear on the
+`STDOUT` stream, and `STDOUT` will be redirected to `/dev/null`. If you want to
+log everything to a single file, you can replace `/dev/null` with another file
+of your choice. If you don't want logs to be overwritten on each start, use a
+`>>` instead of a single `>` at the start.
+
+If you want to log errors and output in different files, you can use the
+following:
+
+[source,sh]
+----
+> /var/log/service.log 2> /var/log/service.err
+----
+
+This will put standard output in `/var/log/service.log` and errors in
+`/var/log/service.err`.
+
+=== Fork just the Perl 6 program
+In the initial example, I put the `&` behind the `main` call, at the bottom of
+the script. While this works just fine for most simple usage, if you want to do
+additional chores, like creating a pidfile after starting the Perl 6 program,
+you're out of luck. If you were to only fork the Perl 6 application, you could
+handle some other cases in the shell script.
+
+== The final solution
+For those eager to just get going with this, here is the complete example
+script to just fork your Perl program into the background:
+
+[source,sh]
+----
+#! /usr/bin/env sh
+
+readonly DIR=$(CDPATH="" cd -- "$(dirname -- "$0")" && pwd)
+
+main()
+{
+    if ! cd "${DIR}/.."
+    then
+        printf -- "Failed to cd"
+        exit 1
+    fi
+
+    perl6 -Ilib bin/shinrind > /dev/null >2&1 &
+}
+
+main "$@"
+----
