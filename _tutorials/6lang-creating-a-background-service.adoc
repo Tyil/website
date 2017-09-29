@@ -96,14 +96,6 @@ executed correctly, just to be safe.
 cd -- "${DIR}/.." || exit
 ----
 
-[NOTE]
-====
-I've opted to use `printf` instead of `echo`, since `echo` comes with a lot of
-possible switches which are not documented in the POSIX specification in a lot
-of cases. `printf` is much more predictable in this case. These are just simple
-strings, so it should be fine, but I prefer to stay consistent in my use.
-====
-
 === Disable `STDOUT` and `STDERR`
 A started service should not be polluting your interactive shell, so you should
 disable (or otherwise redirect) `STDOUT` and `STDERR`. This is done in the
