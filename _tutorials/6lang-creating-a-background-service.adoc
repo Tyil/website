@@ -33,6 +33,10 @@ level and remains, with nothing around to know to unlock it. So then things
 work until something else needs that lock and suddenly you deadlock.
 ____
 
+Not much later, `jnthn` https://github.com/perl6/doc/commit/8f9443c3ac[pushed a
+commit] to update the docs to clarify that a `fork` call through `NativeCall`
+will probably not give the result you were hoping for.
+
 == Or is it?
 Luckily, the same people were able to think up of a work-around, which can be
 made in POSIX sh, so it's usable on any decent OS. The workaround is to let a
