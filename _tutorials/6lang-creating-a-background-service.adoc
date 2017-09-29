@@ -93,11 +93,7 @@ executed correctly, just to be safe.
 
 [source,sh]
 ----
-if ! cd "${DIR}/.."
-then
-    printf -- "Failed to cd\n"
-    exit 1
-fi
+cd -- "${DIR}/.." || exit
 ----
 
 [NOTE]
@@ -154,11 +150,7 @@ readonly DIR=$(CDPATH="" cd -- "$(dirname -- "$0")" && pwd)
 
 main()
 {
-    if ! cd "${DIR}/.."
-    then
-        printf -- "Failed to cd"
-        exit 1
-    fi
+    cd -- "${DIR}/.." || exit
 
     perl6 -Ilib bin/shinrind "$@" > /dev/null >2&1 &
 }
