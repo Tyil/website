@@ -1,0 +1,186 @@
+= Hacktoberfest 2017
+:toc: preamble
+
+This year I actively participated in the Hacktoberfest event, which is "a
+month-long celebration of open source software". Ironic, given that the
+companies organising it don't have their own software stack open source.
+
+I've found some issues to solve in https://perl6.org/[Perl 6] projects, and
+that lead to trying to solve issues in some other projects, and eventually I
+got more PRs out than there are days in the month. It did go at the cost of
+some sleep, but in the end it seems worth it. In this article, I'll give a
+small overview of all those PRs, in no particular order.
+
+== Projects contributed to
+=== Funtoo
+==== funtoo/boot-update
+- https://github.com/funtoo/boot-update/pull/14
+
+When reinstalling my server to try out https://docker.com[Docker], I noticed an
+error in the output of the `boot-update` utility, a tool from
+https://funtoo.org[Funtoo] to make installing and configuring the bootloader
+easier. The error itself was a small type of a `-` which had to be a `_`.
+
+==== scriptkitties/overlay
+- https://github.com/scriptkitties/overlay/pull/14
+- https://github.com/scriptkitties/overlay/pull/15
+- https://github.com/scriptkitties/overlay/pull/16
+
+This is the overlay of the https://scriptkitties.church[Scriptkitties]
+community. It's got some additional software released under a free license that
+is not available in the main portage repository. Most of the packages in here
+are of software made by the Scriptkitties community.
+
+This month I updated the readme to be in asciidoc, my new favourite format for
+documentation. The Travis builds should also no longer throw errors, so those
+can be used again to ensure the overlay is meeting quality standards. One
+package has also been updated to be at it's latest version again.
+
+=== Perl 6
+==== moznion/p6-HTML-Escape
+- https://github.com/moznion/p6-HTML-Escape/pull/1
+
+On this repository, I added a subroutine to also handle unescaping HTML special
+characters. Sadly, the owner of this repository has shown no sign of life, and
+the PR remains open.
+
+==== rakudo/rakudo
+- https://github.com/rakudo/rakudo/pull/1180
+
+This is a rather small issue, but I noticed it when compiling Perl 6 with
+https://github.com/tadzik/rakudobrew[Rakudobrew] and it annoyed me.
+http://zoffix.com/[Zoffix] was a great help in getting me started on this one,
+and in general with many other Perl related contributions as well.
+
+==== scriptkitties/perl6-IRC-Client-Plugin-Github
+- https://github.com/scriptkitties/perl6-IRC-Client-Plugin-Github/pull/2
+
+A neat feature for the Github notification system, HMAC adds a header that can
+be used to verify the body of the request, and can be used to verify the other
+end of the connection knows the right "secret". Inspired by a Perl 6 bot that
+already did this, I made a PR to make this a proper
+https://github.com/zoffixznet/perl6-IRC-Client[IRC::Client] plugin. It is still
+being tested in https://github.com/scriptkitties/musashi[musashi].
+
+==== perl6/roast
+- https://github.com/perl6/roast/pull/342
+
+Roast is the test suite for Perl 6. There was an open issue for the IO::File
+tests, which needed expansion. As my first contribution during a Perl 6
+squashaton, I expanded these tests to fix the issue that was open for it.
+
+==== vim-perl/vim-perl6
+- https://github.com/vim-perl/vim-perl6/pull/9
+- https://github.com/vim-perl/vim-perl6/pull/10
+
+This first PR has become a bit of a drag, with the maintainers not responding
+for two weeks, but suddenly very eager to respond when I mention I'm going to
+fork off and update the reference on the Perl documentation to my fork.
+Nonetheless, it's sorted out, and the abbreviations for unicode operators
+have been merged in!
+
+==== timo/json_fast
+- https://github.com/timo/json_fast/pull/32
+
+`JSON::Fast` is the de-facto standard for dealing with JSON data in Perl 6 it
+seems. For my work with `App::Cpan6` I wanted the JSON data to be ordered, so I
+added that as an option when calling `to-json`. Having the JSON data ordered
+makes it easier to compare diffs of two different versions of the data, making
+git diffs a lot cleaner.
+
+Sadly, timo has not merged the PR yet, so I can't properly depend on it in
+`App::Cpan6`.
+
+==== scriptkitties/perl6-SemVer
+- https://github.com/scriptkitties/perl6-SemVer/pull/1
+
+This is one of the new projects I started. It is intended to be used in
+`App::Cpan6`, since that uses https://semver.org[Semantic Versioning] for all
+modules it works with. This module defines a class that can interpret a SemVer
+notation, and exposes methods to bump any part of the version.
+
+==== perl6/doc
+- https://github.com/perl6/doc/pull/1614
+
+This has been one of the more annoying PRs to work on, as the current `zef`
+maintainer insists everything but his module is wrong, and seemed very
+uninterested to improve the situation for users. After some discussion on IRC,
+some more discussion on IRC, and then some discussion on the PR itself, I
+decided to just word the paragraph differently.
+
+I am still interested in improving the documentation here and the ecosystem
+itself, mainly the `META6.json` specification, and getting `zef` to play nice
+with this spec. If anyone else is interested in helping me out on this, do
+message me on IRC!
+
+==== perl6/perl6.org
+- https://github.com/perl6/perl6.org/pull/86
+- https://github.com/perl6/perl6.org/pull/87
+
+There were some open issues for the https://perl6.org[perl6.org] website, and I
+decided to take a look at some and try to fix them. This resulted in NeoVim
+being added to the list of recommended editors for Perl 6, and the list of IRC
+bots being updated to include all bots in use right now.
+
+==== scriptkitties/p6-MPD-Client
+- https://github.com/scriptkitties/p6-MPD-Client/pull/1
+- https://github.com/scriptkitties/p6-MPD-Client/pull/2
+
+As I was making `App::MPD::AutoQueue` and `App::MPD::Notify`, I found some
+issues in `MPD::Client`. I fixed those to get my two new projects working
+nicely.
+
+==== melezhik/sparrowdo
+- https://github.com/melezhik/sparrowdo/pull/15
+- https://github.com/melezhik/sparrowdo/pull/18
+
+Sparrowdo is a configuration management system, written in Perl 6. I learned
+about it after a reference from the Perl 6 Weekly, and set out to try it. I ran
+into some issues, which I reported and eventually fixed.
+
+In addition, I also rewrote the testing script for Travis, which enables
+paralel builds of the tests. This has nearly halved the time required for
+running the full test suite.
+
+==== perl6/ecosystem
+- https://github.com/perl6/ecosystem/pull/371
+- https://github.com/perl6/ecosystem/pull/372
+- https://github.com/perl6/ecosystem/pull/374
+
+These PRs added a module, and removed that one and more later on, since I got a
+PAUSE ID and uploaded my modules to CPAN.
+
+==== scriptkitties/perl6-App-Cpan6
+- https://github.com/scriptkitties/perl6-App-Cpan6/pull/1
+- https://github.com/scriptkitties/perl6-App-Cpan6/pull/2
+- https://github.com/scriptkitties/perl6-App-Cpan6/pull/3
+- https://github.com/scriptkitties/perl6-App-Cpan6/pull/4
+- https://github.com/scriptkitties/perl6-App-Cpan6/pull/12
+- https://github.com/scriptkitties/perl6-App-Cpan6/pull/13
+- https://github.com/scriptkitties/perl6-App-Cpan6/pull/14
+- https://github.com/scriptkitties/perl6-App-Cpan6/pull/15
+
+`App::Cpan6` is a tool I've started working on to assist me in creating new
+Perl 6 modules. There's been a couple of tasks that I do often in the process
+of creating a module, and those tasks should become easier and faster using
+this module.
+
+If everything works out and I learn enough of the module installation process,
+I might consider letting this deal with the installation and updating of
+modules as well.
+
+== In retrospect
+The Hacktoberfest has been an interesting month for me. I've gotten to
+contribute to a project I have come to love a lot, Perl 6. I've also made some
+new friends with similar goals. Sadly I can't put in this much time every month
+of the year, but I would if I could!
+
+I learned many interesting things for Perl 6, new operators, new functions, all
+kinds of cool stuff to improve my Perl scripts with. I also got to learn about
+parallelizing Travis builds with the Sparrowdo project, of which I will write
+another tutorial post later.
+
+I've greatly enjoyed contributing to all the various projects, and would
+recommend other people to check it out too. The people on the respective
+project's IRC channels have been a great help to me to get started, and I can
+help out getting you started as well now.
