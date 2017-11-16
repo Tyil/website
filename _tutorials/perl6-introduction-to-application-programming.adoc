@@ -1,0 +1,760 @@
+= Perl 6 - Introduction to application programming
+:toc: preamble
+
+In this tutorial, I'll be guiding you through creating a simple application in
+Perl 6. If you don't know how to get it up and running on a cheap device to get
+started, do check out the http://TODO/[tutorial to setup Perl 6 on a Raspberry
+Pi].
+
+The application itself will be a simple dice-roller. You give it a number of
+dice to roll, and the number of sides the die has. We'll start off by creating
+it as a console application, then work to make it a GUI as well with the
+`GTK::Simple` module.
+
+== Preparation
+To ease up module/application building, I'll use `App::Cpan6`. This module
+eases up on common tasks required for building other modules or applications.
+So we'll start by installing this module through `zef`.
+
+[source]
+----
+$ zef install App::Cpan6
+----
+
+Next up, we can use `cpan6` to create the new skeleton of our application, with
+the `new` subcommand.
+
+[source]
+----
+$ cpan6 new
+----
+
+This will ask for some user input, which will be recorded in the `META6.json`,
+a json-formatted file to keep track of meta information about the module.
+`cpan6` should take care of this file for you, so you never need to actually
+deal with it.
+
+=== cpan6 input
+Since the `cpan6 new` command requires some input, I'll walk through these
+options and explain how these would affect your eventual application.
+
+==== Name of the module
+This is the name given to the module. This will be used for the directory name,
+which by default in `cpan6` will be `perl6-` prepended to a lower-case version
+of the module name. If you ever wish to make a module that is to be shared in
+the Perl 6 ecosystem, this should be unique across the entire ecosystem.  If
+you're interested in some guidelines, the
+https://pause.perl.org/pause/query?ACTION=pause_namingmodules[PAUSE guidelines]
+seem to apply pretty well to Perl 6 as well.
+
+For this application, we'll use `Local::App::Dicer`, but you can use whatever
+name you'd prefer here.
+
+==== Your name
+Your name. This will be used as the author's name in the `META6.json`. It is
+used to find out who made it, in order to report issues (or words of praise,
+of course).
+
+==== Your email address
+Your email address. Like your name, it will be used in case someone has to
+contact you in regards off the module.
+
+==== Perl 6 version
+This defaults to `c` right now, and you can just hit enter to accept it. In the
+future, there will be a Perl 6.d available as well, in which case you can use
+this to indicate you want to use the newer features introduced in 6.d. This is
+not the case yet, so you just want to go with the default `c` value here.
+
+==== Module description
+A short description of your module, preferably a single sentence. This is
+useful to people wondering what the module is for, and module managers can show
+to the user.
+
+==== License key
+This indicates the license under which your module is distributed. This
+defaults to `GPL-3.0`, which I strongly recommend to use. The de-facto
+default seems to be `Artistic-2.0`, which is also used for Perl 6 itself.
+
+This identifier is based on the https://spdx.org/licenses/[SPDX license list].
+Anything not mentioned in this list is not acceptable. #TODO Clarify why
+
+== Writing your first test
+With the creation of the directory structure and metadata being taken care of
+by `cpan6`, we can now start on writing things. Tests are not mandatory, but
+are a great tool for quickly checking if everything works. If you make larger
+applications, it really helps not having to manually test anything. Another
+benefit is that you can quickly see if your changes, or those of someone else,
+break anything.
+
+Creating the base template for tests, `cpan6` can help you out again: `cpan6
+touch` can create templates in the right location, so you don't have to deal
+with it. In this case we want to create a test, which we'll call "basic".
+
+[source]
+----
+$ cpan6 touch test basic
+----
+
+This will create the file `t/basic.t` in your module directory. Its contents
+will look as follows:
+
+[source,perl6]
+----
+#! /usr/bin/env perl6
+
+use v6.c;
+
+use Test;
+
+ok True;
+
+done-testing;
+
+# vim: ft=perl6
+----
+
+The only test it has right now is `ok True`, which will always pass testing. We
+will change that line into something more usable for this application:
+
+[source,perl6]
+----
+use Local::App::Dicer;
+
+plan 2;
+
+subtest "Legal rolls", {
+	plan 50;
+
+	for 1..50 {
+		ok 1 ≤ roll($_) ≤ $_, "Rolls between 1 and $_";
+	}
+}
+
+subtest "Illegal rolls", {
+	plan 3;
+
+	throws-like { roll(0) }, X::TypeCheck::Binding::Parameter, "Zero is not accepted";
+	throws-like { roll(-1) }, X::TypeCheck::Binding::Parameter, "Negative rolls are not accepted";
+	throws-like { roll(1.5) }, X::TypeCheck::Binding::Parameter, "Can't roll half sides";
+}
+----
+
+[NOTE]
+====
+Perl 6 allows mathematical characters to make your code more concise, as with
+the ≤ in the above block. If you use http://www.vim.org/[vim], you can make use
+of the https://github.com/vim-perl/vim-perl6[vim-perl6] plugin, which has an
+option to change the longer, ascii-based ops (in this case `<=`) into the
+shorter unicode based ops (in this case `≤`). This specific feature requires
+`let g:perl6_unicode_abbrevs = 1` in your `vimrc` to be enabled with
+`vim-perl6`.
+
+If that's not an option, you can use a
+https://en.wikipedia.org/wiki/Compose_key[compose key]. If that is not viable
+either, you can also stick to using the ascii-based ops. Perl 6 supports both
+of them.
+====
+
+This will run 53 tests, split up in two
+https://docs.perl6.org/language/testing#Grouping_tests[subtests]. Subtests are
+used to logically group your tests. In this case, the calls that are correct
+are in one subtest, the calls that should be rejected are in another.
+
+The `plan` keywords indicate how many tests should be run. This will help spot
+errors in case your expectations were not matched. For more information on
+testing, check out https://docs.perl6.org/language/testing[the Perl 6 docs on
+testing].
+
+We're making use of two test routines, `ok` and `throws-like`. `ok` is a
+simple test: if the given statement is truthy, the test succeeds. The other
+one, `throws-like`, might require some more explanation. The first argument it
+expects is a code block, hence the `{ }`. Inside this block, you can run any
+code you want. In this case, we run code that we know shouldn't work. The
+second argument is the exception it should throw. The test succeeds if the
+right exception is thrown. Both `ok` and `throws-like` accept a descriptive
+string as optional last argument.
+
+=== Running the tests
+A test is useless if you can't easily run it. For this, the `prove` utility
+exists. You can use `cpan6 test` to run these tests properly as well, saving
+you from having to manually type out the full `prove` command with options.
+
+[source]
+----
+$ cpan6 test
+----
+
+You might notice the tests are currently failing, which is correct. The
+`Local::App::Dicer` module doesn't exist yet to test against. We'll be working
+on that next.
+
+[NOTE]
+====
+For those interested, the command run by `cpan6 test` is `prove -e "perl6
+-Ilib" t`. This will include the `lib` directory into the `PERL6PATH` to be
+able to access the libraries we'll be making. The `t` argument specifies the
+directory containing the tests.
+====
+
+== Creating the library
+Again, let's start with a `cpan6` command to create the base template. This
+time, instead of `touch test`, we'll use `touch lib`.
+
+[source]
+----
+$ cpan6 touch unit Local::App::Dicer
+----
+
+This will generate a template file at `lib/Local/App/Dicer.pm6` which some
+defaults set. The file will look like this.
+
+[source,perl6]
+----
+#! /usr/bin/env false
+
+use v6.c;
+
+unit module Local::App::Dicer;
+----
+
+The first line is a https://en.wikipedia.org/wiki/Shebang_(Unix)[shebang]. It
+informs the shell what to do when you try to run the file as an executable
+program. In this case, it will run `false`, which immediately exits with a
+non-success code. This file needs to be run as a Perl 6 module file, and
+running it as a standalone file is an error.
+
+The `use v6.c` line indicates what version of Perl 6 should be used, and is
+taken from the `META6.json`, which was generated with `cpan6 new`.  The last
+line informs the name of this module, which is `Local::App::Dicer`. Beneath
+this, we can add subroutines, which can be exported. These can then be accessed
+from other Perl 6 files that `use` this module.
+
+=== Creating the `roll` subroutine
+Since we want to be able to `roll` a die, we'll create a subroutine to do
+exactly that. Let's start with the signature, which tells the compiler the name
+of the subroutine, which arguments it accepts, their types and what type the
+subroutine will return.
+
+[TIP]
+====
+Perl 6 is gradually typed, so all type information is optional. The subroutine
+arguments are optional too, but you will rarely want a subroutine that doesn't
+have an argument list.
+====
+
+[source,perl6]
+----
+sub roll($sides) is export
+{
+	$sides
+}
+----
+
+Let's break this down.
+
+- `sub` informs the compiler we're going to create a subroutine.
+- `roll` is the name of the subroutine we're going to create.
+- `$sides` defines an argument used by the subroutine.
+- `is export` tells the compiler that this subroutine is to be exported. This
+  allows access to the subroutine to another program that imports this module
+  through a `use`.
+- `{ $sides }` is the subroutine body. In Perl 6, the last statement is also
+  the return value in a code block, thus this returns the value of $sides. A
+  closing `;` is also not required for the last statement in a block.
+
+If you run `cpan6 test` now, you can see it only fails 1/2 subtests:
+
+[source]
+----
+# TODO: Add output of failing tests
+----
+
+Something is going right, but not all of it yet. The 3 tests to check for
+illegal rolls are still failing, because there's no constraints on the input of
+the subroutine.
+
+=== Adding constraints
+The first constraint we'll add is to limit the value of `$sides` to an `Int:D`.
+The first part of this constraint is common in many languages, the `Int` part.
+The `:D` requires the argument to be **defined**. This forces an actual
+existing instance of `Int`, not a `Nil` or undefined value.
+
+[source,perl6]
+----
+sub roll(Int:D $sides) is export
+----
+
+Fractional input is no longer allowed, since an `Int` is always a round number.
+But an `Int` is still allowed to be 0 or negative, which isn't possible in a
+dice roll. Nearly every language will make you solve these two cases in the
+subroutine body. But in Perl 6, you can add another constraint in the signature
+that checks for exactly that:
+
+[source,perl6]
+----
+sub roll(Int:D $sides where $sides > 0) is export
+----
+
+The `where` part specifies additional constraints, in this case `$sides > 0`.
+So now, only round numbers larger than 0 are allowed. If you run `cpan6 test`
+again, you should see all tests passing, indicating that all illegal rolls are
+now correctly disallowed.
+
+=== Returning a random number
+So now that we can be sure that the input is always correct, we can start on
+making the output more random. In Perl 6, you can take a number and call
+`.rand` on it, to get a random number between 0 and the value of the number you
+called it on. This in turn can be rounded up to get a number ranging from 1 to
+the value of the number you called `.rand` on. These two method calls can also
+be changed to yield concise code:
+
+[source,perl6]
+----
+sub roll(Int:D $sides where $sides > 0) is export
+{
+	$sides.rand.ceiling
+}
+----
+
+That's all we need from the library itself. Now we can start on making a usable
+program out of it.
+
+== Adding a console interface
+First off, a console interface. `cpan6` can `touch` a starting point for an
+executable script as well, using `cpan6 touch bin`:
+
+[source]
+----
+$ cpan6 touch bin dicer
+----
+
+This will create the file `bin/dicer` in your repository, with the following
+template:
+
+[source,perl6]
+----
+#! /usr/bin/env perl6
+
+use v6.c;
+
+sub MAIN
+{
+	…
+}
+----
+
+The program will run the `MAIN` sub by default. We want to slightly change this
+`MAIN` signature though, since we want to accept user input. And it just so
+happens that you can specify the command line parameters in the `MAIN`
+signature in Perl 6. This lets us add constraints to the parameters and give
+them better names with next to no effort. We want to accept two numbers, one
+for the number of dice, and one for the amount of sides per die:
+
+[source,perl6]
+----
+sub MAIN(Int:D $dice, Int:D $sides where { $dice > 0 && $sides > 0 })
+----
+
+Here we see the `where` applying constraints again. If you try running this
+program in its current state, you'll have to run the following:
+
+[source]
+----
+$ perl6 -Ilib bin/dicer
+Usage:
+  bin/dicer <dice> <sides>
+----
+
+This will return a list of all possible ways to invoke the program. There's one
+slight problem right now. The usage description does not inform the user that
+both arguments need to be larger than 0. We'll take care of that in a moment.
+First we'll make this part work the way we want.
+
+To do that, let's add a `use` statement to our `lib` directory, and call the
+`roll` function we created earlier. The `bin/dicer` file will come to look as
+follows:
+
+[source,perl6]
+----
+#! /usr/bin/env perl6
+
+use v6.c;
+
+use Local::App::Dicer;
+
+sub MAIN(Int:D $dice, Int:D $sides where { $dice > 0 && $sides > 0 })
+{
+	say $dice × roll($sides)
+}
+----
+
+[NOTE]
+====
+Just like the `≤` character, Perl 6 allows to use the proper multiplication
+character `×` (this is not the letter `x`!). You can use the more widely known
+`*` for multiplication as well.
+====
+
+If you run the program with the arguments `2` and `20` now, you'll get a random
+number between 2 and 40, just like we expect:
+
+[source]
+----
+$ perl6 -Ilib bin/dicer 2 20
+18
+----
+
+=== The usage output
+Now, we still have the trouble of illegal number input not clearly telling
+what's wrong. We can do a neat trick with
+https://docs.perl6.org/language/functions#index-entry-USAGE[the USAGE sub] to
+achieve this. Perl 6 allows a subroutine with the name `USAGE` to be defined,
+overriding the default behaviour.
+
+Using this, we can generate a friendlier message informing the user what they
+need to supply more clearly. The `USAGE` sub would look like this:
+
+[source,perl6]
+----
+sub USAGE
+{
+	say "Dicer requires two positive, round numbers as arguments."
+}
+----
+
+If you run the program with incorrect parameters now, it will show the text
+from the `USAGE` subroutine. If the parameters are correct, it will run the
+`MAIN` subroutine.
+
+You now have a working console application in Perl 6!
+
+== Making a simple GUI
+But that's not all. Perl 6 has a module to create GUIs with the
+https://www.gtk.org/[GTK library] as well. For this, we'll use the
+http://modules.perl6.org/dist/GTK::Simple:github:perl6[`GTK::Simple`] module.
+
+You can add this module as a dependency to the `Local::App::Dicer` repository
+with `cpan6` as well, using the `depend` command. By default, this will also
+install the dependency locally so you can use it immediately.
+
+[source]
+----
+$ cpan6 depend GTK::Simple
+----
+
+=== Multi subs
+Next, we could create another executable file and call it `dicer-gtk`. However,
+I can also use this moment to introduce
+https://docs.perl6.org/language/glossary#index-entry-multi-method[multi
+methods]. These are subs with the same name, but differing signatures. If a
+call to such a sub could potentially match multiple signatures, the most
+specific one will be used. We will add another `MAIN` sub, which will be called
+when `bin/dicer` is called with the `--gtk` parameter.
+
+We should also update the `USAGE` sub accordingly, of course. And while we're
+at it, let's also include the `GTK::Simple` and `GTK::Simple::App` modules. The
+first pulls in all the different GTK elements we will use later on, while the
+latter pulls in the class for the base GTK application window.  The updated
+`MAIN`, `USAGE` and `use` parts will now look like this:
+
+[source,perl6]
+----
+use Local::App::Dicer;
+use GTK::Simple;
+use GTK::Simple::App;
+
+multi sub MAIN(Int:D $dice, Int:D $sides where { $dice > 0 && $sides > 0 })
+{
+	say $dice × roll($sides)
+}
+
+multi sub MAIN(Bool:D :$gtk where $gtk == True)
+{
+	# TODO: Create the GTK version
+}
+
+sub USAGE
+{
+	say "Launch Dicer as a GUI with --gtk, or supply two positive, round numbers as arguments.";
+}
+----
+
+There's a new thing in a signature header here as well, `:$gtk`. The `:` in
+front of it makes it a named argument, instead of a positional one. When used
+in a `MAIN`, this will allow it to be used like a long-opt, thus as `--gtk`.
+Its use in general subroutine signatures is explained in the next chapter.
+
+Running the application with `--gtk` gives no output now, because the body only
+contains a comment. Let's fix that.
+
+=== Creating the window
+First off, we require a `GTK::Simple::App` instance. This is the main window,
+in which we'll be able to put elements such as buttons, labels, and input
+fields. We can create the `GTK::Simple::App` as follows:
+
+[source,perl6]
+----
+my GTK::Simple::App $app .= new(title => "Dicer");
+----
+
+This one line brings in some new Perl 6 syntax, namely the `.=` operator.
+There's also the use of a named argument in a regular subroutine.
+
+The `.=` operator performs a method on the variable on the left. In our case,
+it will call the `new` subroutine, which creates a new instance of the
+`GTK::Simple::App` class. This is commonly referred to as the **constructor**.
+
+The named argument list (`title \=> "Dicer"`) is another commonly used feature
+in Perl 6. Any method can be given a non-positional, named parameter. This is
+done by appending a `:` in front of the variable name in the sub signature.
+This has already been used in our code, in `multi sub MAIN(Bool :$gtk where
+$gtk == True)`. This has a couple of benefits, which are explained in the
+https://docs.perl6.org/type/Signature#index-entry-positional_argument_%28Signature%29_named_argument_%28Signature%29[Perl
+6 docs on signatures].
+
+=== Creating the elements
+Next up, we can create the elements we'd like to have visible in our
+application window. We needed two inputs for the console version, so we'll
+probably need two for the GUI version as well. Since we have two inputs, we
+want labels for them. The roll itself will be performed on a button press.
+Lastly, we will want another label to display the outcome. This brings us to 6
+elements in total:
+
+- 3 labels
+- 2 entries
+- 1 button
+
+[source,perl6]
+----
+my GTK::Simple::Label $label-dice .= new(text => "Amount of dice");
+my GTK::Simple::Label $label-sides .= new(text => "Dice value");
+my GTK::Simple::Label $label-result .= new(text => "");
+my GTK::Simple::Entry $entry-dice .= new(text => 0);
+my GTK::Simple::Entry $entry-sides .= new(text => 0);
+my GTK::Simple::Button $button-roll .= new(label => "Roll!");
+----
+
+This creates all elements we want to show to the user.
+
+=== Show the elements in the application window
+Now that we have our elements, let's put them into the application window.
+We'll need to put them into a layout as well. For this, we'll use a grid. The
+`GTK::Simple::Grid` constructor takes pairs, with the key being a tuple
+containing 4 elements, and the value containing the element you want to show.
+The tuple's elements are the `x`, `y`, `w` and `h`, which are the x
+coordinates, y coordinates, width and height respectively. 
+
+This in turn takes us to the following statement:
+
+[source,perl6]
+----
+$app.set-content(
+	GTK::Simple::Grid.new(
+		[0, 0, 1, 1] => $label-dice,
+		[1, 0, 1, 1] => $entry-dice,
+		[0, 1, 1, 1] => $label-sides,
+		[1, 1, 1, 1] => $entry-sides,
+		[0, 2, 2, 1] => $button-roll,
+		[0, 3, 2, 1] => $label-result,
+	)
+);
+----
+
+Put a `$app.run` beneath that, and try running `perl6 -Ilib bin/dicer --gtk`.
+That should provide you with a GTK window with all the elements visible in the
+position we want. To make it a little more appealing, we can add a
+`border-width` to the `$app`, which adds a margin between the border of the
+application window, and the grid inside the window.
+
+[source,perl6]
+----
+$app.border-width = 20;
+$app.run;
+----
+
+You may notice that there's no `()` after the `run` method call. In Perl 6,
+these are optional if you're not supplying any arguments any way.
+
+=== Binding an action to the button
+Now that we have a visible window, it's time to make the button perform an
+action. The action we want to execute is to take the values from the two
+inputs, roll the correct number of dice with the correct number of sides, and
+present it to the user.
+
+The base code for binding an action to a button is to call `.clicked.tap` on it,
+and provide it with a code block. This code will be executed whenever the
+button is clicked.
+
+[source,perl6]
+----
+$button-roll.clicked.tap: {
+};
+----
+
+You see we can also invoke a method using `:`, and then supplying its
+arguments. This saves you the trouble of having to add additional `( )` around
+the call, and in this case it would be annoying to have to deal with yet
+another set of parens.
+
+Next, we give the code block something to actually perform:
+
+[source,perl6]
+----
+$button-roll.clicked.tap: {
+	CATCH {
+		$label-result.text = "Can't roll with those numbers";
+	}
+
+	X::TypeCheck::Binding::Parameter.new.throw if $entry-dice.text.Int < 1;
+
+	$label-result.text = ($entry-dice.text.Int × roll($entry-sides.text.Int)).Str;
+};
+----
+
+There's some new things in this block of code, so let's go over these.
+
+- `CATCH` is the block in which we'll end up if an exception is thrown in this
+  scope. `roll` will throw an exception if the parameters are wrong, and this
+  allows us to cleanly deal with that.
+- `X::TypeCheck::Binding::Parameter.new.throw` throws a new exception of type
+  `X::TypeCheck::Binding::Parameter`. This is the same exception type as thrown
+  by `roll` if something is wrong. We need to check the number of dice manually
+  here, since `roll` doesn't take care of it, nor does any signature impose any
+  restrictions on the value of the entry box.
+- `if` behind another statement. This is something Perl 6 allows, and in some
+  circumstances can result in cleaner code. It's used here because it improves
+  the readability of the code, and to show that it's possible.
+
+== The completed product
+And with that, you should have a dice roller in Perl 6, with both a console and
+GTK interface. Below you can find the complete, finished sourcefiles which you
+should have by now.
+
+=== t/basic.t
+[source,perl6]
+----
+#! /usr/bin/env perl6
+
+use v6.c;
+
+use Test;
+use Local::App::Dicer;
+
+plan 2;
+
+subtest "Legal rolls", {
+	plan 50;
+
+	for 1..50 {
+		ok 1 ≤ roll($_) ≤ $_, "Rolls between 1 and $_";
+	}
+}
+
+subtest "Illegal rolls", {
+	plan 3;
+
+	throws-like { roll(0) }, X::TypeCheck::Binding::Parameter, "Zero is not accepted";
+	throws-like { roll(-1) }, X::TypeCheck::Binding::Parameter, "Negative rolls are not accepted";
+	throws-like { roll(1.5) }, X::TypeCheck::Binding::Parameter, "Can't roll half sides";
+}
+
+done-testing;
+
+# vim: ft=perl6
+----
+
+=== lib/Local/App/Dicer.pm6
+[source,perl6]
+----
+#! /usr/bin/env false
+
+use v6.c;
+
+unit module Local::App::Dicer;
+
+sub roll(Int:D $sides where $sides > 0) is export
+{
+	$sides.rand.ceiling;
+}
+----
+
+=== bin/dicer
+[source,perl6]
+----
+#! /usr/bin/env perl6
+
+use v6.c;
+
+use Local::App::Dicer;
+use GTK::Simple;
+use GTK::Simple::App;
+
+multi sub MAIN(Int:D $dice, Int:D $sides where { $dice > 0 && $sides > 0 })
+{
+	say $dice × roll($sides)
+}
+
+multi sub MAIN(Bool:D :$gtk where $gtk == True)
+{
+	my GTK::Simple::App $app .= new(title => "Dicer");
+	my GTK::Simple::Label $label-dice .= new(text => "Number of dice");
+	my GTK::Simple::Label $label-sides .= new(text => "Number of sides per die");
+	my GTK::Simple::Label $label-result .= new(text => "");
+	my GTK::Simple::Entry $entry-dice .= new(text => 0);
+	my GTK::Simple::Entry $entry-sides .= new(text => 0);
+	my GTK::Simple::Button $button-roll .= new(label => "Roll!");
+
+	$app.set-content(
+		GTK::Simple::Grid.new(
+			[0, 0, 1, 1] => $label-dice,
+			[1, 0, 1, 1] => $entry-dice,
+			[0, 1, 1, 1] => $label-sides,
+			[1, 1, 1, 1] => $entry-sides,
+			[0, 2, 2, 1] => $button-roll,
+			[0, 3, 2, 1] => $label-result,
+		)
+	);
+
+	$button-roll.clicked.tap: {
+		CATCH {
+			$label-result.text = "Can't roll with those numbers";
+		}
+
+		X::TypeCheck::Binding::Parameter.new.throw if $entry-dice.text.Int < 1;
+
+		$label-result.text = ($entry-dice.text.Int × roll($entry-sides.text.Int)).Str;
+	};
+
+	$app.border-width = 20;
+
+	$app.run;
+}
+
+sub USAGE
+{
+	say "Launch Dicer as a GUI with --gtk, or supply two positive, round numbers as arguments.";
+}
+----
+
+== Installing your module
+Now that you have a finished application, you probably want to install it as
+well, so you can run it by calling `dicer` in your shell. For this, we'll be
+using `zef`.
+
+To install a local module, tell `zef` to try and install the local directory
+you're in:
+
+[source]
+----
+$ zef install .
+----
+
+This will resolve the dependencies of the local module, and then install it.
+You should now be able to run `dicer` from anywhere.
+
+[WARNING]
+====
+With most shells, you have to "rehash" your `$PATH` as well. On `bash`, this is
+done with `hash -r`, on `zsh` it's `rehash`. If you're using any other shell,
+please consult the manual.
+====
