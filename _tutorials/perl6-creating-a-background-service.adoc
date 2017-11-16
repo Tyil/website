@@ -1,4 +1,4 @@
-= 6lang - Creating a background service
+= Perl 6 - Creating a background service
 :toc: preamble
 
 I've recently made some progress on
