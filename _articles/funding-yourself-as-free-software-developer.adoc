@@ -1,0 +1,144 @@
+= Funding yourself as free software developer
+:toc: preamble
+
+I've been meaning to spend more time on developing free software, helping out
+new users on IRC and writing more tutorials to get others started. All of these
+cost time. And time is money. So I've set out to set up donation accounts.
+While trying these out, I decided to write up an article about it, to help out
+other developers struggling with the same issue: funding their work.
+Additionally, it allows other developers to provide me with feedback on the
+services listed below, and possibly ones I didn't find yet.
+
+== LiberaPay
+This service seems to be completely free as in freedom. They even have
+https://github.com/liberapay/liberapay.com[their source available through
+Github]. Their own funding comes through donations on their own platform,
+instead of taking a cut of each donation like most other services.
+
+To create an account, just hit the registration button and fill out an email
+address. You will receive an email later to confirm your account.
+
+[NOTE]
+====
+The link in the email is only valid for one day.
+====
+
+Once you've registered your account, you should head to your profile settings
+to fill out some details, such as a username. There's an optional password to
+fill out, which you can use for logging in. If you don't set it, you'll receive
+an email with a single-use login URL instead.
+
+It's possible to connect other accounts to your LiberaPay account. While this
+feature in general is pretty common, they allow you to link to sites which are
+interesting to show as developer, such as Github, Gitlab and BitBucket. They
+also let you link to your Mastodon account, if you have one.
+
+At the end of the profile page, there's a form to fill out your real-world
+identity details. These are required if you want to be able to receive money.
+
+To let people know you're accepting donations through LiberaPay, you can use
+one of the widgets they make available for you. This will show a donate button
+which will link to you profile. Do note, this is not a regular HTML button or
+neatly covered anchor tag, but a JavaScript-based button.
+
+== MakerSupport
+[WARNING]
+====
+- The site requires a 3rd-party hosted jQuery.
+- You have to solve a Google reCaptcha in order to register a new account.
+====
+
+MakerSupport seems to be another option, aimed at content creators who might
+need freedom of speech more than others. It seems to be less focused on
+software development, as you cannot link to any of the major git hosting
+platforms.
+
+There's options to set up "tiers" for your donors. This is a convenient way
+to provide benefits to your donors. For a free software developer, this might
+be something like access to more direct support from the developer.
+
+Sadly, registration wasn't as smooth as most other platforms. My preferred
+username, "tyil" is too short. There's no indication of the requirements of any
+of the fields, you just get a popup on submission of the form saying a field is
+wrong.
+
+Additionally, the registration form requires some 3rd party JavaScript to work,
+and a Google reCaptcha to be solved in order to get the submit button to show
+up. As I have set up uMatrix in my browser, this cost me some extra time to
+finish registration.
+
+After you got through the form, all you need to do is verify your email address
+to gain access to your account.
+
+Once inside, you can set up pledge tiers for donor rewards, just like most
+other funding platforms. You can also link up to a couple of (proprietary)
+social media platforms.
+
+Setting a profile image proved to be a little harder. First off, I'm still
+using uMatrix so I had to allow a 3rd party (Amazon, in this case) XHR
+requests. Their error when uploading a "wrong" format is also not very user
+friendly, as it won't give you any details on why it's disallowed or what
+images are allowed instead.
+
+[NOTE]
+====
+It seems they check on the extension of the image's filename.
+====
+
+== Patreon
+[WARNING]
+====
+- Requires 3rd party link:/articles/on-cloudflare[Cloudflare] hosted
+  JavaScript sources to function.
+- You have to solve a Google reCaptcha in order to register a new account.
+====
+
+Possible the most famous donation-based funding platform available right now:
+Patreon. Popularity is often a good thing, since this means there's probably
+more donors already using the platform as well.
+
+Getting started is easy, just hit the register button and fill out the 3 (with
+validation, 4) fields presented to you. A Google reCaptcha will be required
+once you check the box to accept to their ToS.
+
+Afterwards, you need to fill out some questions. One of them is to select a
+category you belong to. Sadly, there's no category for software developers, so
+I went with "writing". Other questions are related to describing yourself, and
+setting up tiers and goals.
+
+Goals are the thing I haven't found with other funding platforms. It allows you
+to set a goal for an amount of money, and add a reward to this. This way, you
+can inform your donors you will be creating a certain kind of content once a
+one-time goal has been reached. Basically, you can show your donors what you're
+going to do with the money they're donating to you.
+
+Another interesting thing that I haven't seen on other platforms is the option
+to charge donors per creation, instead of per month. While this may seem less
+fitting for software developers (unless you want to get paid per commit, I
+guess), but it's an interesting feature that's pretty unique.
+
+You can link your account to other services, like other platforms, but it seems
+to only allow to be linked with proprietary social media platforms.
+
+== (Dis)honorable mentions
+=== Hatreon
+I've included this because I found people talking about it on IRC. However, it
+seems to be nothing more than a joke that's gone too far. It's main reason for
+existing seems to be to get away from the political correctness found with
+earlier crowdfunding platforms. Yet their site is invite-only, so those who are
+actually interested can't even use it. And it seems that pledging is currently
+disabled as well, and has been for at least 10 days.
+
+== RFC
+I'd love to receive feedback on this, as I think being able to get donations
+easily for the work free software developers put in to their projects is
+important.
+
+Getting to know more platforms and giving them a small write-up should help out
+other developers like me looking for the best platform for their use case. I'd
+also like to hear from developers already using a platform, to extend this
+article with more useful information on how to successfully get donors for
+their work.
+
+If you want to contact me, do take a look at the link:/[Contact] section, and
+let me know about your experiences with funding.
