@@ -9,6 +9,9 @@ written up this article to talk about my experience.  This is a living
 document! As you explore this yourself, please send me your thoughts on each
 platform and turn me on to interesting platforms I missed.
 
+I'll be focussing on platforms allowing for recurring donations, as these are
+more useful for procuring a stable income.
+
 == Platforms
 === LiberaPay
 This service seems to be completely free as in freedom. They even have
@@ -134,6 +137,15 @@ If people don't know you're even accepting donations, chances are pretty high
 you won't get any. Or if it's too hard to figure out how to donate to you,
 people will simply not take the effort. Make sure people can easily find out
 that you're accepting donations, and how to donate to you.
+
+=== Show what you're doing with donation money
+Have a page with information about what you're using with the money. This can
+be as simple as just saying you pay the rent and buy food with it. Most donors
+don't mind too much what you're doing with the money they donate to you, but a
+few do appreciate having this information available to them.
+
+It can be as simple as adding a `/donate` link to your site where you explain
+how to donate to you, and what you do with the donation money.
 
 [WARNING]
 ====
