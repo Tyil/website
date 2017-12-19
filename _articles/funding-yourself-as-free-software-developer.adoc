@@ -14,10 +14,10 @@ more useful for procuring a stable income.
 
 == Platforms
 === LiberaPay
-This service seems to be completely free as in freedom. They even have
-https://github.com/liberapay/liberapay.com[their source available through
-GitHub]. Their own funding comes through donations on their own platform,
-instead of taking a cut of each donation like most other services.
+This service seems to be completely free as in freedom. They even
+https://github.com/liberapay/liberapay.com[publish their source on GitHub].
+Their own funding comes through donations on their own platform, instead of
+taking a cut of each donation like most other services.
 
 It's possible to connect other accounts to your LiberaPay account. While this
 feature in general is pretty common, they allow you to link to sites which are
@@ -27,10 +27,10 @@ also let you link to a Mastodon account, if you have one.
 To let people know you're accepting donations through LiberaPay, you can use
 one of the widgets they make available for you. This will show a donate button
 which will link to you profile. Do note, this is not a regular HTML button or
-neatly covered anchor tag, but a JavaScript-based button.
+cleverly implemented anchor tag, but a JavaScript-based button.
 
-What I'm also missing here is a rewards system. Most other platforms allow you
-to set reward tiers, which allow you to give certain benefits to donors.
+Another thing LiberaPay lacks is a rewards system. Most other platforms allow
+you to set reward tiers, which allow you to give certain benefits to donors.
 LiberaPay does not seem to offer this.
 
 === MakerSupport
@@ -45,9 +45,10 @@ need freedom of speech more than others. It seems to be less focused on
 software development, as you cannot link to any of the major git hosting
 platforms.
 
-There's options to set up "tiers" for your donors; this is a convenient way
-to provide them benefits. For a free software developer, this might be
-something like access to more direct support from the developer.
+There are options here to set up "tiers" for your donors; which is a convenient
+way to provide them with perks for their support. For a free software
+developer, this might be something like access to more direct support from the
+developer.
 
 Sadly, registration wasn't as smooth as most other platforms. My preferred
 username, "tyil" is too short. There's no indication of the requirements of any
@@ -67,7 +68,8 @@ nor what images are allowed instead.
 
 [NOTE]
 ====
-It seems they check the extension of the image's filename.
+It seems they check the extension of the uploaded image's filename. As far as I
+can tell, you're allowed to upload files that end with `.jpg` and `.png`.
 ====
 
 === Patreon
@@ -115,11 +117,10 @@ keeping a healthy and happy supporter base.
 
 === Using the rewards system
 On the platforms that support a rewards system, make use of it. There's some
-little things you can do that go a long way with your supporters.
-
-For instance, you can offer things like stickers to donors that donate a
-certain amount of money to you. These are reasonably cheap to produce and ship,
-and many people like these.
+little things you can do that go a long way with your supporters. For instance,
+you can offer things like stickers to donors that donate a certain amount of
+money to you. These are reasonably cheap to produce and ship, and many people
+like these.
 
 Another idea that seems to strike well with donors is having a way to talk with
 the person they're supporting directly. This can be done by giving them access
