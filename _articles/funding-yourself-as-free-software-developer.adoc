@@ -31,7 +31,6 @@ cleverly implemented anchor tag, but a JavaScript-based button.
 
 Another thing LiberaPay lacks is a rewards system. Most other platforms allow
 you to set reward tiers, which allow you to give certain benefits to donors.
-LiberaPay does not seem to offer this.
 
 === MakerSupport
 [WARNING]
@@ -125,8 +124,8 @@ like these.
 Another idea that seems to strike well with donors is having a way to talk with
 the person they're supporting directly. This can be done by giving them access
 to an IRC channel for you and your donors. You can use another platform for
-this, but most free software enthousiasts are already on IRC, and there's
-little real-time communication alternatives that they're already using.
+this, but most free software enthousiasts are already on IRC, and there's few
+real-time communication alternatives that they're already using.
 
 === Don't stick to a single platform
 There's multiple platforms out there, use them! Not all of them have the same
