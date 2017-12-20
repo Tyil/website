@@ -4,11 +4,21 @@ permalink: /index.html
 ---
 
 ## About me
-I like programming.
+Freedom-focused hacker. I love everything about free software, and spend much
+time contributing to it myself. I occasionally write articles to help other
+people getting started with free software, and show the issues with proprietary
+software. Active on IRC to help people out, and to learn about new things
+myself as well. Currently I have made over 10 modules for Perl 6, which are all
+available on CPAN.
 
+If you think what I'm doing is awesome, and want to support me, you can do so
+through donations. More information about how to donate and what I do with the
+donations I receive can be found on the [donate][Donate] page.
+
+## Contact
 ### PGP
-[My public PGP key on pgp.mit.edu][pubkey].
-Fingerprint: `EB9E A484 1672 2D37 16F5  A799 9ACF E193 FFBC 1F50`
+My public PGP key is available on on [pgp.mit.edu][pubkey]. The fingerprint
+is:`EB9E A484 1672 2D37 16F5  A799 9ACF E193 FFBC 1F50`
 
 ### OTR
 For instant messaging I use OTR where possible. My fingerprints are the following:
@@ -18,29 +28,26 @@ For instant messaging I use OTR where possible. My fingerprints are the followin
 - `C6025214 E05A4FB6 5E65B900 9CA6A7AF A4A35C48` IRC, tyil @ Gratisnode
 - `80999DD8 22504629 44EC13E3 5C31BF2F FC825703` IRC, tyil @ Rizon
 
-### Tor
-My website is available over Tor as well: `http://xcwaqtr4uhoq5yrk.onion/`.
-
-## Contact
-### IRC
-I am mainly active as `tyil` on [DareNET][darenet]. Other networks I frequent
-are [Gratisnode][freenode] and [Rizon][rizon], using the same nick, `tyil`. I
-use OTR for private messages on IRC, so be sure you use this if you want to
-discuss something in private.
-
-### XMPP
-I am available via XMPP/Jabber on `tyil@national.shitposting.agency`. Like IRC,
-be sure to have OTR enabled if you wish to talk to me. Since my XMPP chats go
-via [`BitlBee`][bitlbee], the response time is about the same as via IRC.
-
-### Email
+### Channels
+####  Email
 Email contact goes via [p.spek@tyil.work][mail]. Be sure to at least sign all
 mail you send me. Even better would be encrypted mail using my [PGP
 key][pubkey].
 
 I do not read my mailboxes very often, so please do not expect a timely
-response. If you require a response as soon as possible, please find me on
-[darenet's IRC server][darenet].
+response. If you require a response as soon as possible, please find me on IRC
+instead.
+
+#### IRC
+I am mainly active as `tyil` on [DareNET][darenet]. Other networks I frequent
+are [Gratisnode][freenode] and [Rizon][rizon], using the same nick, `tyil`. I
+use OTR for private messages on IRC, so be sure you use this if you want to
+discuss something in private.
+
+#### XMPP
+I am available via XMPP/Jabber on `tyil@national.shitposting.agency`. Like IRC,
+be sure to have OTR enabled if you wish to talk to me. Since my XMPP chats go
+via [`BitlBee`][bitlbee], the response time is about the same as via IRC.
 
 ## Other links
 - [Mastodon][mastodon]
@@ -60,3 +67,4 @@ response. If you require a response as soon as possible, please find me on
 [pubkey]: https://pgp.mit.edu/pks/lookup?op=vindex&search=0x9ACFE193FFBC1F50
 [rizon]: https://rizon.net
 [mastodon]: https://mastodon.social/web/accounts/34234
+[donate]: /donate
