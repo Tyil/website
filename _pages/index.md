@@ -11,13 +11,9 @@ software. Active on IRC to help people out, and to learn about new things
 myself as well. Currently I have made over 10 modules for Perl 6, which are all
 available on CPAN.
 
-## Support me
 If you think what I'm doing is awesome, and want to support me, you can do so
-through donations. I have set up a number of accounts with donation platforms:
-
-- [Liberapay](https://liberapay.com/tyil/donate)
-- [MakerSupport](https://www.makersupport.com/Vipersword/pledge)
-- [Patreon](https://www.patreon.com/bePatron?c=1401236)
+through donations. More information about how to donate and what I do with the
+donations I receive can be found on the [donate][Donate] page.
 
 ## Contact
 ### PGP
@@ -71,3 +67,4 @@ via [`BitlBee`][bitlbee], the response time is about the same as via IRC.
 [pubkey]: https://pgp.mit.edu/pks/lookup?op=vindex&search=0x9ACFE193FFBC1F50
 [rizon]: https://rizon.net
 [mastodon]: https://mastodon.social/web/accounts/34234
+[donate]: /donate
