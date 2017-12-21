@@ -130,6 +130,7 @@ it seems to only allow you to be linked with proprietary social media
 platforms.
 
 You can find Patreon at https://www.patreon.com/home.
+
 === (Dis)honorable mentions
 ==== Hatreon
 I've included this because I found people talking about it on IRC. However, it
