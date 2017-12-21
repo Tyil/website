@@ -216,3 +216,5 @@ their work.
 
 If you want to contact me, do take a look at the link:/[Contact] section, and
 let me know about your experiences with funding.
+
+And if you liked this post, consider link:/donate.html[donating] ;)
