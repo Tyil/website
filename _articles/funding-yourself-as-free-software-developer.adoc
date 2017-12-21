@@ -157,6 +157,13 @@ Don't let it turn into an annoying advertisement though, this will surely have
 an opposite effect.
 ====
 
+== Further reading
+There's more places to go for tips and tricks in getting funds to sustain your
+free software development work. I've listed a couple of these here for those
+interested.
+
+- https://github.com/nayafia/lemonade-stand[A handy guide to financial support for open source]
+
 == RFC
 I'd love to receive feedback on this, as I think being able to get donations
 easily for the work free software developers put in to their projects is
