@@ -32,6 +32,8 @@ cleverly implemented anchor tag, but a JavaScript-based button.
 Another thing LiberaPay lacks is a rewards system. Most other platforms allow
 you to set reward tiers, which allow you to give certain benefits to donors.
 
+You can find Liberapay at https://liberapay.com/.
+
 === MakerSupport
 [WARNING]
 ====
@@ -71,6 +73,8 @@ It seems they check the extension of the uploaded image's filename. As far as I
 can tell, you're allowed to upload files that end with `.jpg` and `.png`.
 ====
 
+You can find MakerSupport at https://www.makersupport.com/.
+
 === Patreon
 [WARNING]
 ====
@@ -100,6 +104,7 @@ You can link your account to other services, similarly to other platforms, but
 it seems to only allow you to be linked with proprietary social media
 platforms.
 
+You can find Patreon at https://www.patreon.com/home.
 === (Dis)honorable mentions
 ==== Hatreon
 I've included this because I found people talking about it on IRC. However, it
@@ -112,7 +117,6 @@ disabled as well, and has been for at least 10 days.
 == But that's not all
 Just setting up an account on a funding platform isn't enough. There's more to
 keeping a healthy and happy supporter base.
-// @FIXME Seems a tad short
 
 === Using the rewards system
 On the platforms that support a rewards system, make use of it. There's some
