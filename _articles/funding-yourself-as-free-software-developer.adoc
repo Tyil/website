@@ -118,6 +118,19 @@ disabled as well, and has been for at least 10 days.
 Just setting up an account on a funding platform isn't enough. There's more to
 keeping a healthy and happy supporter base.
 
+=== Spread awareness of your work
+Whether you're writing articles or publishing new releases of projects, tell
+the world you're doing whatever it is you're doing. If nobody knows about your
+project, they won't be able to give any kind of appreciation for it. Use social
+media outlets, public forums, mailing lists, anything! Tell them what you made,
+why it's useful and how they could use it to improve their digital life.
+
+[WARNING]
+====
+Ofcourse, don't spam it to unrelated communication channels. This will only
+backfire.
+====
+
 === Using the rewards system
 On the platforms that support a rewards system, make use of it. There's some
 little things you can do that go a long way with your supporters. For instance,
