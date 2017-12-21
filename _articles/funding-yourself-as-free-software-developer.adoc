@@ -13,6 +13,31 @@ I'll be focussing on platforms allowing for recurring donations, as these are
 more useful for procuring a stable income.
 
 == Platforms
+=== BountySource
+[WARNING]
+====
+- Requires 3rd-party link:/articles/on-cloudflare[Cloudflare]-hosted
+  JavaScript sources to function.
+====
+
+BountySource lets people donate money towards an issue on Github your projects.
+Once an issue gets fixed, you can claim the "bounty" that was on this issue.
+This can also help in making clear which issue you should aim for next, and
+can increase interest in contributors for your project.
+
+There's also BountySource Salt, which is a recurring donation platform.
+Projects or teams can use this to gain monthly income to sustain the
+development of their project(s).
+
+Support for this platform is offered through the IRC channel
+https://kiwiirc.com/client/chat.freenode.net:+6697/#bountysource[`#bountysource`
+on Freenode].
+
+The BountySource platform itself is also free software, and the source code
+for it can be found https://github.com/bountysource/core[on github].
+
+You can find BountySource at https://www.bountysource.com/.
+
 === LiberaPay
 This service seems to be completely free as in freedom. They even
 https://github.com/liberapay/liberapay.com[publish their source on GitHub].
