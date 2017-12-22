@@ -201,6 +201,7 @@ There's more places to go for tips and tricks in getting funds to sustain your
 free software development work. I've listed a couple of these here for those
 interested.
 
+- https://wiki.snowdrift.coop/market-research/other-crowdfunding[snowdrift.coop wiki on crowdfunding/fundraising services]
 - https://github.com/nayafia/lemonade-stand[A handy guide to financial support for open source]
 
 == RFC
