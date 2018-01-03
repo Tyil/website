@@ -21,6 +21,19 @@ So we'll start by installing this module through `zef`.
 $ zef install App::Cpan6
 ----
 
+After this, the bins exposed by Perl 6 need to be updated:
+
+[source]
+----
+$ rakudobrew rehash
+----
+
+[NOTE]
+====
+You may need to rehash your `$PATH` as well, which can be done using `hash -r`
+on `bash`, or `rehash` for `zsh`. For other shells, consult your manual.
+====
+
 Next up, we can use `cpan6` to create the new skeleton of our application, with
 the `new` subcommand.
 
@@ -348,7 +361,7 @@ The program will run the `MAIN` sub by default. We want to slightly change this
 happens that you can specify the command line parameters in the `MAIN`
 signature in Perl 6. This lets us add constraints to the parameters and give
 them better names with next to no effort. We want to accept two numbers, one
-for the number of dice, and one for the amount of sides per die:
+for the number of dice, and one for the number of sides per die:
 
 [source,perl6]
 ----
