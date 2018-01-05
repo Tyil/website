@@ -12,14 +12,20 @@ it as a console application, then work to make it a GUI as well with the
 `GTK::Simple` module.
 
 == Preparation
-To ease up module/application building, I'll use `App::Cpan6`. This module
+To ease up module/application building, I'll use `App::Assixt`. This module
 eases up on common tasks required for building other modules or applications.
 So we'll start by installing this module through `zef`.
 
 [source]
 ----
-$ zef install App::Cpan6
+$ zef install --force-resolve App::Assixt
 ----
+
+[NOTE]
+====
+The `--force-resolve` is required to deal with
+https://github.com/ugexe/zef/issues/157[zef issue #157].
+====
 
 After this, the bins exposed by Perl 6 need to be updated:
 
@@ -34,26 +40,26 @@ You may need to rehash your `$PATH` as well, which can be done using `hash -r`
 on `bash`, or `rehash` for `zsh`. For other shells, consult your manual.
 ====
 
-Next up, we can use `cpan6` to create the new skeleton of our application, with
+Next up, we can use `assixt` to create the new skeleton of our application, with
 the `new` subcommand.
 
 [source]
 ----
-$ cpan6 new
+$ assixt new
 ----
 
 This will ask for some user input, which will be recorded in the `META6.json`,
 a json-formatted file to keep track of meta information about the module.
-`cpan6` should take care of this file for you, so you never need to actually
+`assixt` should take care of this file for you, so you never need to actually
 deal with it.
 
-=== cpan6 input
-Since the `cpan6 new` command requires some input, I'll walk through these
+=== assixt input
+Since the `assixt new` command requires some input, I'll walk through these
 options and explain how these would affect your eventual application.
 
 ==== Name of the module
 This is the name given to the module. This will be used for the directory name,
-which by default in `cpan6` will be `perl6-` prepended to a lower-case version
+which by default in `assixt` will be `perl6-` prepended to a lower-case version
 of the module name. If you ever wish to make a module that is to be shared in
 the Perl 6 ecosystem, this should be unique across the entire ecosystem.  If
 you're interested in some guidelines, the
@@ -93,19 +99,19 @@ Anything not mentioned in this list is not acceptable. #TODO Clarify why
 
 == Writing your first test
 With the creation of the directory structure and metadata being taken care of
-by `cpan6`, we can now start on writing things. Tests are not mandatory, but
+by `assixt`, we can now start on writing things. Tests are not mandatory, but
 are a great tool for quickly checking if everything works. If you make larger
 applications, it really helps not having to manually test anything. Another
 benefit is that you can quickly see if your changes, or those of someone else,
 break anything.
 
-Creating the base template for tests, `cpan6` can help you out again: `cpan6
+Creating the base template for tests, `assixt` can help you out again: `assixt
 touch` can create templates in the right location, so you don't have to deal
 with it. In this case we want to create a test, which we'll call "basic".
 
 [source]
 ----
-$ cpan6 touch test basic
+$ assixt touch test basic
 ----
 
 This will create the file `t/basic.t` in your module directory. Its contents
@@ -189,12 +195,12 @@ string as optional last argument.
 
 === Running the tests
 A test is useless if you can't easily run it. For this, the `prove` utility
-exists. You can use `cpan6 test` to run these tests properly as well, saving
+exists. You can use `assixt test` to run these tests properly as well, saving
 you from having to manually type out the full `prove` command with options.
 
 [source]
 ----
-$ cpan6 test
+$ assixt test
 ----
 
 You might notice the tests are currently failing, which is correct. The
@@ -203,19 +209,19 @@ on that next.
 
 [NOTE]
 ====
-For those interested, the command run by `cpan6 test` is `prove -e "perl6
+For those interested, the command run by `assixt test` is `prove -e "perl6
 -Ilib" t`. This will include the `lib` directory into the `PERL6PATH` to be
 able to access the libraries we'll be making. The `t` argument specifies the
 directory containing the tests.
 ====
 
 == Creating the library
-Again, let's start with a `cpan6` command to create the base template. This
+Again, let's start with a `assixt` command to create the base template. This
 time, instead of `touch test`, we'll use `touch lib`.
 
 [source]
 ----
-$ cpan6 touch unit Local::App::Dicer
+$ assixt touch unit Local::App::Dicer
 ----
 
 This will generate a template file at `lib/Local/App/Dicer.pm6` which some
@@ -237,7 +243,7 @@ non-success code. This file needs to be run as a Perl 6 module file, and
 running it as a standalone file is an error.
 
 The `use v6.c` line indicates what version of Perl 6 should be used, and is
-taken from the `META6.json`, which was generated with `cpan6 new`.  The last
+taken from the `META6.json`, which was generated with `assixt new`.  The last
 line informs the name of this module, which is `Local::App::Dicer`. Beneath
 this, we can add subroutines, which can be exported. These can then be accessed
 from other Perl 6 files that `use` this module.
@@ -275,7 +281,7 @@ Let's break this down.
   the return value in a code block, thus this returns the value of $sides. A
   closing `;` is also not required for the last statement in a block.
 
-If you run `cpan6 test` now, you can see it only fails 1/2 subtests:
+If you run `assixt test` now, you can see it only fails 1/2 subtests:
 
 [source]
 ----
@@ -309,7 +315,7 @@ sub roll(Int:D $sides where $sides > 0) is export
 ----
 
 The `where` part specifies additional constraints, in this case `$sides > 0`.
-So now, only round numbers larger than 0 are allowed. If you run `cpan6 test`
+So now, only round numbers larger than 0 are allowed. If you run `assixt test`
 again, you should see all tests passing, indicating that all illegal rolls are
 now correctly disallowed.
 
@@ -333,12 +339,12 @@ That's all we need from the library itself. Now we can start on making a usable
 program out of it.
 
 == Adding a console interface
-First off, a console interface. `cpan6` can `touch` a starting point for an
-executable script as well, using `cpan6 touch bin`:
+First off, a console interface. `assixt` can `touch` a starting point for an
+executable script as well, using `assixt touch bin`:
 
 [source]
 ----
-$ cpan6 touch bin dicer
+$ assixt touch bin dicer
 ----
 
 This will create the file `bin/dicer` in your repository, with the following
@@ -447,12 +453,12 @@ https://www.gtk.org/[GTK library] as well. For this, we'll use the
 http://modules.perl6.org/dist/GTK::Simple:github:perl6[`GTK::Simple`] module.
 
 You can add this module as a dependency to the `Local::App::Dicer` repository
-with `cpan6` as well, using the `depend` command. By default, this will also
+with `assixt` as well, using the `depend` command. By default, this will also
 install the dependency locally so you can use it immediately.
 
 [source]
 ----
-$ cpan6 depend GTK::Simple
+$ assixt depend GTK::Simple
 ----
 
 === Multi subs
