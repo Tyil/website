@@ -53,6 +53,17 @@ a json-formatted file to keep track of meta information about the module.
 `assixt` should take care of this file for you, so you never need to actually
 deal with it.
 
+Lastly, you'll need the libgtk headers. How to get these depends on your distro
+of choice. For Debian-based systems, which includes Ubuntu and derivatives, this
+command would be the following `apt` invocation:
+
+[source]
+----
+$ apt install libgtk-3-dev
+----
+
+For other distros, please consult your documentation.
+
 === assixt input
 Since the `assixt new` command requires some input, I'll walk through these
 options and explain how these would affect your eventual application.
