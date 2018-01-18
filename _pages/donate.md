@@ -1,13 +1,14 @@
 ---
 layout: default
-permalink: /donate.html
+permalink: /fund-me.html
 ---
 
-# Donating
-Thanks for considering to donate to me. It's much appreciated, and it helps me
-to spend more time working and promoting free software.
+# Funding me
+Thanks for considering to fund my work. It's much appreciated, and it helps me
+to spend more time writing articles, tutorials, free software and promote more
+free software.
 
-## Donation platforms
+## Funding platforms
 I've set up a number of accounts on donation platforms. This way, you can
 decide which platform you trust the most. The platforms I'm available on are:
 
