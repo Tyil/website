@@ -1,0 +1,221 @@
+= Funding Yourself As A Free Software Developer
+:toc: preamble
+
+I've been meaning to spend more time on developing free software, helping out
+new users on IRC and writing more tutorials to get others started. All of these
+cost time, and time is money - so I've set out to set up donation accounts.
+In the hopes of helping other developers who struggle to fund their work, I've
+written up this article to talk about my experience.  This is a living
+document! As you explore this yourself, please send me your thoughts on each
+platform and turn me on to interesting platforms I missed.
+
+I'll be focussing on platforms allowing for recurring donations, as these are
+more useful for procuring a stable income.
+
+== Platforms
+=== BountySource
+[WARNING]
+====
+- Requires 3rd-party link:/articles/on-cloudflare[Cloudflare]-hosted
+  JavaScript sources to function.
+====
+
+BountySource lets people donate money towards an issue on Github your projects.
+Once an issue gets fixed, you can claim the "bounty" that was on this issue.
+This can also help in making clear which issue you should aim for next, and
+can increase interest in contributors for your project.
+
+There's also BountySource Salt, which is a recurring donation platform.
+Projects or teams can use this to gain monthly income to sustain the
+development of their project(s).
+
+Support for this platform is offered through the IRC channel
+https://kiwiirc.com/client/chat.freenode.net:+6697/#bountysource[`#bountysource`
+on Freenode].
+
+The BountySource platform itself is also free software, and the source code
+for it can be found https://github.com/bountysource/core[on github].
+
+You can find BountySource at https://www.bountysource.com/.
+
+=== LiberaPay
+This service seems to be completely free as in freedom. They even
+https://github.com/liberapay/liberapay.com[publish their source on GitHub].
+Their own funding comes through donations on their own platform, instead of
+taking a cut of each donation like most other services.
+
+It's possible to connect other accounts to your LiberaPay account. While this
+feature in general is pretty common, they allow you to link to sites which are
+interesting to show as developer, such as GitHub, GitLab, and BitBucket. They
+also let you link to a Mastodon account, if you have one.
+
+To let people know you're accepting donations through LiberaPay, you can use
+one of the widgets they make available for you. This will show a donate button
+which will link to you profile. Do note, this is not a regular HTML button or
+cleverly implemented anchor tag, but a JavaScript-based button.
+
+Another thing LiberaPay lacks is a rewards system. Most other platforms allow
+you to set reward tiers, which allow you to give certain benefits to donors.
+
+You can find Liberapay at https://liberapay.com/.
+
+=== MakerSupport
+[WARNING]
+====
+- The site requires a 3rd-party hosted jQuery.
+- You have to solve a Google reCaptcha in order to register a new account.
+====
+
+MakerSupport seems to be another option, aimed at content creators who might
+need freedom of speech more than others. It seems to be less focused on
+software development, as you cannot link to any of the major git hosting
+platforms.
+
+There are options here to set up "tiers" for your donors; which is a convenient
+way to provide them with perks for their support. For a free software
+developer, this might be something like access to more direct support from the
+developer.
+
+Sadly, registration wasn't as smooth as most other platforms. My preferred
+username, "tyil" is too short. There's no indication of the requirements of any
+of the fields, you just get a popup on submission of the form saying a field is
+wrong.
+
+Additionally, the registration form requires some 3rd-party JavaScript to work,
+and a Google reCaptcha to be solved in order to get the submit button to show
+up. As I have set up uMatrix in my browser, this cost me some extra time to
+finish registration.
+
+Setting a profile image proved to be a little harder. First off, I'm still
+using uMatrix so I had to allow a 3rd-party (Amazon, in this case) XHR
+requests. Secondly, their error when uploading a "wrong" format is also not
+very user friendly, as it won't give you any details on why it's disallowed,
+nor what images are allowed instead.
+
+[NOTE]
+====
+It seems they check the extension of the uploaded image's filename. As far as I
+can tell, you're allowed to upload files that end with `.jpg` and `.png`.
+====
+
+You can find MakerSupport at https://www.makersupport.com/.
+
+=== Patreon
+[WARNING]
+====
+- Requires 3rd-party link:/articles/on-cloudflare[Cloudflare]-hosted
+  JavaScript sources to function.
+- You have to solve a Google reCaptcha in order to register a new account.
+====
+
+Patreon is possibly the most famous donation-based funding platform available
+right now. Its popularity is a good thing, since this means there's probably
+many donors already using this platform.
+
+At Patreon, you can set up so-called goals. Goals are the thing I haven't found
+with other funding platforms. It allows you to set a goal for an amount of
+money, and add a reward to this. This way, you can inform your donors you will
+be creating a certain kind of content once a one-time goal has been reached.
+Basically, you can show your donors what you're going to do with the money
+they're donating to you.
+
+Another interesting thing that I haven't seen on other platforms is the option
+to charge donors per creation, instead of per month. While this may seem less
+fitting for software developers (unless you want to get paid per commit, I
+guess), it's an interesting feature that's pretty unique. If you publish many
+tutorials, guides or other posts, this might fit you very well.
+
+You can link your account to other services, similarly to other platforms, but
+it seems to only allow you to be linked with proprietary social media
+platforms.
+
+You can find Patreon at https://www.patreon.com/home.
+
+=== (Dis)honorable mentions
+==== Hatreon
+I've included this because I found people talking about it on IRC. However, it
+seems to be nothing more than a joke that's gone too far. Its main reason for
+existing seems to be to get away from the political correctness found with
+earlier crowdfunding platforms, yet their site is invite-only, so those who are
+actually interested can't even use it. It seems that pledging is currently
+disabled as well, and has been for at least 10 days.
+
+== But that's not all
+Just setting up an account on a funding platform isn't enough. There's more to
+keeping a healthy and happy supporter base.
+
+=== Spread awareness of your work
+Whether you're writing articles or publishing new releases of projects, tell
+the world you're doing whatever it is you're doing. If nobody knows about your
+project, they won't be able to give any kind of appreciation for it. Use social
+media outlets, public forums, mailing lists, anything! Tell them what you made,
+why it's useful and how they could use it to improve their digital life.
+
+[WARNING]
+====
+Ofcourse, don't spam it to unrelated communication channels. This will only
+backfire.
+====
+
+=== Using the rewards system
+On the platforms that support a rewards system, make use of it. There's some
+little things you can do that go a long way with your supporters. For instance,
+you can offer things like stickers to donors that donate a certain amount of
+money to you. These are reasonably cheap to produce and ship, and many people
+like these.
+
+Another idea that seems to strike well with donors is having a way to talk with
+the person they're supporting directly. This can be done by giving them access
+to an IRC channel for you and your donors. You can use another platform for
+this, but most free software enthousiasts are already on IRC, and there's few
+real-time communication alternatives that they're already using.
+
+=== Don't stick to a single platform
+There's multiple platforms out there, use them! Not all of them have the same
+userbase, and you can reach more people by giving them more options to work
+with.
+
+=== Let people know you're accepting donations
+If people don't know you're even accepting donations, chances are pretty high
+you won't get any. Or if it's too hard to figure out how to donate to you,
+people will simply not take the effort. Make sure people can easily find out
+that you're accepting donations, and how to donate to you.
+
+=== Show what you're doing with donation money
+Have a page with information about what you're using with the money. This can
+be as simple as just saying you pay the rent and buy food with it. Most donors
+don't mind too much what you're doing with the money they donate to you, but a
+few do appreciate having this information available to them.
+
+It can be as simple as adding a `/donate` link to your site where you explain
+how to donate to you, and what you do with the donation money.
+
+[WARNING]
+====
+Don't let it turn into an annoying advertisement though, this will surely have
+an opposite effect.
+====
+
+== Further reading
+There's more places to go for tips and tricks in getting funds to sustain your
+free software development work. I've listed a couple of these here for those
+interested.
+
+- https://wiki.snowdrift.coop/market-research/other-crowdfunding[snowdrift.coop wiki on crowdfunding/fundraising services]
+- https://github.com/nayafia/lemonade-stand[A handy guide to financial support for open source]
+
+== RFC
+I'd love to receive feedback on this, as I think being able to get donations
+easily for the work free software developers put in to their projects is
+important.
+
+Getting to know more platforms and giving them a small write-up should help out
+other developers like me looking for the best platform for their use case. I'd
+also like to hear from developers already using a platform, to extend this
+article with more useful information on how to successfully get donors for
+their work.
+
+If you want to contact me, do take a look at the link:/[Contact] section, and
+let me know about your experiences with funding.
+
+And if you liked this post, consider link:/donate.html[donating] ;)
