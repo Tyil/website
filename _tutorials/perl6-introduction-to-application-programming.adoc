@@ -174,7 +174,7 @@ subtest "Illegal rolls", {
 Perl 6 allows mathematical characters to make your code more concise, as with
 the ≤ in the above block. If you use http://www.vim.org/[vim], you can make use
 of the https://github.com/vim-perl/vim-perl6[vim-perl6] plugin, which has an
-option to change the longer, ascii-based ops (in this case `<=`) into the
+option to change the longer, ascii-based ops (in this case `\<=`) into the
 shorter unicode based ops (in this case `≤`). This specific feature requires
 `let g:perl6_unicode_abbrevs = 1` in your `vimrc` to be enabled with
 `vim-perl6`.
