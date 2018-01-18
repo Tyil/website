@@ -41,5 +41,3 @@ collections:
     output: true
   tutorials:
     output: true
-  anime:
-    output: false
