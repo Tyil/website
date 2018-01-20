@@ -1,10 +1,10 @@
 ---
 layout: default
-permalink: /fund-me.html
+permalink: /support.html
 ---
 
-# Funding me
-Thanks for considering to fund my work. It's much appreciated, and it helps me
+# Supporting me
+Thanks for considering to support my work. It's much appreciated, and it helps me
 to spend more time writing articles, tutorials, free software and promote more
 free software.
 
