@@ -221,7 +221,7 @@ well. You've seen the `map` example already while patting cats earlier, for
 instance.
 
 But there's much more on the functional playing field, such as the
-https://docs.perl6.org/routine/==%3E[`==>`] operator, known as the
+https://docs.perl6.org/routine/==%3E[`=\=>`] operator, known as the
 https://docs.perl6.org/language/operators#infix_==%3E[feed operator]. It simply
 passed the output of a statement as the last argument to the next statement:
 
@@ -236,7 +236,7 @@ passed the output of a statement as the last argument to the next statement:
 
 This will take the `@grumpy-cats`, feed them, pat them, snuggle them and put
 the result into `@happy-cats`. You could've chained the calls using a `.`
-instead, and Perl 6 allows you to do this too. But the `==>` looks much more
+instead, and Perl 6 allows you to do this too. But the `=\=>` looks much more
 readable to me, which is why I prefer using this instead.
 
 I'm still exploring the functional programming field myself, but these few
