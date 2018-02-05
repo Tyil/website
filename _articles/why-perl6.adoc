@@ -1,0 +1,270 @@
+= Why Perl 6?
+:toc: preamble
+
+For about a year now, I've been working in Perl 6. Telling this to other people
+often brings about some confused faces. I've grown quite fond of Perl 6 the
+more I learn about it, yet the general developer community still seems to think
+Perl is a dirty word. In this article, I will detail some of the features that
+make me like Perl 6, and why try to use it wherever possible.
+
+== Hassle-free command line arguments
+Whet creating an application, you usually want to be able to specify some
+arguments at runtime. Most times this happens using command line arguments or
+options. Perl 6 allows you to specify these in the
+https://docs.perl6.org/language/functions#index-entry-MAIN[`MAIN`] subroutine
+signature.
+
+For instance, if I want the application to accept two string arguments, I can
+do it as easy as this:
+
+[source,perl6]
+----
+sub MAIN (
+	Str $arg-one,
+	Str $arg-two,
+) {
+	...
+}
+----
+
+Now, if you wanted to add an option like `--output=/path/to/file`, you can do
+it just like this:
+
+[source,perl6]
+----
+sub MAIN (
+	Str $arg-one,
+	Str $arg-two,
+	Str :$output,
+) {
+	...
+}
+----
+
+By default, if there's a `MAIN` available in your Perl 6 program, but the
+arguments or options supplied by the user are incorrect, it will display the
+right way to invoke the command, called the
+https://docs.perl6.org/language/functions#index-entry-USAGE[`USAGE`]. Ofcourse,
+this message can be changed if you wish, but the default is quite good for most
+use-cases.
+
+However, sometimes you want to add a little explanation to what the argument or
+option is intended for. Just for a liitle bit of additional user friendliness.
+
+Fear not, for this is also already covered by the defaults. In Perl, there was
+POD to document your code. In Perl 6, we have
+https://docs.perl6.org/language/glossary#index-entry-POD[POD] as well. And
+these comments can be inspected at runtime to provide the user some
+information. And that's exactly what the default `USAGE` also does. So if you
+want to add some helpful comments to the arguments or the program itself,
+simply add the comments where you want them:
+
+[source,perl6]
+----
+#| This is a sample program, just to showcase the awesome stuff available in
+#| Perl 6.
+sub MAIN (
+	Str $arg-one, #= Just a random argument
+	Str $arg-two, #= Yet another argument used for showcasing
+	Str :$output, #= Last but not least, an option which allows for a value
+) {
+	...
+}
+----
+
+== Unicode
+What if you could support all languages with a single implementation? That's
+where unicode comes in. And Perl 6 currently has the best support for Unicode
+out of all programming languages available. It's only real competitor seems to
+be Swift (at the time of writing this).
+
+But not just for handling strings, Perl 6 uses unicode as a core language
+feature. This means you can use them in your source code as well. And that
+opens up some nice possibilities. Using the right unicode characters allows you
+to write cleaner and more concise code, reducing the cognitive load while
+trying to understand the program.
+
+For instance, if you're trying to do any kind of math, you can just use the
+π character as a regular character. Or use the ² to get the square of a certain
+number. This little piece is completely valid in Perl 6:
+
+[source,perl6]
+----
+my $a = $r² ÷ π;
+----
+
+Now, if you're thinking "that looks neat, but how am I ever going to write
+these?", do not worry. Most operating systems and many editors have tools to
+let you input these. For instance, using `vim` with
+https://github.com/vim-perl/vim-perl6[`vim-perl6`], you can just write "pi" and
+hit space (or type any non-alphabetical character).
+
+But not everyone is using an OS or an editor that makes it easy. And for those
+people, Perl 6 simply supports using
+https://docs.perl6.org/language/unicode_ascii[ascii based operators]. The
+previous block could also be written as follows:
+
+[source,perl6]
+----
+my $a = $r ^ 2 / pi;
+----
+
+As unicode becomes more accepted, input methods will hopefully improve to make
+input easier for everyone in the long run. Those who can already input it
+easily don't have to wait for this future, Perl 6 already supports it.
+
+== Multithreading
+Multi-core processors are virtually everywhere these days. Yet many programming
+languages still don't support multithreaded application development natively,
+if at all. In Perl 6, running something in a different thread is as easy as
+wrapping it in a https://docs.perl6.org/routine/start[`start`] block:
+
+[source,perl6]
+----
+start {
+	do-something();
+}
+----
+
+`start` returns a https://docs.perl6.org/type/Promise[`Promise`], which you can
+store in a scalar variable just like any other object. You can check on whether
+the `Promise` has completed already and check whether it died, for instance.
+
+Other aspects which can often be spread over multiple threads are loops or
+maps. For instance, consider the following
+https://docs.perl6.org/routine/map[map] function:
+
+[source,perl6]
+----
+@cats.map: {
+	$^cat.pat;
+}
+----
+
+This will pat each cat in turn, in the order they appear in the list. But you
+can speed up the patting process by patting multiple cats at the same time. And
+to get there, all you need to do is add a
+https://docs.perl6.org/routine/race[`race`]:
+
+[source,perl6]
+----
+@cats.race.map: {
+	$^cat.pat;
+}
+----
+
+This will attempt to pat the cats over multiple threads, speeding up the
+process to pat all the cats. If the result of the pattings needs to be in the
+same order as the patting order, you use
+https://docs.perl6.org/routine/hyper[`hyper`] instead of `race`:
+
+[source,perl6]
+----
+@cats.hyper.map: {
+	$^cat.pat;
+}
+----
+
+== Object orientation
+Object oriented programming seems to be getting out of fashion with the new
+generation of developers. But it's still in wide use, being taught at most
+universities, and is often easy to explain to new developers as well.
+
+And Perl 6 has https://docs.perl6.org/language/classtut#index-entry-OOP[OO]
+support built into its core:
+
+[source,perl6]
+----
+class Foo
+{
+	has Str $some-field;
+
+	method bar (
+		Str $some-arg,
+	) {
+		...
+	}
+}
+----
+
+You can also have
+https://docs.perl6.org/language/glossary#index-entry-Multi-Dispatch[multi-dispatch]
+methods on your classes, which are methods with the same names, but accepting
+different arguments or argument types. For instance:
+
+[source,perl6]
+----
+class Foo
+{
+	multi method bar (
+		Str $some-arg,
+	) {
+		...
+	}
+
+	multi method bar (
+		Int $some-arg,
+	) {
+		...
+	}
+}
+----
+
+Which method is being used will be decided by the type of argument is being
+passed in, in this case either a https://docs.perl6.org/type/Str[`Str`] or an
+https://docs.perl6.org/type/Int[`Int`].
+
+== Functional programming
+Whilst OO is considered being old more and more, functional programming is
+gaining ground. And this paradigm is fully supported in the core of Perl 6 as
+well. You've seen the `map` example already while patting cats earlier, for
+instance.
+
+But there's much more on the functional playing field, such as the
+https://docs.perl6.org/routine/==%3E[`==>`] operator, known as the
+https://docs.perl6.org/language/operators#infix_==%3E[feed operator]. It simply
+passed the output of a statement as the last argument to the next statement:
+
+[source,perl6]
+----
+@grumpy-cats
+	==> feed()
+	==> pat()
+	==> snuggle()
+	==> my @happy-cats;
+----
+
+This will take the `@grumpy-cats`, feed them, pat them, snuggle them and put
+the result into `@happy-cats`. You could've chained the calls using a `.`
+instead, and Perl 6 allows you to do this too. But the `==>` looks much more
+readable to me, which is why I prefer using this instead.
+
+I'm still exploring the functional programming field myself, but these few
+things have made me happy exploring it.
+
+== Community
+(Almost) last, but certainly not least, the Perl 6 community is amazing. It's
+been the friendliest bunch I've been with, both on IRC, their mailing lists and
+in real life. Everyone is welcoming, and they try to help you whenever they
+can.
+
+Community is important to help you out whenever you get stuck for whatever
+reason. A friendly community is the best you can get here to keep you a happy
+developer yourself as well.
+
+== Other little aspects
+There's a few neat things I can do in Perl 6 that I can't do in (most) other
+languages, but aren't important enough to warrant a large section to show them
+off.
+
+=== Dashes in names
+You can use dashes in names: Things like `my $foo-bar` is valid, just like
+`method foo-bar`. It's nothing big on itself, but I've found it makes reading
+code much more enjoyable than pascalCase, CamelCase or snake_case.
+
+=== Gradual typing
+You don't *need* to use types in Perl 6. But when you want to use them (for
+making use of multi-dispatch, for example), you can just start using them. If
+types are added, the compiler will make sure the types are correct. If not, you
+can always do them yourself (but why would you, when the compiler can do a
+better job for free).
