@@ -34,6 +34,7 @@ cleanup()
 
 prepare()
 {
+	mkdir -p "$WORKDIR"
 	git clone https://github.com/rakudo/rakudo/ "$WORKDIR"
 	cd "$WORKDIR" || exit
 
