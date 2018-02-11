@@ -41,3 +41,16 @@ collections:
     output: true
   tutorials:
     output: true
+
+# Give all posts a feed = true attribute for easy feed-generating
+defaults:
+  - scope:
+      type: articles
+    values:
+      categories: article
+      feed: true
+  - scope:
+      type: tutorials
+    values:
+      categories: tutorial
+      feed: true
