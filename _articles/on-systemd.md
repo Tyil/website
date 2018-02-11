@@ -261,6 +261,7 @@ wrong decision, is to simply stop using these distros.
 - [Without systemd][without-systemd]
 - [systemd is the best example of Suck][suckless-systemd]
 - [Thoughts on the systemd root exploit][agwa-systemd-root-exploit] (In response to [CVE-2016-10156][cve-2016-10156])
+- ["systemd: Please, No, Not Like This"](https://fromthecodefront.blogspot.nl/2017/10/systemd-no.html)
 
 [agwa-systemd-root-exploit]: https://www.agwa.name/blog/post/thoughts_on_the_systemd_root_exploit
 [broken-systemd]: http://ewontfix.com/14/
@@ -284,4 +285,3 @@ wrong decision, is to simply stop using these distros.
 [udev]: https://en.wikipedia.org/wiki/Udev
 [voidlinux]: http://www.voidlinux.eu/
 [without-systemd]: http://without-systemd.org/wiki/index.php/Main_Page
-
