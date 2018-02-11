@@ -1,5 +1,7 @@
 ---
 title: "How to: git"
+date: 2017-09-14 19:46:34
+tags: Git
 layout: post
 authors:
   - ["Patrick Spek", "http://tyil.work"]

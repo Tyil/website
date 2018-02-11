@@ -1,3 +1,7 @@
+---
+date: 2017-11-01 12:37:53
+tags: FreeSoftware Github Hacktoberfest Contributions
+---
 = Hacktoberfest 2017
 :toc: preamble
 

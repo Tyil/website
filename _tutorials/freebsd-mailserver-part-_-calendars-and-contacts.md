@@ -1,5 +1,7 @@
 ---
 title: "FreeBSD email server - Part +: Calendars and contacts"
+date: 2016-11-24 08:26:09
+tags: FreeBSD Email CalDAV CardDAV Installation
 layout: post
 authors:
   - ["Patrick Spek", "http://tyil.work"]

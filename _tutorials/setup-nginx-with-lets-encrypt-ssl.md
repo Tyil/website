@@ -1,5 +1,7 @@
 ---
 title: Setup nginx with Let's Encrypt SSL
+date: 2016-10-25 08:00:34
+tags: Installation LetsEncrypt Nginx SSL Encryption
 layout: post
 authors:
   - ["Patrick Spek", "http://tyil.work"]

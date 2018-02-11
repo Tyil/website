@@ -1,5 +1,7 @@
 ---
 title: Setup a VPN with cjdns
+date: 2016-10-25 08:00:34
+tags: Cjdns Installation VPN
 layout: post
 authors:
   - ["Patrick Spek", "http://tyil.work"]

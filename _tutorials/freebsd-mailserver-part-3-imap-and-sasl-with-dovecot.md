@@ -1,5 +1,7 @@
 ---
 title: "FreeBSD email server - Part 3: IMAP and SASL with Dovecot"
+date: 2016-10-31 07:57:50
+tags: FreeBSD Email Installation
 layout: post
 authors:
   - ["Patrick Spek", "https://www.tyil.work"]

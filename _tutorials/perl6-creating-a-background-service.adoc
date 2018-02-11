@@ -1,3 +1,7 @@
+---
+date: 2017-09-28 15:11:43
+tags: Perl6 Programming
+---
 = Perl 6 - Creating a background service
 :toc: preamble
 
