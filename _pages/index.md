@@ -56,6 +56,10 @@ via [`BitlBee`][bitlbee], the response time is about the same as via IRC.
 - [Keybase][keybase]
 - [LinkedIn][linkedin]
 
+## RSS
+If you'd like to stay up-to-date with my posts, you can subscribe to the [RSS
+feed][rss].
+
 [linkedin]: https://www.linkedin.com/in/patrickspek?
 [bitlbee]: https://www.bitlbee.org/main.php/news.r.html
 [mail]: mailto:p.spek@tyil.work
@@ -68,3 +72,4 @@ via [`BitlBee`][bitlbee], the response time is about the same as via IRC.
 [rizon]: https://rizon.net
 [mastodon]: https://mastodon.social/web/accounts/34234
 [donate]: /donate
+[rss]: https://www.tyil.nl/feed.xml
