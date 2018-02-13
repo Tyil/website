@@ -75,7 +75,7 @@ sub MAIN (
 == Unicode
 What if you could support all languages with a single implementation? That's
 where unicode comes in. And Perl 6 currently has the best support for Unicode
-out of all programming languages available. It's only real competitor seems to
+out of all programming languages available. Its only real competitor seems to
 be Swift (at the time of writing this).
 
 But not just for handling strings, Perl 6 uses unicode as a core language
