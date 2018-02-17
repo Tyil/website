@@ -1,6 +1,7 @@
 ---
 layout: default
 permalink: /index.html
+title: Personal blog
 ---
 
 ## About me
@@ -39,8 +40,8 @@ response. If you require a response as soon as possible, please find me on IRC
 instead.
 
 #### IRC
-I am mainly active as `tyil` on [DareNET][darenet]. Other networks I frequent
-are [Gratisnode][freenode] and [Rizon][rizon], using the same nick, `tyil`. I
+I am mainly active as `tyil` on [Freenode][freenode]. Other networks I frequent
+are [DareNET][darenet] and [Rizon][rizon], using the same nick, `tyil`. I
 use OTR for private messages on IRC, so be sure you use this if you want to
 discuss something in private.
 

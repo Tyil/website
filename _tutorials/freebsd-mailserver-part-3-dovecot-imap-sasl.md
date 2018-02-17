@@ -1,5 +1,5 @@
 ---
-title: "FreeBSD email server - Part 3: IMAP and SASL with Dovecot"
+title: "FreeBSD email server - Part 3: Dovecot, IMAP and SASL"
 layout: post
 authors:
   - ["Patrick Spek", "https://www.tyil.work"]
