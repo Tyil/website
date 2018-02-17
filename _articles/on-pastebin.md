@@ -77,4 +77,4 @@ and use any of the alternatives.
 [ix]: http://ix.io/
 [mitm]: https://en.wikipedia.org/wiki/Man-in-the-middle_attack
 [termbin]: http://termbin.com
-[tyilnl]: https://tyil.nl
+[tyilnl]: /
