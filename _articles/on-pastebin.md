@@ -65,14 +65,15 @@ Luckily, there are plenty of alternatives that do not treat their users with
 such disrespect. I ask anyone who is still using Pastebin to stop doing this,
 and use any of the alternatives.
 
-* [ix.io][ix]
-* [cry.nu][crynu] (works like termbin: `nc cry.nu 9999 < file`)
 * [0bin.net](https://0bin.net/)
+* [cry.nu][crynu] (works like termbin: `nc cry.nu 9999 < file`)
+* [ix.io][ix]
+- [p.tyil.nl][tyilnl] (worsk like termbin: `nc p.tyil.nl 9999 < file`)
 
+[cloudflare]: /articles/on-cloudflare.html
 [crynu]: https://cry.nu
-[cloudflare]: http://tyil.work/articles/cloudflare.html
 [hastebin]: http://hastebin.com
 [ix]: http://ix.io/
 [mitm]: https://en.wikipedia.org/wiki/Man-in-the-middle_attack
 [termbin]: http://termbin.com
-
+[tyilnl]: https://tyil.nl
