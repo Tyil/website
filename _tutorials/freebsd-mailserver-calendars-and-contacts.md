@@ -136,6 +136,5 @@ service radicale start
 {% endhighlight %}
 
 [nginx]: https://www.nginx.com/
-[tutorial-email]: https://www.tyil.work/tutorials/freebsd-mailserver-part-1-preparations.html
-[tutorial-webserver]: https://www.tyil.work/tutorials/setup-nginx-with-lets-encrypt-ssl.html
-
+[tutorial-email]: https://www.tyil.work/tutorials/freebsd-mailserver-part-1-preparations/
+[tutorial-webserver]: https://www.tyil.work/tutorials/setup-nginx-with-lets-encrypt-ssl/

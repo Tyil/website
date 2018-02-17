@@ -137,6 +137,5 @@ Postfix.
 [freebsd]: https://www.freebsd.org/
 [letsencrypt]: https://letsencrypt.org/
 [mysql]: https://www.mysql.com/
-[part-2]: https://www.tyil.work/tutorials/freebsd-mailserver-part-2-mailing-with-postfix.html
+[part-2]: https://www.tyil.work/tutorials/freebsd-mailserver-part-2-mailing-with-postfix/
 [postgres]: https://www.postgresql.org/
-

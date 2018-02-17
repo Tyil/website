@@ -311,7 +311,6 @@ defined in this part.
 
 [freebsd-ports]: https://www.freebsd.org/ports/
 [home]: https://www.tyil.work/
-[part-1]: https://www.tyil.work/tutorials/freebsd-mailserver-part-1-preparations.html
+[part-1]: https://www.tyil.work/tutorials/freebsd-mailserver-part-1-preparations/
 [postfix]: http://www.postfix.org/
 [sendmail]: http://www.sendmail.com/sm/open_source/
-
