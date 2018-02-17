@@ -281,7 +281,6 @@ wrong decision, is to simply stop using these distros.
 [suckless-systemd]: http://suckless.org/sucks/systemd
 [systemd-dos]: https://github.com/systemd/systemd/blob/b8fafaf4a1cffd02389d61ed92ca7acb1b8c739c/src/core/manager.c#L1666
 [tyil]: http://tyil.work
-[udev]: https://en.wikipedia.org/wiki/Udev
+[udev]: https://wiki.gentoo.org/wiki/Eudev
 [voidlinux]: http://www.voidlinux.eu/
 [without-systemd]: http://without-systemd.org/wiki/index.php/Main_Page
-
