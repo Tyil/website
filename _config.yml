@@ -25,7 +25,7 @@ asciidoctor:
     icons: font
     imagesdir: /img
     pygments-style: emacs
-    pygments-stylesheet: css/pygments.scss
+    pygments-stylesheet: css/pygments.base.css
     source-highlighter: pygments
 sass:
   style: compressed
