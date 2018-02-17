@@ -1,6 +1,6 @@
 ---
 layout: default
-permalink: /tutorials.html
+permalink: /tutorials/
 ---
 
 ## Tutorials

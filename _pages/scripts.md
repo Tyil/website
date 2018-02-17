@@ -1,6 +1,6 @@
 ---
 layout: default
-permalink: /scripts.html
+permalink: /scripts/
 ---
 
 ## Scripts

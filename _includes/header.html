@@ -16,12 +16,11 @@
 							{% continue %}
 						{% endif %}
 						<li class="nav-item">
-							<a class="nav-link" href="{{ collection.label | prepend: "/" | prepend: site.baseurl }}.html">{{ collection.label | capitalize }}</a>
+							<a class="nav-link" href="{{ collection.label | prepend: "/" | prepend: site.baseurl }}/">{{ collection.label | capitalize }}</a>
 						</li>
 					{% endfor %}
-
 					<li class="nav-item">
-						<a class="nav-link" href="{{ "/support" | prepend: site.baseurl }}.html">Support me</a>
+						<a class="nav-link" href="{{ "/support" | prepend: site.baseurl }}/">Support me</a>
 					</li>
 				</ul>
 			</div>

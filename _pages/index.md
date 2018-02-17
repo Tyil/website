@@ -56,10 +56,10 @@ via [`BitlBee`][bitlbee], the response time is about the same as via IRC.
 - [Keybase][keybase]
 - [LinkedIn][linkedin]
 
-[bitlbee]: https://www.bitlbee.org/main.php/news.r.html
+[bitlbee]: https://www.bitlbee.org/main.php/news.r/
 [c.darenet]: https://c.darenet.org/u/tyil
 [darenet]: https://darenet.org
-[donate]: /support.html
+[donate]: /support/
 [freenode]: https://freenode.net
 [github]: https://github.com/Tyil
 [keybase]: https://keybase.io/tyil

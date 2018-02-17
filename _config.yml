@@ -12,6 +12,7 @@ description: > # this means to ignore newlines until "baseurl:"
   Hi, I'm tyil, and this is my site.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://tyil.work" # the base hostname & protocol for your site
+permalink: pretty
 plugins:
   - jekyll-asciidoc
   - jekyll-sitemap

@@ -1,6 +1,6 @@
 ---
 layout: default
-permalink: /anime.html
+permalink: /anime/
 ---
 
 ## My anime list

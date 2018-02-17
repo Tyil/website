@@ -16,7 +16,7 @@ more useful for procuring a stable income.
 === BountySource
 [WARNING]
 ====
-- Requires 3rd-party link:/articles/on-cloudflare.html[Cloudflare]-hosted
+- Requires 3rd-party link:/articles/on-cloudflare/[Cloudflare]-hosted
   JavaScript sources to function.
 ====
 
@@ -218,4 +218,4 @@ their work.
 If you want to contact me, do take a look at the link:/[Contact] section, and
 let me know about your experiences with funding.
 
-And if you liked this post, consider link:/support.html[donating] ;)
+And if you liked this post, consider link:/support/[donating] ;)

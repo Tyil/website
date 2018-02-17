@@ -1,4 +1,4 @@
 ---
-permalink: /blank.html
+permalink: /blank/
 ---
 

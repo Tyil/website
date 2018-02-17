@@ -70,7 +70,7 @@ and use any of the alternatives.
 * [ix.io][ix]
 - [p.tyil.nl][tyilnl] (worsk like termbin: `nc p.tyil.nl 9999 < file`)
 
-[cloudflare]: /articles/on-cloudflare.html
+[cloudflare]: /articles/on-cloudflare/
 [crynu]: https://cry.nu
 [hastebin]: http://hastebin.com
 [ix]: http://ix.io/

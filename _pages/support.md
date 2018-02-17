@@ -1,6 +1,6 @@
 ---
 layout: default
-permalink: /support.html
+permalink: /support/
 ---
 
 # Supporting me
