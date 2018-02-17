@@ -18,8 +18,9 @@ small overview of all those PRs, in no particular order.
 
 When reinstalling my server to try out https://docker.com[Docker], I noticed an
 error in the output of the `boot-update` utility, a tool from
-https://funtoo.org[Funtoo] to make installing and configuring the bootloader
-easier. The error itself was a small type of a `-` which had to be a `_`.
+https://www.funtoo.org/Welcome[Funtoo] to make installing and configuring the
+bootloader easier. The error itself was a small type of a `-` which had to be a
+`_`.
 
 ==== scriptkitties/overlay
 - https://github.com/scriptkitties/overlay/pull/14

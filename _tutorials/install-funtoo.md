@@ -1,5 +1,6 @@
 ---
 title: Install Funtoo
+wip: true
 layout: post
 authors:
   - ["Patrick Spek", "http://tyil.work"]
