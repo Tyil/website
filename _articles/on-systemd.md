@@ -2,6 +2,7 @@
 layout: post
 title:  On Systemd
 date:   2016-10-01 10:20:27 +0200
+tags:   Harmful Systemd
 authors:
   - ["Patrick Spek", "http://tyil.work"]
   - ["Samantha McVey", "https://cry.nu"]
@@ -261,6 +262,7 @@ wrong decision, is to simply stop using these distros.
 - [Without systemd][without-systemd]
 - [systemd is the best example of Suck][suckless-systemd]
 - [Thoughts on the systemd root exploit][agwa-systemd-root-exploit] (In response to [CVE-2016-10156][cve-2016-10156])
+- ["systemd: Please, No, Not Like This"](https://fromthecodefront.blogspot.nl/2017/10/systemd-no.html)
 
 [agwa-systemd-root-exploit]: https://www.agwa.name/blog/post/thoughts_on_the_systemd_root_exploit
 [broken-systemd]: http://ewontfix.com/14/

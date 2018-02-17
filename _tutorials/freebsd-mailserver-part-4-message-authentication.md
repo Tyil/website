@@ -1,5 +1,7 @@
 ---
 title: "FreeBSD email server - Part 4: Message authentication"
+date: 2016-10-31 20:00:38
+tags: FreeBSD Email Installation
 layout: post
 authors:
   - ["Patrick Spek", "https://www.tyil.work"]

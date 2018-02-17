@@ -1,3 +1,8 @@
+---
+title: Funding Yourself As A Free Software Developer
+date: 2017-12-21 05:29:26
+tags: FreeSoftware Development Funding
+---
 = Funding Yourself As A Free Software Developer
 :toc: preamble
 

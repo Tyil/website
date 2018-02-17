@@ -1,6 +1,8 @@
 ---
 title: Install Funtoo
 wip: true
+date: 2016-10-03 18:05:59
+tags: Installation Funtoo
 layout: post
 authors:
   - ["Patrick Spek", "http://tyil.work"]

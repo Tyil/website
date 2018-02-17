@@ -1,3 +1,7 @@
+---
+date: 2017-11-16 11:58:40
+tags: Perl6 RaspberryPi Installation
+---
 = Perl 6 - Setting up a Raspberry Perl
 :toc: preamble
 

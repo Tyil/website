@@ -1,5 +1,7 @@
 ---
 title: "FreeBSD email server - Part 5: Filtering mail"
+date: 2016-10-31 20:02:19
+tags: FreeBSD Email Installation
 layout: post
 authors:
   - ["Patrick Spek", "https://www.tyil.work"]
