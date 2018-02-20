@@ -10,7 +10,7 @@
 
   <title>{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}</title>
 
-  {% if page.excerpt %}
+  {% if page.excerpt.size != 0 and page.excerpt.size > 0 %}
   <meta name="description" content="{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}" />
   {% else %}
   <meta name="description" content="{{ page.description | strip_newlines }}" />
