@@ -14,6 +14,13 @@ To make good use of it, you will have to add the following two paths to your
 - `~/.local/bin` (for `perl6`)
 - `~/.local/share/perl6/site/bin` (for executables from installed modules)
 
+This script has only been tested on [Funtoo][funtoo], so I cannot guarantee it
+will work correctly on every other distro. For [Debian][debian], and
+derivatives like [Ubuntu][ubuntu], you will have to install `git` and
+`build-essential` through `apt`, for instance. If anyone is willing to test it
+on other distros and provide me with feedback, I will update the descriptions
+as needed.
+
 {% highlight sh linenos %}
 #! /usr/bin/env sh
 
@@ -52,3 +59,7 @@ main()
 
 main "$@"
 {% endhighlight %}
+
+[debian]: https://www.debian.org/index.en.html
+[funtoo]: https://www.funtoo.org/Welcome
+[ubuntu]: https://www.ubuntu.com/
