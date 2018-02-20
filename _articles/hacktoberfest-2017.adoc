@@ -1,6 +1,12 @@
 ---
 date: 2017-11-01 12:37:53
 tags: FreeSoftware Github Hacktoberfest Contributions
+description: >
+  This year I actively participated in the Hacktoberfest event, which is 'a
+  month-long celebration of open source software'. Ironic, given that the
+  companies organising it don't have their own software stack open source.
+  Nevertheless, I did contribute to free software, and this article lists these
+  contributions.
 ---
 = Hacktoberfest 2017
 :toc: preamble

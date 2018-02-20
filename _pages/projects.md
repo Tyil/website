@@ -2,6 +2,10 @@
 layout: default
 permalink: /projects/
 title: Software projects
+description: >
+  Here is a list of all projects I worked on that I deem good or important
+  enough to publish here. This list won't always be complete, but it's good
+  enough for a quick overview.
 ---
 
 # Projects

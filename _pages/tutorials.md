@@ -2,6 +2,11 @@
 layout: default
 permalink: /tutorials/
 title: Tutorials
+description: >
+  These are mostly inspired by questions I see repeated often in help channels
+  on IRC, or from people I see at tech meetups. Since it's often easier to give
+  them a link than give each person a hands-on training every time, I have
+  written these tutorials.
 ---
 
 ## Tutorials

@@ -2,6 +2,11 @@
 layout: default
 permalink: /index.html
 title: Personal blog
+description: >
+  Hi, I'm tyil, and this is my site. I'm a software engineer with a big
+  interest in Free Software. As such, I spend much time writing and promoting
+  free software. Occasionally, I'll write an article about something freedom or
+  software related.
 ---
 
 ## About me

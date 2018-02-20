@@ -2,6 +2,11 @@
 title: Why Perl 6?
 date: 2018-02-05 18:22:20
 tags: Perl6
+description: >
+  I've grown quite fond of Perl 6 the more I learn about it, yet the general
+  developer community still seems to think Perl is a dirty word. In this
+  article, I will detail some of the features that make me like Perl 6, and why
+  I try to use it wherever possible.
 ---
 = Why Perl 6?
 :toc: preamble

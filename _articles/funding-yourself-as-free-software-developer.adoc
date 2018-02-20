@@ -2,6 +2,11 @@
 title: Funding Yourself As A Free Software Developer
 date: 2017-12-21 05:29:26
 tags: FreeSoftware Development Funding
+description: >
+  An overview of multiple funding platforms, with pros and cons, from the
+  perspective of a free software developer. It's intent is to help others find
+  a possible form of income while doing what they love, and what I consider is
+  immensely important for society.
 ---
 = Funding Yourself As A Free Software Developer
 :toc: preamble

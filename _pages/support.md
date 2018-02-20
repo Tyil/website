@@ -2,6 +2,10 @@
 layout: default
 permalink: /support/
 title: Funding me
+description: >
+  Thanks for considering to support my work. It's much appreciated, and it
+  helps me to spend more time writing articles, tutorials, free software and
+  promote more free software.
 ---
 
 # Supporting me

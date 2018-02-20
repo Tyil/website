@@ -1,6 +1,10 @@
 ---
 date: 2017-09-28 15:11:43
 tags: Perl6 Programming
+description: >
+  I've recently made some progress on Shinrin, a centralized logging system in
+  Perl 6. This has to run as service, which means that for most service
+  managers it has to be able to run in the background.
 ---
 = Perl 6 - Creating a background service
 :toc: preamble

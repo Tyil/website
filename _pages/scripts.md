@@ -2,6 +2,10 @@
 layout: default
 permalink: /scripts/
 title: Script index
+description: >
+  These are some small scripts which I share in the hope that they may help out
+  other people in the future. Since these are just simple scripts, it is not
+  really worth it to classify them as a full project.
 ---
 
 ## Scripts

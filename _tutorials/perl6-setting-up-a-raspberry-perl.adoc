@@ -1,6 +1,11 @@
 ---
 date: 2017-11-16 11:58:40
 tags: Perl6 RaspberryPi Installation
+description: >
+  In this tutorial I'll get you through setting up a Raspberry Pi with Perl 6.
+  I am using a Raspberry Pi 3 myself, but other versions should work fine too.
+  However, older versions are slower, so it might take a bit longer to install
+  completely.
 ---
 = Perl 6 - Setting up a Raspberry Perl
 :toc: preamble

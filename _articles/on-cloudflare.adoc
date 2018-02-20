@@ -1,6 +1,11 @@
 ---
 date: 2017-12-17 10:13:26
 tags: Harmful Cloudflare
+description: >
+  Cloudflare is a threat to online security and privacy. I am not the first on
+  to address this issue, and I probably will not be the last either. Sadly,
+  people still seem to be very uninformed as to what issues Cloudflare actually
+  solves, or introduces.
 ---
 = On Cloudflare
 :toc:
