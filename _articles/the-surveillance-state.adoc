@@ -1,0 +1,147 @@
+---
+title: The Surveillance State
+date: 2018-03-13 12:32:20
+tags: Politics Freedom Surveillance Privacy
+description: >
+  In the past three months I have attended three meetups focussed on privacy
+  and security. Though these were reasonably small gatherings, I still had some
+  interesting conversations with interesting people.
+wip: true
+---
+= The Surveillance State
+:toc: preamble
+
+In the past three months, I have attended meetups focussed primarily on
+privacy, and a slight part on security. At these gatherings, we have had
+discussions with other people, the latest of which focussed on surveillance
+cameras. Due to time limits, I was not able to discuss every point raised in
+depth.
+
+This article is intended to give a more thorough overview of my arguments
+against some of the popular arguments in favor of more surveillance cameras in
+the city of 's Hertogenbosch.
+
+== Raising awareness
+First off, I think it's a great innitiative to raise awareness on political
+issues like this, which are rarely discussed in a proper fashion by the
+politicians themselves. What surprised me during all the meetups, I was one of
+the youngest, if not the youngest attendee out of the crowd. Most of the
+attendees were people of 40 years or older, which seems like politics (or
+specifically politics about privacy) are not interesting for the new generation
+of voters.
+
+Having tried to raise this issue with friends, family members and online, I can
+clearly see that there is very little interest in privacy or security with the
+average citizen. A common answer is "I'm not doing anything wrong" or "I have
+nothing to hide".
+
+== Opening discussion
+Awareness is great to have, since it opens up the possibilities for discussion.
+It's incredibly hard to discuss something that people aren't aware if is even
+happening. I think the first and especially the last meetup did a great job in
+getting people to discuss their views on the issues.
+
+At the last meetup, I personally took issue with some of the argumentation
+given to us by a law enforcement officer, who was greatly in favor of
+surveillance cameras. I tried to discuss these arguments with him, but he
+seemed to care very little about the opinions of others, and instead opted to
+simply restate his first argument.
+
+=== There's no point to stop something that is already happening
+Or, as he said it, "you're trying to stop a flood of water with your hands".
+I'd like to note the irony of a Dutch person saying you can't stop water,
+seeing as how the Dutch people have been doing this for quite a while with the
+dykes.
+
+The argument itself is defeatist in nature: it's happening, so there's no point
+in doing anything about it. Our entire society is built upon the idea of laws
+to stop people from doing things which are considered bad. He as a police
+officer would have a very boring job if his captain said there's no point in
+trying to stop crime since it's happening already anyway.
+
+The point of a democratic society is that we can vote for things we, as
+citizens, find bad, so policies can be made to stop such practices. This is one
+such a "thing". Some people may find it bad, others may say it's a good change.
+But claiming one should just accept it for the sole fact that it's already
+happening makes very little sense to me.
+
+=== Absolute confidence and trust in the technology and its implementors
+His second argument was about confidence in the entire system, and trust in the
+people who create, maintain and use it.
+
+I can guarantee you, as a software engineer, that having absolute trust in
+software is possibly one of the most stupid things you can do. My job exists
+because bugs appear. There is not a single software project that I would trust
+absolutely to be completely correct in its implementation.
+
+He made this argument by claiming that he had friends in the IT sector of the
+government, and was therefore knowledgable on the surveillance camera project.
+He knew these people would not abuse their powers in any way or form. Which is
+nice to know, but these specific people, even if I too knew and trusted them,
+won't be in charge forever. With long-running projects like these, you need to
+account for the future, and the people maintaining and using the systems then.
+
+Trust in the technology is also a rather hard point to sell to citizens.
+Citizens are not allowed to know about the hardware specifications, or the
+software in use, or the software used to store and analyze video footage. It is
+impossible to put trust in a system you have no insight of. If the government
+would be transparent in their IT projects, maybe we as citizens could put some
+trust in these systems.
+
+=== It's the same as putting an officer at each camera location
+Another argument he raised in defense of surveillance cameras was to put an
+officer at every camera location instead. Nobody would complain about this like
+they do when it's cameras. These officers would then tell one another what they
+were seeing, which is less trustworthy than actual camera footage.
+
+While he is correct that an officer's retelling of an event might be less
+trustworthy than actual camera footage, there is a major flaw in the argument:
+more surveillance cameras arent going to stop any crime. They can assist in
+finding the perpetrator and retelling the story of what happened at a given
+location, but they're not stopping any crime. Law enforcement officers *can*
+stop crimes that are happening right in front of their eyes.
+
+=== More street cameras will stop the production of child porn
+This was possibly the most egregious of his claims. He reasoned that cameras
+keep an eye on both the public life, but also the "hidden" lives of criminals.
+And part of the "hidden" crimes they are supposedly solving with the cameras
+are the crimes of child prostitution and child porn production.
+
+For starters, I highly doubt the cameras will bring insight into "hidden"
+crimes, as they are named "hidden" for a reason. They might be able to spot
+such events if they were happening in public, but I'd guess that such criminals
+would be arrested by cops if they do it this publicly. If police officers would
+not arrest them if they did it in broad daylight, I highly doubt they'd be able
+to do so if they do it out of sight. Cameras make no difference in this
+perspective.
+
+Secondly, the argument of child porn and prostitutes is, together with
+terrorism, a very recurring argument by officials as a (or the) reason to add
+more surveillance. However, there are no statistics on how much of these
+activities have been thwarted compared to the amount of privacy and freedom we
+as civilians had to sacrifice for it. To add salt to the injury, in the United
+Kingdom, a place where they have quite a lot of camera surveillance already,
+multiple astonishingly large pedophile networks have been discovered. Victims
+of these networks say that these crimes are still happening. Clearly, simply
+adding surveillance isn't doing the trick to stop these activities.
+
+== Local politician refuses to answer questions
+This was a sad announcement. For the last event, the organisers had sought
+contact with a local politician who deals with the surveillance cameras. They
+had arranged this many weeks in advance, and the original answer was positive.
+Sadly, shortly before the actual meetup, this person informed the organisers
+they will not be attending due to the political circumstances.
+
+This circumstance was the upcoming elections. The person did not want to answer
+questions on the topic of surveillance, apparently out of fear that it might
+influence the results. This bothers me quite a bit, as important information
+about policies like this are important to discuss with the politicians, so you
+can make a better decision on who to vote for. Transparency is a very important
+aspect of a healthy democracy, and this politician seems to be actively working
+against this.
+
+In his last message, there was a possibility of having a Q&A session with them
+after the elections happened. The organisers of the event showed interest in
+taking them up on their offer, and would make announcements if they could reach
+an agreement (once more). If this happens, I will surely attend and request
+more information about his reasoning.
