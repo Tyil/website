@@ -19,25 +19,25 @@ depth.
 
 This article is intended to give a more thorough overview of my arguments
 against some of the popular arguments in favor of more surveillance cameras in
-the city of 's Hertogenbosch.
+the city of Den Bosch.
 
 == Raising awareness
 First off, I think it's a great initiative to raise awareness on political
 issues like this, which are rarely discussed in a proper fashion by the
-politicians themselves. What surprised me during all the meetups, I was one of
-the youngest, if not the youngest attendee out of the crowd. Most of the
-attendees were people of 40 years or older, which seems like politics (or
-specifically politics about privacy) are not interesting for the new generation
-of voters.
+politicians themselves. What surprised me during all the meetups was that I was
+one of the youngest, if not the youngest attendee in the crowd. Most of the
+attendees were people of 40 years or older, which makes it seem like politics
+(or specifically politics about privacy) are not interesting for the new
+generation of voters.
 
-Having tried to raise this issue with friends, family members and online, I can
+Having tried to raise this issue with friends, family members, and online, I can
 clearly see that there is very little interest in privacy or security with the
 average citizen. A common answer is "I'm not doing anything wrong" or "I have
 nothing to hide".
 
 == Opening discussion
 Awareness is great to have, since it opens up the possibilities for discussion.
-It's incredibly hard to discuss something that people aren't aware if is even
+It's incredibly hard to discuss something that people aren't aware is even
 happening. I think the first and especially the last meetup did a great job in
 getting people to discuss their views on the issues.
 
@@ -47,7 +47,7 @@ surveillance cameras. I tried to discuss these arguments with him, but he
 seemed to care very little about the opinions of others, and instead opted to
 simply restate his first argument.
 
-=== There's no point to stop something that is already happening
+=== There's no point in stopping something that is already happening
 Or, as he said it, "you're trying to stop a flood of water with your hands".
 I'd like to note the irony of a Dutch person saying you can't stop water,
 seeing as how the Dutch people have been doing this for quite a while with the
@@ -59,9 +59,9 @@ to stop people from doing things which are considered bad. He as a police
 officer would have a very boring job if his captain said there's no point in
 trying to stop crime since it's happening already anyway.
 
-The point of a democratic society is that we can vote for things we, as
+The point of a democratic society is that we can vote against things we, as
 citizens, find bad, so policies can be made to stop such practices. This is one
-such a "thing". Some people may find it bad, others may say it's a good change.
+such thing. Some people may find it bad, others may say it's a good change.
 But claiming one should just accept it for the sole fact that it's already
 happening makes very little sense to me.
 
@@ -103,8 +103,8 @@ stop crimes that are happening right in front of their eyes.
 
 === More street cameras will stop the production of child porn
 This was possibly the most egregious of his claims. He reasoned that cameras
-keep an eye on both the public life, but also the "hidden" lives of criminals.
-And part of the "hidden" crimes they are supposedly solving with the cameras
+keep an eye on both the public life and also the "hidden" lives of criminals,
+and part of the "hidden" crimes they are supposedly solving with the cameras
 are the crimes of child prostitution and child porn production.
 
 For starters, I highly doubt the cameras will bring insight into "hidden"
@@ -134,9 +134,9 @@ they will not be attending due to the political circumstances.
 
 This circumstance was the upcoming elections. The person did not want to answer
 questions on the topic of surveillance, apparently out of fear that it might
-influence the results. This bothers me quite a bit, as important information
+influence the results. This bothers me quite a bit, as information
 about policies like this are important to discuss with the politicians, so you
-can make a better decision on who to vote for. Transparency is a very important
+can make a better decision on whom to vote for. Transparency is a very important
 aspect of a healthy democracy, and this politician seems to be actively working
 against this.
 
