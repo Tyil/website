@@ -1,3 +1,11 @@
+---
+title: "Perl 6 - Introduction to application programming"
+date: 2018-03-20 11:08:00
+tags: Perl6 Assixt GTK tutorial programming
+layout: post
+authors:
+  - ["Patrick Spek", "https://tyil.nl"]
+---
 = Perl 6 - Introduction to application programming
 :toc: preamble
 
