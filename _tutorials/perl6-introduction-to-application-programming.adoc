@@ -11,8 +11,9 @@ authors:
 
 In this tutorial, I'll be guiding you through creating a simple application in
 Perl 6. If you don't know how to get it up and running on a cheap device to get
-started, do check out the http://TODO/[tutorial to setup Perl 6 on a Raspberry
-Pi].
+started, do check out the
+link:/tutorials/perl6-setting-up-a-raspberry-perl/[tutorial to setup Perl 6 on
+a Raspberry Pi].
 
 The application itself will be a simple dice-roller. You give it a number of
 dice to roll, and the number of sides the die has. We'll start off by creating
