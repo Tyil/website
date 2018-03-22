@@ -10,10 +10,10 @@ authors:
 :toc: preamble
 
 In this tutorial, I'll be guiding you through creating a simple application in
-Perl 6. If you don't know how to get it up and running on a cheap device to get
-started, do check out the
-link:/tutorials/perl6-setting-up-a-raspberry-perl/[tutorial to setup Perl 6 on
-a Raspberry Pi].
+Perl 6. If you don't have Perl 6 installed yet, get the
+http://rakudo.org/how-to-get-rakudo/[Rakudo Star] distribution for your OS.
+Alternatively, you can use the https://hub.docker.com/_/rakudo-star/[Docker
+image].
 
 The application itself will be a simple dice-roller. You give it a number of
 dice to roll, and the number of sides the die has. We'll start off by creating
@@ -21,6 +21,17 @@ it as a console application, then work to make it a GUI as well with the
 `GTK::Simple` module.
 
 == Preparation
+First, you'll want to install the libgtk headers. How to get these depends on
+your distro of choice. For Debian-based systems, which includes Ubuntu and
+derivatives, this command would be the following `apt` invocation:
+
+[source]
+----
+$ apt install libgtk-3-dev
+----
+
+For other distros, please consult your documentation.
+
 To ease up module/application building, I'll use `App::Assixt`. This module
 eases up on common tasks required for building other modules or applications.
 So we'll start by installing this module through `zef`.
@@ -32,46 +43,20 @@ $ zef install App::Assixt
 
 [NOTE]
 ====
-The `--force-resolve` is required to deal with
-https://github.com/ugexe/zef/issues/157[zef issue #157].
-====
-
-After this, the bins exposed by Perl 6 need to be updated:
-
-[source]
-----
-$ rakudobrew rehash
-----
-
-[NOTE]
-====
 You may need to rehash your `$PATH` as well, which can be done using `hash -r`
 on `bash`, or `rehash` for `zsh`. For other shells, consult your manual.
 ====
 
-Next up, we can use `assixt` to create the new skeleton of our application, with
-the `new` subcommand.
+Next up, we can use `assixt` to create the new skeleton of our application,
+with the `new` subcommand. This will ask for some user input, which will be
+recorded in the `META6.json`, a json-formatted file to keep track of meta
+information about the module.  `assixt` should take care of this file for you,
+so you never need to actually deal with it.
 
 [source]
 ----
 $ assixt new
 ----
-
-This will ask for some user input, which will be recorded in the `META6.json`,
-a json-formatted file to keep track of meta information about the module.
-`assixt` should take care of this file for you, so you never need to actually
-deal with it.
-
-Lastly, you'll need the libgtk headers. How to get these depends on your distro
-of choice. For Debian-based systems, which includes Ubuntu and derivatives, this
-command would be the following `apt` invocation:
-
-[source]
-----
-$ apt install libgtk-3-dev
-----
-
-For other distros, please consult your documentation.
 
 === assixt input
 Since the `assixt new` command requires some input, I'll walk through these
