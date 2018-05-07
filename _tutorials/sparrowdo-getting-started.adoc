@@ -1,0 +1,231 @@
+---
+date: 2018-05-07 14:04:43
+tags: Tutorial Perl6 Sparrowdo GettingStarted
+description: >
+   Nondescript
+---
+= Sparrowdo - Getting started
+:toc: preamble
+
+https://github.com/melezhik/sparrowdo[Sparrowdo] is a Perl 6 project to
+facilitate automatic configuration of systems. There's a
+https://sparrowhub.org/[repository of useful modules] to make specific cases
+easier to work with, but the
+https://github.com/melezhik/sparrowdo/blob/master/core-dsl.md[Core DSL] can
+already take care of many tasks. In this tutorial, I'll guide you through
+setting up Sparrowdo, bootstrapping it onto your local system, writing a task
+and running it.
+
+== Install Sparrowdo
+Sparrowdo is a http://perl6.org/[Perl 6] project, so you'll need to have Perl 6
+installed. We'll also use the Perl 6 package manager
+https://github.com/ugexe/zef/[zef] to install Sparrowdo itself. Luckily for us,
+there's a stable distribution of Perl 6 with everything we need added to it,
+called https://rakudo.org/files[Rakudo Star]. And to make it easier for
+GNU+Linux users, I wrote a tool to fetch the latest Rakudo Star release, compile
+it and install it, called https://github.com/Tyil/lonestar[LoneStar]. Since this
+tutorial will aim at GNU+Linux users, I'll use that to install Perl 6.
+
+=== Installing Perl 6 with LoneStar
+LoneStar is a Bash application to download, compile and set up Perl 6. It's a
+standalone application, meaning you don't have to install it to your system. You
+can just run it from the source directory. First, we'll have to get the source
+directory, which we'll do using `git`.
+
+[source,sh]
+----
+mkdir -p ~/.local/src
+git clone https://github.com/tyil/lonestar.git ~/.local/src/lonestar
+cd !$
+----
+
+Now you have the LoneStar sources available in `~/.local/src/lonestar`. You can
+run the application using `./bin/lonestar`. Running it, you'll get some help
+output:
+
+[source]
+----
+$ ./bin/lonestar
+lonestar - Installation manager for Rakudo Star
+
+Usage: lonestar <action> [arguments...]
+
+Actions:
+  help      [action]
+  init      [version=latest]
+  install   [version=latest]
+  path      [version=latest]
+  reinstall [version=latest]
+  upgrade
+----
+
+We'll be needing the `install` action to get Perl 6 installed, and the `init`
+action to configure the `$PATH` environment variable. Depending on your
+hardware, `install` may take a couple minutes as it will compile Rakudo Perl 6
+and install some base modules. You might want to grab a drink during this
+period.
+
+[source]
+----
+$ ./bin/lonestar install
+$ eval $(./bin/lonestar init)
+$ perl6 -v
+This is Rakudo Star version 2018.04.1 built on MoarVM version 2018.04.1
+implementing Perl 6.c.
+----
+
+[NOTE]
+====
+If there's a newer version available of Rakudo Star, the version numbers given
+by `perl6 -v` will differ for you.
+====
+
+=== Installing Sparrowdo with zef
+Now that you have Perl 6 available and installed, you can continue on using
+`zef` to install Sparrowdo. `zef` is bundled with Rakudo Star, so you don't have
+to do anything to get it working.
+
+[source,sh]
+----
+zef install Sparrowdo
+----
+
+This will instruct `zef` to install Sparrowdo and all its dependencies. This can
+take a couple minutes, again depending on the hardware of your machine.
+
+== Bootstrapping your system
+The first step to working with Sparrowdo is bootstrapping the system you wish to
+use it with. In this case, that'll be the local system. There's a `--bootstrap`
+option to do this automatically.
+
+[source,sh]
+----
+sparrowdo --bootstrap
+----
+
+[TIP]
+====
+If you wish to bootstrap a remote system, you can use the `--host` option to
+specify the system. For example: `sparrowdo --host=192.168.1.2 --bootstrap`.
+====
+
+Now your system is ready to be configured automatically using Sparrowdo!
+
+== Sparrowfiles
+Sparrowfiles are the files that describe the tasks Sparrow should execute to
+get you the configuration you want. They are valid Perl 6 code, and call the
+subroutines (or _sparrowtasks_) that will handle the actual actions. By default,
+when running `sparrowdo`, it will look for a file named `sparrowfile` in the
+current directory.
+
+To make our sample, we'll create a new directory to work in, so we have clean
+directory that can be shared easily. You can also keep this directory under
+version control, so you can distribute the `sparrowfile` with all its templates.
+
+[TIP]
+====
+If you just want to create an empty directory to test things in, without
+"polluting" the rest of your system, just call `cd -- "$(mktemp -d)"`. This will
+create a temporary directory and change the working directory to there.
+====
+
+I'll be using `~/.local/sparrowdo/local-dns` to work in, as I'll be setting up a
+local dns cache with http://www.thekelleys.org.uk/dnsmasq/doc.html[dnsmasq] for
+the sample code.
+
+=== Writing a `sparrowfile`
+As noted in the previous paragraph, for the sake of a demo I'll guide you
+through creating a `sparrowfile` to install and configure `dnsmasq` as a local
+DNS cache. Using your favourite `$EDITOR`, write the following to `sparrowfile`:
+
+[source,perl6]
+----
+package-install "dnsmasq";
+directory "/etc/dnsmasq.d";
+file-create "/etc/dnsmasq.conf", %(content => slurp "dnsmasq.conf");
+file-create "/etc/dnsmasq.d/resolv.conf", %(content => slurp "resolv.conf");
+service-start "dnsmasq";
+----
+
+This `sparrowfile` will set up the following configuration for `dnsmasq`:
+
+- Install the `dnsmasq` package
+- Create the `/etc/dnsmasq.d` directory in which we'll store configuration files
+  for `dnsmasq`
+- Create the configuration files `dnsmasq.conf` at `/etc/dnsmasq.conf`
+- Create the `resolv.conf` in the `dnsmasq.d` directory
+- Start the `dnsmasq` service
+
+The configuration files will be created based on the configuration files in the
+current directory. So for this to work, you'll need to also create the
+appropriate configuration files. Let's start off with the main `dnsmasq`
+configuration in `dnsmasq.conf`:
+
+[source,conf]
+----
+listen-address=127.0.0.1
+
+no-dhcp-interface=
+resolv-file=/etc/dnsmasq.d/resolv.conf
+----
+
+This will make `dnsmasq` listen on the loopback interface, so it'll only be able
+to be used by the local machine. Furthermore, DHCP functionality will be
+disabled, and the upstream resolvers are read from `/etc/dnsmasq.d/resolv.conf`.
+The contents of that file are as follows:
+
+[source,conf]
+----
+nameserver 37.235.1.174
+nameserver 37.235.1.177
+----
+
+These nameservers are part of the https://freedns.zone/en/[FreeDNS] project. You
+can of course use whatever other DNS provider you want to use as your upstream
+servers. Now, for `dnsmasq` to be used, you will also need to set your machine's
+DNS resolvers to point to the `dnsmasq` service. This is defined in
+`/etc/resolv.conf`, so lets append the following to our `sparrowfile` to set
+that up.
+
+[source,conf]
+----
+bash "chattr -i /etc/resolv.conf";
+file-delete "/etc/resolv.conf";
+file-create "/etc/resolv.conf", %(content => "nameserver 127.0.0.1");
+bash "chattr +i /etc/resolv.conf";
+----
+
+This will remove the "immutable" attribute from `/etc/resolv.conf` if it's set.
+Next it will remove the current `/etc/resolv.conf` and write out a new one which
+only refers to the local machine as DNS resolver. This is to ensure an existing
+`/etc/resolv.conf` gets recreated with the configuration we want. Finally, it
+adds back the immutable attribute to the file, so other processes won't
+overwrite it.
+
+=== Running the `sparrowfile`
+To run the `sparrowfile` and get the setup you desire, run the `sparrowdo`
+command with `--local_mode` and wait.
+
+[source]
+----
+sparrowdo --local_mode
+----
+
+[NOTE]
+====
+If you want to run this on a remote machine to configure that one instead, you
+can use `--host=<ip>` instead of `--local_mode`.
+====
+
+You can check whether it actually worked by inspecting the files in
+`/etc/dnsmasq.d` and your `/etc/resolv.conf`. The easiest way to check their
+contents would be by using `cat`:
+
+[source]
+----
+cat /etc/dnsmasq.d/dnsmasq.conf
+cat /etc/dnsmasq.d/resolv.conf
+cat /etc/resolv.conf
+----
+
+== Closing words
