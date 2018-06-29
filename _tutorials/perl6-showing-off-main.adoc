@@ -1,0 +1,258 @@
+---
+date: 2018-05-05 15:13:40
+tags: Tutorial Perl6 MAIN
+description: >
+	In this tutorial, I will explain about `USAGE`, a default subroutine that
+	shows how to use an application. What it actually displays is dependent on
+	the signature of `MAIN`. Additionally, some `Pod 6` will come in to play
+	this time around.
+---
+= Perl 6 - Showing off MAIN
+:toc: preamble
+
+In this tutorial, I will explain about `USAGE`, a default subroutine that shows
+how to use an application. What it actually displays is dependent on the
+signature of `MAIN`. Additionally, some `Pod 6` will come in to play this time
+around.
+
+If you don't have Perl 6 installed yet, do not worry. There's
+link:/tutorials/perl6-setting-up-a-raspberry-perl#Installation[another tutorial
+explaining this].
+
+== MAIN
+https://docs.perl6.org/language/functions#index-entry-MAIN[`MAIN`] is a special
+sub in Perl 6. If a `MAIN` is defined in your program, this will be called when
+your program is ran. If you don't have one, the script will be ran from top to
+bottom. `MAIN` offers some nice benefits for you as the programmer, though, and
+I would always recommend you to use it if your script is to be ran by a user.
+
+For starters, the `MAIN` sub can be easily recognized as the point of entry for
+other developers coming from other languages, such as `C`, `Java` or `Go`. This
+may not seem important to you now, but other people do generally like it if
+they can understand what they're running, or at least would be able to learn
+from it.
+
+Additionally, you can have multiple `MAIN` definitions using `multi`. This will
+easily allow you to handle different inputs in their own, separate block. This
+can help a great deal when trying to keep a code base clean.
+
+[source,sh]
+----
+touch foo.p6
+echo 'multi sub MAIN($input) { say "You said $input!"    }' >> foo.p6
+echo 'multi sub MAIN()       { say "You said nothing :(" }' >> foo.p6
+perl6 foo.p6             # You said nothing :(
+perl6 foo.p6 "repeat me" # You said repeat me!
+----
+
+My personal favorite benefit of the `MAIN` sub, is the default `USAGE` that you
+get with it for free. After all, few people actively enjoy having to document
+their application for the end user. And you'd have to maintain it too, in case
+anything changes. But this is where Perl 6 helps you out (again!).
+
+== USAGE
+https://docs.perl6.org/language/functions#index-entry-USAGE[`USAGE`] is a
+default sub in Perl 6. It gets called if the program contains one or more
+`MAIN` definitions, but none of them match a valid invocation of the program.
+
+[source,sh]
+----
+perl6 foo.p6 --help
+Usage:
+  foo.p6 <input>
+  foo.p6
+----
+
+The `USAGE` here gets called because `--help` isn't a parameter that is
+supported by the `MAIN` definitions this program has. You can see that it took
+over the variable name `$input` to show `<input>` in the usage text. This is
+already decent documentation, compared to the average program. And you get it
+for free. But what if this were only the tip of the iceberg?
+
+== Improving the `USAGE` output
+Consider the following sample program:
+
+[TIP]
+====
+This program was saved as `mkpatch` for me, but the actual name doesn't matter.
+====
+
+[source,perl6]
+----
+#! /usr/bin/env perl6
+
+use v6.c;
+
+sub MAIN ($file, *@file, :$output, :$clobber) { * }
+----
+
+[NOTE]
+====
+The `*` in front of `@file` makes it a
+https://docs.perl6.org/type/Signature#Slurpy_(A.K.A._Variadic)_Parameters["slurpy"
+parameter]. This means it will "slurp" all remaining arguments into `@files`.
+====
+
+Try running it, and check the output it produces:
+
+[source,sh]
+----
+perl6 mkpatch --help
+Usage:
+  mkpatch [--output=<Any>] [--clobber=<Any>] <file> [<file> ...]
+----
+
+One of the first things to notice is that named arguments will be represented
+as command line options, `:$output` becomes `--output` and `:$clobber` becomes
+`--clobber`. These are optional commands to pass to the program, just as how
+they'd be optional arguments to any Perl 6 subroutine, and accessible by their
+name.
+
+Another thing to notice is that I use the name `file` twice in `MAIN` 's
+signature: `$file` and `*@file`. Since they're using different sigils (`$` and
+`@`), this is allowed in Perl 6. While I wouldn't recommend doing this too
+often in your programs, there are situations, like this one, where it can make
+sense.
+
+If we'd use only the `$file`, we can only work with a single file argument. If
+we'd use only `*@file`, the program would run "correctly" if there are no files
+supplied. But by using them both, we can require one or more files to be passed
+to our program.
+
+=== Types
+`MAIN` 's parameters can be typed, like any other subroutine. These types will
+also be incorporated in the `USAGE` output. Let's add some types to the
+parameters of the `MAIN` we defined earlier.
+
+[source,perl6]
+----
+#! /usr/bin/env perl6
+
+use v6.c;
+
+sub MAIN (
+	Str:D $file,
+	*@file,
+	Str:D :$output = ".",
+	Bool:D :$clobber = False,
+) { * }
+----
+
+The options have been given default values as well, so they can remain
+optional.  The `*@file` parameter can't get a type, as this is not supported
+for slurpy parameters. The `$file` is now required to be a string. The `USAGE`
+output will differ based on the new information available to it:
+
+[source]
+----
+Usage:
+  mkpatch [--output=<Str>] [--clobber] <file> [<file> ...]
+----
+
+You can see that `--output` now expects a `Str` instead of `Any`. The
+`--clobber` doesn't show any argument type anymore, because it's a Boolean
+switch as indicated by the `Bool` type. If `--clobber` is given, `$clobber`
+will be set to `True`. If it's missing, it will be set to `False`.
+
+=== POD
+Using https://docs.perl6.org/language/pod[`Pod 6`], you can improve both your
+code with useful comments, and improve the output of `USAGE`. We can add Pod 6
+comments to the `MAIN` sub, and to each individual argument. A comment will be
+parsed as Pod 6 if it starts with `\#|` or `\#=`. The former will be attached
+to the code that's after the comment, whereas the latter will be attached to
+the code before the comment. I personally prefer the `\#|` variant, and will
+stick to using that one.
+
+Our updated code will become as follows:
+
+[source,perl6]
+----
+#! /usr/bin/env perl6
+
+use v6.c;
+
+#| Some description of our program.
+sub MAIN (
+	#| Input file.
+	Str:D $file,
+
+	#| Additional input files.
+	*@file,
+
+	#| Directory to store the output files in. Defaults to current directory.
+	Str:D :$output = ".",
+
+	#| Whether to clobber existing output files. Defaults to False.
+	Bool:D :$clobber = False,
+) { * }
+----
+
+Now, the `USAGE` output of your program has grown quite a bit, with
+descriptions for each individual parameter and for the application itself.
+
+[source]
+----
+Usage:
+  mkpatch [--output=<Str>] [--clobber] <file> [<file> ...] -- Some description of our program.
+
+    <file>            Input file.
+    [<file> ...]      Additional input files.
+    --output=<Str>    Directory to store the output files in. Defaults to current directory.
+    --clobber         Whether to clobber existing output files. Defaults to False.
+----
+
+Now you have some really good documentation for both the user _and_ future
+developers of your application. And you don't even have to worry about keeping
+documentation for either in sync with the other.
+
+=== Shorthand options
+Sometimes you want to have a shorthand variant of a certain option. A common
+example would be `-f` as a shorthand for `--force`, for instance. This can
+easily be achieved in the signature of the `MAIN` sub in Perl 6.
+
+Since this sample application doesn't have a `:$force` argument, I'll use a
+different argument for the example. Let's take `:$clobber`, the argument on
+whether to overwrite existing files. This could be shortened to `-c`. To get
+this effect, update the sample code to have the following signature:
+
+[source,perl6]
+----
+#! /usr/bin/env perl6
+
+use v6.c;
+
+#| Some description of our program.
+sub MAIN (
+	#| Input file.
+	Str:D $file,
+
+	#| Additional input files.
+	*@file,
+
+	#| Directory to store the output files in. Defaults to current directory.
+	Str:D :$output = ".",
+
+	#| Whether to clobber existing output files. Defaults to False.
+	Bool:D :c(:$clobber) = False,
+) { * }
+----
+
+If you try to run this application with `--help` once more, you'll see that the
+`clobber` option can now optionally be called as `-c`.
+
+[source]
+----
+Usage:
+  mkpatch [--output=<Str>] [-c|--clobber] <file> [<file> ...] -- Some description of our program.
+
+    <file>            Input file.
+    [<file> ...]      Additional input files.
+    --output=<Str>    Directory to store the output files in. Defaults to current directory.
+    -c|--clobber      Whether to clobber existing output files. Defaults to False.
+----
+
+== Conclusion
+Parsing the positional arguments and options is a breeze with the `MAIN`
+subroutine, whereas documentation on how to use it is provided for free by the
+default `USAGE` subroutine. These functionalities really make Perl 6 a great
+language to write command line applications in.
